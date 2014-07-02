@@ -1,6 +1,6 @@
-﻿using SmallQyest.ViewModels;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using SmallQyest.ViewModels;
 
 namespace SmallQyest.Views
 {
@@ -20,7 +20,8 @@ namespace SmallQyest.Views
             if (item is MenuViewModel)
                 return this.MenuTemplate;
             // TODO Select Template for a Level List.
-            // TODO Select Template for a Game Level.
+            if (item is LevelViewModel)
+                return this.GameLevelTemplate;
             return base.SelectTemplate(item, container);
         }
 

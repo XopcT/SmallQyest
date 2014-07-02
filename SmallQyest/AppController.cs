@@ -1,6 +1,6 @@
-﻿using SmallQyest.Core;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SmallQyest.Core;
 
 namespace SmallQyest
 {
@@ -32,7 +32,7 @@ namespace SmallQyest
         public void ToLevel(int levelId)
         {
             Level level = this.LevelFactory.LoadLevel(levelId);
-            this.CurrentScreen = this.ViewModelFactory.GetLevelViewModel();
+            this.CurrentScreen = this.ViewModelFactory.GetLevelViewModel(level);
         }
 
         #region Properties

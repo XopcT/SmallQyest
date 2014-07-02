@@ -25,6 +25,7 @@ namespace SmallQyest
             IViewModelFactory factory = new ViewModelFactory(controller);
             controller.ViewModelFactory = factory;
             controller.ToMainMenu();
+            controller.LevelFactory = new MockLevelFactory();
 
             this.DataContext = controller;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using SmallQyest.ViewModels;
+using SmallQyest.Core;
 
 namespace SmallQyest
 {
@@ -32,12 +33,14 @@ namespace SmallQyest
         /// <summary>
         /// Retrieves View Model for a Game Level.
         /// </summary>
+        /// <param name="level">Level to create View Model for.</param>
         /// <returns>View Model Instance.</returns>
-        public IViewModel GetLevelViewModel()
+        public IViewModel GetLevelViewModel(Level level)
         {
             LevelViewModel viewModel = new LevelViewModel();
             viewModel.AppController = this.appController;
             viewModel.ViewModelFactory = this;
+            viewModel.Level = level;
             return viewModel;
         }
 

@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="SmallQyest.Views.LevelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:SmallQyest.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <!-- Converter for Tile Coordinates -->
+        <converters:ScaleCoverter x:Key="CoordinateConverter" ScaleFactor="30" />
+
+        <!-- Converter for Tile Color s-->
+        <converters:TileTypeToColorConverter x:Key="ColorConverter" />
+
+        <!-- Template for Ground Tiles -->
+        <DataTemplate x:Key="GroundTileTemplate">
+            <Border Width="30" Height="30" Background="{Binding Converter={StaticResource ColorConverter}}" />
+        </DataTemplate>
+
+    </UserControl.Resources>
+    <Grid>
+        <!-- Game Field -->
+        <ItemsControl ItemsSource="{Binding GroundTiles}" ItemTemplate="{StaticResource GroundTileTemplate}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="CornflowerBlue" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X, Converter={StaticResource CoordinateConverter}}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y, Converter={StaticResource CoordinateConverter}}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+        <!-- Button to leave the Level -->
+        <Button Command="{Binding Back}" Content="Back" HorizontalAlignment="Left" Width="75" Height="30" VerticalAlignment="Bottom" Margin="10,0,0,10" />
+    </Grid>
+</UserControl>

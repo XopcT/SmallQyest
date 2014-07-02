@@ -22,6 +22,7 @@ namespace SmallQyest.Core
                 throw new ArgumentOutOfRangeException("height");
             this.width = width;
             this.height = height;
+            this.items = new List<IItem>();
         }
 
         /// <summary>
@@ -159,7 +160,7 @@ namespace SmallQyest.Core
         #region Fields
         private readonly int width = 0;
         private readonly int height = 0;
-        private IList<IItem> items = null;
+        private readonly IList<IItem> items = null;
 
         #endregion
 

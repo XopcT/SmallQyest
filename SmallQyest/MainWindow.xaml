@@ -10,9 +10,15 @@
             <views:MenuView />
         </DataTemplate>
 
+        <!-- Template for a Game Level -->
+        <DataTemplate x:Key="LevelTemplate">
+            <views:LevelView />
+        </DataTemplate>
+
         <!-- Defines Template Selector for Game's Screens -->
         <views:ScreenTemplateSelector x:Key="ScreenTemplateSelector"
-                                      MenuTemplate="{StaticResource MenuTemplate}"/>
+                                      MenuTemplate="{StaticResource MenuTemplate}"
+                                      GameLevelTemplate="{StaticResource LevelTemplate}" />
     </Window.Resources>
 
     <Grid>

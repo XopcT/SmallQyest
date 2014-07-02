@@ -1,4 +1,5 @@
-﻿
+﻿using SmallQyest.Core;
+
 namespace SmallQyest
 {
     /// <summary>
@@ -15,7 +16,8 @@ namespace SmallQyest
         /// <summary>
         /// Retrieves View Model for a Game Level.
         /// </summary>
+        /// <param name="level">Level to create View Model for.</param>
         /// <returns>View Model Instance.</returns>
-        IViewModel GetLevelViewModel();
+        IViewModel GetLevelViewModel(Level level);
     }
 }

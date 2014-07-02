@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using SmallQyest.ViewModels;
 
 namespace SmallQyest
 {
@@ -20,7 +21,12 @@ namespace SmallQyest
         /// </summary>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            this.DataContext = new MainViewModel();
+            AppController controller = new AppController();
+            IViewModelFactory factory = new ViewModelFactory(controller);
+            controller.ViewModelFactory = factory;
+            controller.ToMainMenu();
+
+            this.DataContext = controller;
         }
     }
 }

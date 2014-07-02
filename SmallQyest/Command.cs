@@ -13,7 +13,7 @@ namespace SmallQyest
         /// </summary>
         /// <param name="command">Action to execute.</param>
         public Command(Action<object> command)
-            : this(command, arg => true)
+            : this(command, arg => { return true; })
         {
         }
 
@@ -48,8 +48,8 @@ namespace SmallQyest
         /// <param name="parameter">Parameter to execute Command with.</param>
         public void Execute(object parameter)
         {
-            if (this.canExecute(parameter))
-                this.Execute(parameter);
+            if (this.CanExecute(parameter))
+                this.command(parameter);
         }
 
         #region Events

@@ -8,18 +8,18 @@ namespace SmallQyest.Core
     public interface IItem
     {
         /// <summary>
-        /// Retrieves the Map the Item belongs to.
+        /// Sets/retrieves the Map the Item belongs to.
         /// </summary>
-        Map Map { get; }
+        Map Map { get; set; }
 
         /// <summary>
-        /// Retrieves the Item's X-Coordinate on the Map.
+        /// Sets/retrieves the Item's X-Coordinate on the Map.
         /// </summary>
-        int X { get; }
+        int X { get; set; }
 
         /// <summary>
-        /// Retrieves the Item's Y-Coordinate on the Map.
+        /// Sets/retrieves the Item's Y-Coordinate on the Map.
         /// </summary>
-        int Y { get; }
+        int Y { get; set; }
     }
 }

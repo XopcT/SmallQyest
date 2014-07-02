@@ -7,5 +7,14 @@ namespace SmallQyest
     /// </summary>
     public interface IViewModel : INotifyPropertyChanged
     {
+        /// <summary>
+        /// Handles Navigation to this View Model.
+        /// </summary>
+        void OnNavigateTo();
+
+        /// <summary>
+        /// Handles Navigation from this View Model.
+        /// </summary>
+        void OnNavigateFrom();
     }
 }

@@ -39,31 +39,5 @@ namespace Tests
         {
             Map map = new Map(2, 0);
         }
-
-        /// <summary>
-        /// Tests how the Map retrieves the X-Coordinate of an Item.
-        /// </summary>
-        [TestMethod()]
-        public void GetXCoordinateTest()
-        {
-            Map map = new Map(3, 3);
-            Mock<IItem> item = new Mock<IItem>();
-            Assert.AreEqual(-1, map.GetX(item.Object));
-            map[2, 2] = new IItem[] { item.Object };
-            Assert.AreEqual(2, map.GetX(item.Object));
-        }
-
-        /// <summary>
-        /// Tests how the Map retrieves the Y-Coordinate of an Item.
-        /// </summary>
-        [TestMethod()]
-        public void GetYCoordinateTest()
-        {
-            Map map = new Map(3, 3);
-            Mock<IItem> item = new Mock<IItem>();
-            Assert.AreEqual(-1, map.GetY(item.Object));
-            map[2, 2] = new IItem[] { item.Object };
-            Assert.AreEqual(2, map.GetY(item.Object));
-        }
     }
 }

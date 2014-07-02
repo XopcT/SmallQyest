@@ -7,7 +7,7 @@ namespace SmallQyest.Core
     /// <summary>
     /// Contains a Level Map.
     /// </summary>
-    public class Map
+    public class Map : IMap
     {
         /// <summary>
         /// Initializes a new Instance of current Class.
@@ -22,68 +22,105 @@ namespace SmallQyest.Core
                 throw new ArgumentOutOfRangeException("height");
             this.width = width;
             this.height = height;
-            this.items = new ICollection<IItem>[this.width, this.height];
-            for (int x = 0; x < this.width; ++x)
+        }
+
+        /// <summary>
+        /// Retrieves Items with the specified Coordinates.
+        /// </summary>
+        /// <param name="x">X-Coordinate of Items.</param>
+        /// <param name="y">Y-Coordinate of Items.</param>
+        /// <returns>Items with the specified Coordinates.</returns>
+        public IEnumerable<IItem> GetItems(int x, int y)
+        {
+            return this.items
+                .Where(item => item.X == x && item.Y == y);
+        }
+
+        /// <summary>
+        /// Retrieves Items of the specified Type with the specified Coordinates.
+        /// </summary>
+        /// <typeparam name="ItemType">Type of Items to retrieve.</typeparam>
+        /// <param name="x">X-Coordinate of Items.</param>
+        /// <param name="y">Y-Coordinate of Items.</param>
+        /// <returns>Items of the specified Type with the specified Coordinates.</returns>
+        public IEnumerable<IItem> GetItems<ItemType>(int x, int y)
+        {
+            return this.GetItems(x, y)
+                .Where(item => item.GetType() == typeof(ItemType));
+        }
+
+        /// <summary>
+        /// Adds Item on the Map.
+        /// </summary>
+        /// <param name="item">Item to add.</param>
+        public void Add(IItem item)
+        {
+            this.items.Add(item);
+            item.Map = this;
+        }
+
+        /// <summary>
+        /// Removes all Items from the Map.
+        /// </summary>
+        public void Clear()
+        {
+            foreach (IItem item in this.items.ToArray())
             {
-                for (int y = 0; y < this.height; ++y)
-                {
-                    this.items[x, y] = new List<IItem>();
-                }
+                this.Remove(item);
             }
         }
 
         /// <summary>
-        /// Retrieves the X-Coordinate of the specified Item.
+        /// Checks whether Map contains specified Item.
         /// </summary>
-        /// <param name="item">Item to retrieve X-Coordinate for.</param>
-        /// <returns>X-Coordinate of the Item, -1 if the Item was not found on the Map.</returns>
-        public int GetX(IItem item)
+        /// <param name="item">Item to check.</param>
+        /// <returns>True if Map contains the Item, False otherwise.</returns>
+        public bool Contains(IItem item)
         {
-            var itemCoordinates = this.GetItemsWithCoordinates()
-                .Where(arg => arg.Item == item)
-                .FirstOrDefault();
-            return itemCoordinates != null ? itemCoordinates.X : -1;
+            return this.items.Contains(item);
         }
 
         /// <summary>
-        /// Retrieves the Y-Coordinate of the specified Item.
+        /// Copies the Items from the Map and Array, starting at a particular Index.
         /// </summary>
-        /// <param name="item">Item to retrieve Y-Coordinate for.</param>
-        /// <returns>Y-Coordinate of the Item, -1 if the Item was not found on the Map.</returns>
-        public int GetY(IItem item)
+        /// <param name="array">Array to copy Items to.</param>
+        /// <param name="arrayIndex">Index in Array at which Copy begins.</param>
+        public void CopyTo(IItem[] array, int arrayIndex)
         {
-            var itemCoordinates = this.GetItemsWithCoordinates()
-                .Where(arg => arg.Item == item)
-                .FirstOrDefault();
-            return itemCoordinates != null ? itemCoordinates.Y : -1;
+            this.items.CopyTo(array, arrayIndex);
         }
 
         /// <summary>
-        /// Retrieves all the Items on the Map with their Coordinates.
+        /// Removes an Item from the Map.
         /// </summary>
-        /// <returns>All Items and their Coordinates.</returns>
-        private IEnumerable<dynamic> GetItemsWithCoordinates()
+        /// <param name="item">Item to remove.</param>
+        /// <returns>True if Item was removed, False otherwise.</returns>
+        public bool Remove(IItem item)
         {
-            var itemsWithCoordinates = Enumerable.Range(0, this.width)
-                .SelectMany(x => Enumerable.Range(0, this.height)
-                    .SelectMany(y => this.items[x, y]
-                        .Select(item => new { X = x, Y = y, Item = item })));
-            return itemsWithCoordinates;
+            if (this.Contains(item))
+                item.Map = null;
+            return this.items.Remove(item);
+        }
+
+        /// <summary>
+        /// Retrieves the Enumerator to iterate over the Map Items.
+        /// </summary>
+        /// <returns>Enumerator Instance.</returns>
+        public IEnumerator<IItem> GetEnumerator()
+        {
+            return this.items.GetEnumerator();
+        }
+
+        /// <summary>
+        /// Retrieves the Enumerator to iterate over the Map Items.
+        /// </summary>
+        /// <returns>Enumerator Instance.</returns>
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return this.items.GetEnumerator();
         }
 
         #region Properties
-
-        /// <summary>
-        /// Retrieves the Items on the specified Coordinates.
-        /// </summary>
-        /// <param name="x">X-Coordinate of the Items.</param>
-        /// <param name="y">Y-Coordinate of the Items.</param>
-        /// <returns></returns>
-        public IEnumerable<IItem> this[int x, int y]
-        {
-            get { return this.items[x, y]; }
-            set { this.items[x, y] = new List<IItem>(value); }
-        }
 
         /// <summary>
         /// Retrieves the Width of the Map.
@@ -101,13 +138,30 @@ namespace SmallQyest.Core
             get { return this.height; }
         }
 
+        /// <summary>
+        /// Retrieves the Number of Items on the Map.
+        /// </summary>
+        public int Count
+        {
+            get { return this.items.Count; }
+        }
+
+        /// <summary>
+        /// Retrieves whether the Map is a read only Collection.
+        /// </summary>
+        public bool IsReadOnly
+        {
+            get { return this.items.IsReadOnly; }
+        }
+
         #endregion
 
         #region Fields
         private readonly int width = 0;
         private readonly int height = 0;
-        private ICollection<IItem>[,] items = null;
+        private IList<IItem> items = null;
 
         #endregion
+
     }
 }

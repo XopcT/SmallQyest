@@ -7,15 +7,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
+        <ImageBrush x:Key="GrassBrush" ImageSource="pack://application:,,,/Resources/Sprites/grass.png" />
+
+        <ImageBrush x:Key="DirtBrush" ImageSource="pack://application:,,,/Resources/Sprites/dirt.gif" />
+
         <!-- Converter for Tile Coordinates -->
-        <converters:ScaleCoverter x:Key="CoordinateConverter" ScaleFactor="30" />
+        <converters:ScaleCoverter x:Key="CoordinateConverter" ScaleFactor="32" />
 
         <!-- Converter for Tile Color s-->
-        <converters:TileTypeToColorConverter x:Key="ColorConverter" />
+        <converters:TileToCustomBrushConverter x:Key="ColorConverter"
+                                               GrassBrush="{StaticResource GrassBrush}"
+                                               DirtBrush="{StaticResource DirtBrush}"/>
 
         <!-- Template for Ground Tiles -->
         <DataTemplate x:Key="GroundTileTemplate">
-            <Border Width="30" Height="30" Background="{Binding Converter={StaticResource ColorConverter}}" />
+            <Border Width="32" Height="32" Background="{Binding Converter={StaticResource ColorConverter}}" />
         </DataTemplate>
 
     </UserControl.Resources>

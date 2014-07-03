@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <ImageBrush x:Key="GrassBrush" ImageSource="pack://application:,,,/Resources/Sprites/grass.png" />
 
-        <ImageBrush x:Key="DirtBrush" ImageSource="pack://application:,,,/Resources/Sprites/dirt.gif" />
+        <ImageBrush x:Key="PathBrush" ImageSource="pack://application:,,,/Resources/Sprites/path.png" />
 
         <!-- Converter for Tile Coordinates -->
         <converters:ScaleCoverter x:Key="CoordinateConverter" ScaleFactor="32" />
@@ -17,7 +17,7 @@
         <!-- Converter for Tile Color s-->
         <converters:TileToCustomBrushConverter x:Key="ColorConverter"
                                                GrassBrush="{StaticResource GrassBrush}"
-                                               DirtBrush="{StaticResource DirtBrush}"/>
+                                               PathBrush="{StaticResource PathBrush}"/>
 
         <!-- Template for Ground Tiles -->
         <DataTemplate x:Key="GroundTileTemplate">

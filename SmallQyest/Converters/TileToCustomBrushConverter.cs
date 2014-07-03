@@ -22,7 +22,7 @@ namespace SmallQyest.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is Path)
-                return this.DirtBrush;
+                return this.PathBrush;
             else if (value is Grass)
                 return this.GrassBrush;
             return Brushes.Transparent;
@@ -49,9 +49,9 @@ namespace SmallQyest.Converters
         public Brush GrassBrush { get; set; }
 
         /// <summary>
-        /// Sets/retrieves a Brush for a Dirt Tile.
+        /// Sets/retrieves a Brush for a Path Tile.
         /// </summary>
-        public Brush DirtBrush { get; set; }
+        public Brush PathBrush { get; set; }
 
         #endregion
 

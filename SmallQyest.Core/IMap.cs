@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SmallQyest.Core
 {
@@ -7,6 +8,12 @@ namespace SmallQyest.Core
     /// </summary>
     public interface IMap : ICollection<IItem>
     {
+        /// <summary>
+        /// Updates the State of the Map.
+        /// </summary>
+        /// <param name="elapsedTime">Time passed since previous Update.</param>
+        void Update(TimeSpan elapsedTime);
+
         /// <summary>
         /// Retrieves Width of the Map.
         /// </summary>

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallQyest.World", "SmallQy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{05648198-23E0-499F-AA76-F5F9AFED75F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{813CB390-8BFD-40F2-9C56-9790BF504605}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{05648198-23E0-499F-AA76-F5F9AFED75F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05648198-23E0-499F-AA76-F5F9AFED75F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05648198-23E0-499F-AA76-F5F9AFED75F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{813CB390-8BFD-40F2-9C56-9790BF504605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{813CB390-8BFD-40F2-9C56-9790BF504605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{813CB390-8BFD-40F2-9C56-9790BF504605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{813CB390-8BFD-40F2-9C56-9790BF504605}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

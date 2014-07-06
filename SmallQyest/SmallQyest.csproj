@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -59,6 +62,9 @@
     <Compile Include="Converters\TileToCustomBrushConverter.cs" />
     <Compile Include="Converters\TileTypeToColorConverter.cs" />
     <Compile Include="IAppController.cs" />
+    <Compile Include="IAppControllerFactory.cs" />
+    <Compile Include="log4netLogger.cs" />
+    <Compile Include="LoggerFactory.cs" />
     <Compile Include="MockLevelFactory.cs" />
     <Compile Include="ViewModelFactory.cs" />
     <Compile Include="ViewModels\LevelViewModel.cs" />
@@ -114,6 +120,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -124,6 +131,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{813cb390-8bfd-40f2-9c56-9790bf504605}</Project>
+      <Name>Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SmallQyest.Core\SmallQyest.Core.csproj">
       <Project>{33c4207e-cf23-4cc3-a31f-43986fb24186}</Project>
       <Name>SmallQyest.Core</Name>

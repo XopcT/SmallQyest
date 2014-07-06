@@ -46,10 +46,12 @@ namespace SmallQyest.ViewModels
         /// <param name="cancel">Triggers the exiting the Level.</param>
         private async void MainLoop(CancellationToken cancel)
         {
+            base.Logger.LogMessage("Level Loop started.");
             while (!cancel.IsCancellationRequested)
             {
                 await Task.Delay(TimeSpan.FromSeconds(0.5));
             }
+            base.Logger.LogMessage("Level Loop exited");
         }
 
         /// <summary>

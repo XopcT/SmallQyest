@@ -51,6 +51,18 @@ namespace SmallQyest.Core
         }
 
         /// <summary>
+        /// Updates the State of the Map.
+        /// </summary>
+        /// <param name="elapsedTime">Time passed since previous Update.</param>
+        public void Update(TimeSpan elapsedTime)
+        {
+            foreach (IItem item in this.items)
+            {
+                item.Update(elapsedTime);
+            }
+        }
+
+        /// <summary>
         /// Adds Item on the Map.
         /// </summary>
         /// <param name="item">Item to add.</param>

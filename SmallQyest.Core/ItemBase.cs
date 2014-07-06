@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace SmallQyest.Core
 {
     /// <summary>
@@ -6,6 +7,15 @@ namespace SmallQyest.Core
     /// </summary>
     public class ItemBase : IItem
     {
+        /// <summary>
+        /// Updates the State of the Item.
+        /// </summary>
+        /// <param name="elapsedTime">Time passed since previous Update.</param>
+        public virtual void Update(TimeSpan elapsedTime)
+        {
+            // Nothing needs to be done in current Context.
+        }
+
         #region Properties
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Logging;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace SmallQyest.ViewModels
@@ -32,9 +33,9 @@ namespace SmallQyest.ViewModels
         public IAppController AppController { get; set; }
 
         /// <summary>
-        /// Sets/retrieves the Factory to create View Models.
+        /// Sets/retrieves the Logger for Application Messages.
         /// </summary>
-        public IViewModelFactory ViewModelFactory { get; set; }
+        public ILogger Logger { get; set; }
 
         #endregion
 

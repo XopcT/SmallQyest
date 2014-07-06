@@ -1,6 +1,5 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using SmallQyest.Core;
+﻿using SmallQyest.Core;
+using Logging;
 
 namespace SmallQyest
 {
@@ -14,6 +13,7 @@ namespace SmallQyest
         /// </summary>
         public void ToMainMenu()
         {
+            this.Logger.LogMessage("Navigating to Main Menu");
             this.CurrentScreen = this.ViewModelFactory.GetMainMenuViewModel();
         }
 
@@ -22,6 +22,7 @@ namespace SmallQyest
         /// </summary>
         public void ToLevelSelect()
         {
+            this.Logger.LogMessage("Navigating to Level Selection");
             throw new System.NotImplementedException();
         }
 
@@ -31,6 +32,7 @@ namespace SmallQyest
         /// <param name="levelId">ID of the desired Level.</param>
         public void ToLevel(int levelId)
         {
+            this.Logger.LogMessage("Navigating to Level {0}", levelId);
             Level level = this.LevelFactory.LoadLevel(levelId);
             this.CurrentScreen = this.ViewModelFactory.GetLevelViewModel(level);
         }
@@ -65,6 +67,11 @@ namespace SmallQyest
         /// Sets/retrieves the Factory to create Levels.
         /// </summary>
         public ILevelFactory LevelFactory { get; set; }
+
+        /// <summary>
+        /// Sets/retrieves the Logger for App Messages.
+        /// </summary>
+        public ILogger Logger { get; set; }
 
         #endregion
 

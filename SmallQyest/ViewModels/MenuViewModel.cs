@@ -30,6 +30,7 @@ namespace SmallQyest.ViewModels
         /// </summary>
         private void OnExit()
         {
+            base.Logger.LogMessage("Exiting the Application");
             Application.Current.MainWindow.Close();
         }
 

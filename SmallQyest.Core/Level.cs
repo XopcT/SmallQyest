@@ -11,7 +11,7 @@ namespace SmallQyest.Core
         /// <summary>
         /// Sets/retrieves the Level Map.
         /// </summary>
-        public Map Map { get; set; }
+        public IMap Map { get; set; }
 
         #endregion
 

@@ -1,6 +1,6 @@
-﻿using System;
-using SmallQyest.ViewModels;
+﻿using SmallQyest.ViewModels;
 using SmallQyest.Core;
+using Logging;
 
 namespace SmallQyest
 {
@@ -12,10 +12,12 @@ namespace SmallQyest
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
-        /// <param name="appController">Application Controller Instance.s</param>
-        public ViewModelFactory(IAppController appController)
+        /// <param name="appController">Application Controller Instance.</param>
+        /// <param name="logger">Logger for Application Messages.</param>
+        public ViewModelFactory(IAppController appController, ILogger logger)
         {
             this.appController = appController;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -26,7 +28,7 @@ namespace SmallQyest
         {
             MenuViewModel viewModel = new MenuViewModel();
             viewModel.AppController = this.appController;
-            viewModel.ViewModelFactory = this;
+            viewModel.Logger = this.logger;
             return viewModel;
         }
 
@@ -39,8 +41,8 @@ namespace SmallQyest
         {
             LevelViewModel viewModel = new LevelViewModel();
             viewModel.AppController = this.appController;
-            viewModel.ViewModelFactory = this;
             viewModel.Level = level;
+            viewModel.Logger = logger;
             return viewModel;
         }
 
@@ -51,6 +53,7 @@ namespace SmallQyest
         #region Fields
 
         private readonly IAppController appController = null;
+        private readonly ILogger logger = null;
 
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SmallQyest.Core
 {
@@ -7,6 +8,12 @@ namespace SmallQyest.Core
     /// </summary>
     public interface IItem
     {
+        /// <summary>
+        /// Updates the State of the Item.
+        /// </summary>
+        /// <param name="elapsedTime">Time passed since previous Update.</param>
+        void Update(TimeSpan elapsedTime);
+
         /// <summary>
         /// Sets/retrieves the Map the Item belongs to.
         /// </summary>

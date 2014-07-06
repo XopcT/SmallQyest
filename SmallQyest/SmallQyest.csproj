@@ -38,7 +38,17 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,14 +69,14 @@
     </ApplicationDefinition>
     <Compile Include="BindableBase.cs" />
     <Compile Include="Converters\ScaleCoverter.cs" />
-    <Compile Include="Converters\TileToCustomBrushConverter.cs" />
-    <Compile Include="Converters\TileTypeToColorConverter.cs" />
+    <Compile Include="Converters\TileToBrushConverter.cs" />
     <Compile Include="IAppController.cs" />
     <Compile Include="IAppControllerFactory.cs" />
     <Compile Include="log4netLogger.cs" />
-    <Compile Include="LoggerFactory.cs" />
-    <Compile Include="MockLevelFactory.cs" />
-    <Compile Include="ViewModelFactory.cs" />
+    <Compile Include="MockLevelProvider.cs" />
+    <Compile Include="Models\CharacterWrapper.cs" />
+    <Compile Include="Models\TileWrapper.cs" />
+    <Compile Include="UnityFactory.cs" />
     <Compile Include="ViewModels\LevelViewModel.cs" />
     <Compile Include="Views\LevelView.xaml.cs">
       <DependentUpon>LevelView.xaml</DependentUpon>
@@ -120,6 +130,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.unity.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

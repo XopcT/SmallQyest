@@ -5,7 +5,7 @@ namespace SmallQyest.Core
     /// <summary>
     /// Defines an Interface of a Factory which retrieves Game Levels.
     /// </summary>
-    public interface ILevelFactory
+    public interface ILevelProvider
     {
         /// <summary>
         /// Loads the specified Level.

@@ -44,21 +44,22 @@ namespace SmallQyest.Core
         /// <param name="x">X-Coordinate of Items.</param>
         /// <param name="y">Y-Coordinate of Items.</param>
         /// <returns>Items of the specified Type with the specified Coordinates.</returns>
-        public IEnumerable<IItem> GetItems<ItemType>(int x, int y)
+        public IEnumerable<ItemType> GetItems<ItemType>(int x, int y)
+            where ItemType : IItem
         {
             return this.GetItems(x, y)
-                .Where(item => item.GetType() == typeof(ItemType));
+                .Where(item => item is ItemType)
+                .Select(item => (ItemType)item);
         }
 
         /// <summary>
         /// Updates the State of the Map.
         /// </summary>
-        /// <param name="elapsedTime">Time passed since previous Update.</param>
-        public void Update(TimeSpan elapsedTime)
+        public void Update()
         {
             foreach (IItem item in this.items)
             {
-                item.Update(elapsedTime);
+                item.Update();
             }
         }
 

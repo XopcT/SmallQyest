@@ -10,8 +10,7 @@ namespace SmallQyest.Core
         /// <summary>
         /// Updates the State of the Item.
         /// </summary>
-        /// <param name="elapsedTime">Time passed since previous Update.</param>
-        public virtual void Update(TimeSpan elapsedTime)
+        public virtual void Update()
         {
             // Nothing needs to be done in current Context.
         }

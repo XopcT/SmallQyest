@@ -33,7 +33,7 @@ namespace SmallQyest
         public void ToLevel(int levelId)
         {
             this.Logger.LogMessage("Navigating to Level {0}", levelId);
-            Level level = this.LevelFactory.LoadLevel(levelId);
+            Level level = this.LevelProvider.LoadLevel(levelId);
             this.CurrentScreen = this.ViewModelFactory.GetLevelViewModel(level);
         }
 
@@ -64,9 +64,9 @@ namespace SmallQyest
         public IViewModelFactory ViewModelFactory { get; set; }
 
         /// <summary>
-        /// Sets/retrieves the Factory to create Levels.
+        /// Sets/retrieves the Factory to load Levels.
         /// </summary>
-        public ILevelFactory LevelFactory { get; set; }
+        public ILevelProvider LevelProvider { get; set; }
 
         /// <summary>
         /// Sets/retrieves the Logger for App Messages.

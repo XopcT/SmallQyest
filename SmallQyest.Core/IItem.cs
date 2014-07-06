@@ -11,8 +11,7 @@ namespace SmallQyest.Core
         /// <summary>
         /// Updates the State of the Item.
         /// </summary>
-        /// <param name="elapsedTime">Time passed since previous Update.</param>
-        void Update(TimeSpan elapsedTime);
+        void Update();
 
         /// <summary>
         /// Sets/retrieves the Map the Item belongs to.

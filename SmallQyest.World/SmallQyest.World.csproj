@@ -40,10 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Grass.cs" />
-    <Compile Include="Ground.cs" />
+    <Compile Include="CharacterBase.cs" />
+    <Compile Include="Tiles\Grass.cs" />
     <Compile Include="IItemFactory.cs" />
-    <Compile Include="Path.cs" />
+    <Compile Include="ItemFactory.cs" />
+    <Compile Include="Tiles\TileBase.cs" />
+    <Compile Include="Vector.cs" />
+    <Compile Include="WorldItem.cs" />
+    <Compile Include="Tiles\Path.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

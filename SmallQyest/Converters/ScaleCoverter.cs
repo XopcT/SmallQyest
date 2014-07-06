@@ -23,7 +23,7 @@ namespace SmallQyest.Converters
         }
 
         /// <summary>
-        /// Converts scaled Value back.
+        /// Converts Value back.
         /// </summary>
         /// <param name="value">Value to convert.</param>
         /// <param name="targetType">The Type to convert to.</param>
@@ -32,7 +32,7 @@ namespace SmallQyest.Converters
         /// <returns>Converted Value.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (int)((double)value / this.ScaleFactor);
+            throw new InvalidOperationException();
         }
 
         #region Properties

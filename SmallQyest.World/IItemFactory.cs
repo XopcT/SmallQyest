@@ -2,7 +2,7 @@
 namespace SmallQyest.World
 {
     /// <summary>
-    /// Creates Items for the Game World.
+    /// Defines an Interface of a Factory which creates Items for the Game World.
     /// </summary>
     public interface IItemFactory
     {

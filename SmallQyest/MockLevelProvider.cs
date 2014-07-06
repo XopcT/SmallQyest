@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SmallQyest.Core;
+using SmallQyest.World.Tiles;
 using SmallQyest.World;
 
 namespace SmallQyest
@@ -10,7 +11,7 @@ namespace SmallQyest
     /// <summary>
     /// Level Factory for Test Purposes.
     /// </summary>
-    public class MockLevelFactory : ILevelFactory
+    public class MockLevelProvider : ILevelProvider
     {
         /// <summary>
         /// Loads the specified Level.
@@ -42,6 +43,7 @@ namespace SmallQyest
                     .Select(y => ValueToItem(levelMap[y, x], x, y)));
             foreach (IItem item in items)
                 map.Add(item);
+            map.Add(new CharacterBase() { X = 0, Y = 7 });
             return new Level() { Map = map };
         }
 

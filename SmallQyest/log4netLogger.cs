@@ -24,7 +24,7 @@ namespace SmallQyest
         /// <param name="message">Message to log.</param>
         public override void LogError(string message)
         {
-            base.LogError(message);
+            this.logger.Error(message);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace SmallQyest
         /// <param name="message">Message to log.</param>
         public override void LogDebug(string message)
         {
-            base.LogDebug(message);
+            this.logger.Debug(message);
         }
 
         #region Properties

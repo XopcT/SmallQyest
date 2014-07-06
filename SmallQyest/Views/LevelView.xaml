@@ -15,13 +15,18 @@
         <converters:ScaleCoverter x:Key="CoordinateConverter" ScaleFactor="32" />
 
         <!-- Converter for Tile Color s-->
-        <converters:TileToCustomBrushConverter x:Key="ColorConverter"
+        <converters:TileToBrushConverter x:Key="ColorConverter"
                                                GrassBrush="{StaticResource GrassBrush}"
                                                PathBrush="{StaticResource PathBrush}"/>
 
         <!-- Template for Ground Tiles -->
         <DataTemplate x:Key="GroundTileTemplate">
-            <Border Width="32" Height="32" Background="{Binding Converter={StaticResource ColorConverter}}" />
+            <Border Width="32" Height="32" Background="{Binding Wrapped, Converter={StaticResource ColorConverter}}" />
+        </DataTemplate>
+
+        <!-- Template for Characters -->
+        <DataTemplate x:Key="Character">
+            <Ellipse Width="20" Height="20" Fill="Red" />
         </DataTemplate>
 
     </UserControl.Resources>
@@ -31,6 +36,20 @@
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas Background="CornflowerBlue" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X, Converter={StaticResource CoordinateConverter}}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y, Converter={StaticResource CoordinateConverter}}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+        <!-- Characters Layer -->
+        <ItemsControl ItemsSource="{Binding Characters}" ItemTemplate="{StaticResource Character}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="Transparent" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>

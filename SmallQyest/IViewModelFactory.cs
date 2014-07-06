@@ -16,7 +16,7 @@ namespace SmallQyest
         /// <summary>
         /// Retrieves View Model for a Game Level.
         /// </summary>
-        /// <param name="level">Level to create View Model for.</param>
+        /// <param name="level">Level to get View Model for.</param>
         /// <returns>View Model Instance.</returns>
         IViewModel GetLevelViewModel(Level level);
     }

@@ -2,14 +2,14 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using SmallQyest.World;
+using SmallQyest.World.Tiles;
 
 namespace SmallQyest.Converters
 {
     /// <summary>
     /// Retrieves a Brush depending on Tile's Type.
     /// </summary>
-    public class TileToCustomBrushConverter : IValueConverter
+    public class TileToBrushConverter : IValueConverter
     {
         /// <summary>
         /// Converts Tile Type into a Brush.

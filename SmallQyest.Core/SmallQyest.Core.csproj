@@ -40,12 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ItemBase.cs" />
+    <Compile Include="ILevel.cs" />
     <Compile Include="ILevelProvider.cs" />
     <Compile Include="IItem.cs" />
     <Compile Include="IMap.cs" />
-    <Compile Include="Level.cs" />
-    <Compile Include="Map.cs" />
+    <Compile Include="LevelPassedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

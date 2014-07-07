@@ -18,7 +18,7 @@ namespace SmallQyest
         /// </summary>
         /// <param name="levelId">ID of the Level to load.</param>
         /// <returns>Loaded Level Instance.</returns>
-        public Level LoadLevel(int levelId)
+        public ILevel LoadLevel(int levelId)
         {
             int[,] levelMap = new int[,]
             {
@@ -29,22 +29,16 @@ namespace SmallQyest
                 { 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, },
                 { 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, },
                 { 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, },
-                { 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, },
-                { 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, },
+                { 1, 3, 1, 1, 0, 0, 0, 0, 1, 0, },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, },
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
             };
-            int width = levelMap.GetLength(1);
-            int height = levelMap.GetLength(0);
 
-            Map map = new Map(width, height);
+            ILevel level = new Level();
+            level.Map = this.CreateMap(level, levelMap);
+            level.Map.Add(this.ItemFactory.GetPlayer());
 
-            IEnumerable<IItem> items = Enumerable.Range(0, width)
-                .SelectMany(x => Enumerable.Range(0, height)
-                    .Select(y => ValueToItem(levelMap[y, x], x, y)));
-            foreach (IItem item in items)
-                map.Add(item);
-            map.Add(new CharacterBase() { X = 0, Y = 7 });
-            return new Level() { Map = map };
+            return level;
         }
 
         /// <summary>
@@ -52,9 +46,55 @@ namespace SmallQyest
         /// </summary>
         /// <param name="levelId">ID of the Level to load.</param>
         /// <returns>Loaded Level Instance.</returns>
-        public Task<Level> LoadLevelAsync(int levelId)
+        public Task<ILevel> LoadLevelAsync(int levelId)
         {
             throw new NotImplementedException();
+        }
+
+        private IMap CreateMap(ILevel level, int[,] numericMap)
+        {
+            int width = numericMap.GetLength(1);
+            int height = numericMap.GetLength(0);
+
+            IMap map = new Map(level, width, height);
+            IEnumerable<IItem> items = Enumerable.Range(0, width)
+                .SelectMany(x => Enumerable.Range(0, height)
+                    .SelectMany(y => this.CreateItems(numericMap[y, x], x, y)));
+            foreach (IItem item in items)
+                map.Add(item);
+            return map;
+        }
+
+        private IEnumerable<IItem> CreateItems(int value, int x, int y)
+        {
+            if ((value & 1) == 1)
+            {
+                IItem item = this.ItemFactory.GetPath();
+                item.X = x;
+                item.Y = y;
+                yield return item;
+            }
+            else
+            {
+                IItem item = this.ItemFactory.GetGrass();
+                item.X = x;
+                item.Y = y;
+                yield return item;
+            }
+            if ((value & 2) == 2)
+            {
+                IItem item = this.ItemFactory.GetLevelStartTrigger();
+                item.X = x;
+                item.Y = y;
+                yield return item;
+            }
+            if ((value & 4) == 4)
+            {
+                IItem item = this.ItemFactory.GetLevelEndTrigger();
+                item.X = x;
+                item.Y = y;
+                yield return item;
+            }
         }
 
         /// <summary>
@@ -72,5 +112,14 @@ namespace SmallQyest
                 return new Path() { X = x, Y = y };
             throw new ArgumentException();
         }
+
+        #region Properties
+
+        /// <summary>
+        /// Sets/retrieves a Factory which creates World Items.
+        /// </summary>
+        public IItemFactory ItemFactory { get; set; }
+
+        #endregion
     }
 }

@@ -75,7 +75,9 @@
     <Compile Include="log4netLogger.cs" />
     <Compile Include="MockLevelProvider.cs" />
     <Compile Include="Models\CharacterWrapper.cs" />
+    <Compile Include="Models\LevelWrapper.cs" />
     <Compile Include="Models\TileWrapper.cs" />
+    <Compile Include="Models\WrapperBase.cs" />
     <Compile Include="UnityFactory.cs" />
     <Compile Include="ViewModels\LevelViewModel.cs" />
     <Compile Include="Views\LevelView.xaml.cs">

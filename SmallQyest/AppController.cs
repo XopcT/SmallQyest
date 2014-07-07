@@ -33,7 +33,8 @@ namespace SmallQyest
         public void ToLevel(int levelId)
         {
             this.Logger.LogMessage("Navigating to Level {0}", levelId);
-            Level level = this.LevelProvider.LoadLevel(levelId);
+            ILevel level = this.LevelProvider.LoadLevel(levelId);
+            level.Initialize();
             this.CurrentScreen = this.ViewModelFactory.GetLevelViewModel(level);
         }
 

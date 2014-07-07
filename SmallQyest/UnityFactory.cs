@@ -1,24 +1,29 @@
 ﻿using Logging;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
+using SmallQyest.Core;
 using SmallQyest.ViewModels;
+using SmallQyest.World;
 
 namespace SmallQyest
 {
     /// <summary>
     /// Factory which creates Instances via Unity.
     /// </summary>
-    public class UnityFactory : IAppControllerFactory, IViewModelFactory, ILoggerFactory
+    public class UnityFactory : IAppControllerFactory, IViewModelFactory, ILoggerFactory, IItemFactory
     {
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
         public UnityFactory()
         {
-            this.unityContainer = new UnityContainer().LoadConfiguration("default");
+            this.unityContainer = new UnityContainer()
+                .LoadConfiguration("application")
+                .LoadConfiguration("world");
             this.unityContainer.RegisterInstance<IAppControllerFactory>(this);
             this.unityContainer.RegisterInstance<IViewModelFactory>(this);
             this.unityContainer.RegisterInstance<ILoggerFactory>(this);
+            this.unityContainer.RegisterInstance<IItemFactory>(this);
         }
 
         /// <summary>
@@ -44,7 +49,7 @@ namespace SmallQyest
         /// </summary>
         /// <param name="level">Level to create View Model for.</param>
         /// <returns>View Model Instance.</returns>
-        public IViewModel GetLevelViewModel(Core.Level level)
+        public IViewModel GetLevelViewModel(ILevel level)
         {
             LevelViewModel viewModel = (LevelViewModel)this.unityContainer.Resolve<IViewModel>("level");
             viewModel.Level = level;
@@ -60,6 +65,51 @@ namespace SmallQyest
             return this.unityContainer.Resolve<ILogger>();
         }
 
+        /// <summary>
+        /// Retrieves a Player Item.
+        /// </summary>
+        /// <returns>Player Instance.</returns>
+        public IItem GetPlayer()
+        {
+            return this.unityContainer.Resolve<IItem>("player");
+        }
+
+        /// <summary>
+        /// Retrieves a Grass Item.
+        /// </summary>
+        /// <returns>Grass Instance.</returns>
+        public IItem GetGrass()
+        {
+            return this.unityContainer.Resolve<IItem>("grass");
+        }
+
+        /// <summary>
+        /// Retrieves a Path Item.
+        /// </summary>
+        /// <returns>Path Instance.</returns>
+        public IItem GetPath()
+        {
+            return this.unityContainer.Resolve<IItem>("path");
+        }
+
+        /// <summary>
+        /// Retrieves a Level Start.
+        /// </summary>
+        /// <returns>Trigger Instance.</returns>
+        public IItem GetLevelStartTrigger()
+        {
+            return this.unityContainer.Resolve<IItem>("levelStart");
+        }
+
+        /// <summary>
+        /// Retrieves a Level End.
+        /// </summary>
+        /// <returns>Trigger Instance.</returns>
+        public IItem GetLevelEndTrigger()
+        {
+            return this.unityContainer.Resolve<IItem>("levelEnd");
+        }
+
         #region Properties
 
         #endregion
@@ -68,6 +118,8 @@ namespace SmallQyest
         private readonly IUnityContainer unityContainer = null;
 
         #endregion
+
+
 
     }
 }

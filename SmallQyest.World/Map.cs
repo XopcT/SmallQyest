@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SmallQyest.Core;
 
-namespace SmallQyest.Core
+namespace SmallQyest.World
 {
     /// <summary>
     /// Contains a Level Map.
@@ -12,14 +13,18 @@ namespace SmallQyest.Core
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
+        /// <param name="level">Level the Map belongs to.</param>
         /// <param name="width">Width of the Map.</param>
         /// <param name="height">Height of the Map.</param>
-        public Map(int width, int height)
+        public Map(ILevel level, int width, int height)
         {
+            if (level == null)
+                throw new ArgumentNullException("level");
             if (width <= 0)
                 throw new ArgumentOutOfRangeException("width");
             if (height <= 0)
                 throw new ArgumentOutOfRangeException("height");
+            this.level = level;
             this.width = width;
             this.height = height;
             this.items = new List<IItem>();
@@ -137,6 +142,13 @@ namespace SmallQyest.Core
         #region Properties
 
         /// <summary>
+        /// Retrieves a Level the Map belongs to.
+        /// </summary>
+        public ILevel Level
+        {
+            get { return this.level; }
+        }
+        /// <summary>
         /// Retrieves the Width of the Map.
         /// </summary>
         public int Width
@@ -174,6 +186,7 @@ namespace SmallQyest.Core
         private readonly int width = 0;
         private readonly int height = 0;
         private readonly IList<IItem> items = null;
+        private readonly ILevel level = null;
 
         #endregion
 

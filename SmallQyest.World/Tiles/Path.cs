@@ -5,7 +5,7 @@ namespace SmallQyest.World.Tiles
     /// <summary>
     /// Represents a Path on the Map.
     /// </summary>
-    public class Path : TileBase
+    public class Path : Tile
     {
         /// <summary>
         /// Checks whether a Tiles can be passed by another Item.
@@ -17,5 +17,6 @@ namespace SmallQyest.World.Tiles
         {
             return true;
         }
+
     }
 }

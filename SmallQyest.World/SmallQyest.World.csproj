@@ -40,11 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CharacterBase.cs" />
+    <Compile Include="Characters\CharacterBase.cs" />
+    <Compile Include="Characters\Player.cs" />
+    <Compile Include="Level.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Tiles\Grass.cs" />
     <Compile Include="IItemFactory.cs" />
-    <Compile Include="ItemFactory.cs" />
-    <Compile Include="Tiles\TileBase.cs" />
+    <Compile Include="Tiles\Tile.cs" />
+    <Compile Include="Triggers\LevelStartTrigger.cs" />
+    <Compile Include="Triggers\LevelEndTrigger.cs" />
+    <Compile Include="Triggers\Trigger.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="WorldItem.cs" />
     <Compile Include="Tiles\Path.cs" />

@@ -12,13 +12,13 @@ namespace SmallQyest.Core
         /// </summary>
         /// <param name="levelId">ID of the Level to load.</param>
         /// <returns>Loaded Level Instance.</returns>
-        Level LoadLevel(int levelId);
+        ILevel LoadLevel(int levelId);
 
         /// <summary>
         /// Asynchronously loads the specified Level.
         /// </summary>
         /// <param name="levelId">ID of the Level to load.</param>
         /// <returns>Loaded Level Instance.</returns>
-        Task<Level> LoadLevelAsync(int levelId);
+        Task<ILevel> LoadLevelAsync(int levelId);
     }
 }

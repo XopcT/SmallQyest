@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using SmallQyest.Core;
-using SmallQyest.World.Tiles;
 using SmallQyest.Models;
-using SmallQyest.World;
 
 namespace SmallQyest.ViewModels
 {
@@ -22,6 +19,7 @@ namespace SmallQyest.ViewModels
         public LevelViewModel()
         {
             this.Back = new Command(arg => this.OnBack());
+            this.Restart = new Command(arg => this.OnRestart());
         }
 
         /// <summary>
@@ -33,77 +31,26 @@ namespace SmallQyest.ViewModels
             base.Logger.LogMessage("Level Loop started.");
             while (!cancel.IsCancellationRequested)
             {
-                this.UpdateMap();
-                this.UpdateTiles();
-                this.UpdateCharacters();
+                this.levelWrapper.Update();
                 await Task.Delay(TimeSpan.FromSeconds(0.5));
             }
             base.Logger.LogMessage("Level Loop exited");
         }
 
         /// <summary>
-        /// Updates the State of the Map.
+        /// Handles passing the Level.
         /// </summary>
-        private void UpdateMap()
+        private void Level_LevelPassed(object sender, LevelPassedEventArgs e)
         {
-            if (this.Level != null && this.Level.Map != null)
-                this.Level.Map.Update();
+            base.AppController.ToLevel(e.NextLevel);
         }
 
         /// <summary>
-        /// Updates the State of Tiles.
+        /// Handles failing the Level.
         /// </summary>
-        private void UpdateTiles()
+        private void Level_LevelFailed(object sender, EventArgs e)
         {
-            foreach (TileWrapper tile in this.GroundTiles)
-                tile.Update();
-        }
-
-        /// <summary>
-        /// Updates the State of Characters.
-        /// </summary>
-        private void UpdateCharacters()
-        {
-            foreach (CharacterWrapper character in this.Characters)
-                character.Update();
-        }
-
-        /// <summary>
-        /// Retrieves the Tiles from the Map.
-        /// </summary>
-        /// <returns>Tile List.</returns>
-        private IEnumerable<TileWrapper> GetTiles()
-        {
-            if (this.Level != null && this.Level.Map != null)
-            {
-                return this.Level.Map
-                    .Where(item => item is TileBase)
-                    .Select(item => new TileWrapper((TileBase)item))
-                    .ToArray();
-            }
-            else
-            {
-                return new TileWrapper[0];
-            }
-        }
-
-        /// <summary>
-        /// Retrieves the Characters from the Map.
-        /// </summary>
-        /// <returns>Character List.</returns>
-        private IEnumerable<CharacterWrapper> GetCharacters()
-        {
-            if (this.Level != null && this.Level.Map != null)
-            {
-                return this.Level.Map
-                    .Where(item => item is CharacterBase)
-                    .Select(item => new CharacterWrapper((CharacterBase)item))
-                    .ToArray();
-            }
-            else
-            {
-                return new CharacterWrapper[0];
-            }
+            this.OnRestart();
         }
 
         /// <summary>
@@ -112,6 +59,10 @@ namespace SmallQyest.ViewModels
         public override async void OnNavigateTo()
         {
             base.OnNavigateTo();
+
+            this.Level.LevelPassed += this.Level_LevelPassed;
+            this.Level.LevelFailed += this.Level_LevelFailed;
+
             await Task.Run(() => this.MainLoop(this.cancel.Token), this.cancel.Token);
         }
 
@@ -121,7 +72,11 @@ namespace SmallQyest.ViewModels
         public override void OnNavigateFrom()
         {
             base.OnNavigateFrom();
+
             this.cancel.Cancel();
+
+            this.Level.LevelPassed -= this.Level_LevelPassed;
+            this.Level.LevelFailed -= this.Level_LevelFailed;
         }
 
         /// <summary>
@@ -133,19 +88,25 @@ namespace SmallQyest.ViewModels
             base.AppController.ToMainMenu();
         }
 
+        /// <summary>
+        /// Handles restarting the Level.
+        /// </summary>
+        private void OnRestart()
+        {
+            this.levelWrapper.Wrapped.Initialize();
+        }
+
         #region Properties
 
         /// <summary>
         /// Sets/retrieves the current Level.
         /// </summary>
-        public Level Level
+        public ILevel Level
         {
-            get { return this.level; }
+            get { return this.levelWrapper.Wrapped; }
             set
             {
-                this.level = value;
-                this.tiles = this.GetTiles();
-                this.characters = this.GetCharacters();
+                this.levelWrapper = new LevelWrapper(value);
 
                 base.OnPropertyChanged(this);
                 base.OnPropertyChanged(this, "GroundTiles");
@@ -156,9 +117,9 @@ namespace SmallQyest.ViewModels
         /// <summary>
         /// Retrieves the Ground Tiles of the Map.
         /// </summary>
-        public IEnumerable<TileWrapper> GroundTiles
+        public IEnumerable<TileWrapper> Tiles
         {
-            get { return this.tiles; }
+            get { return this.levelWrapper.Tiles; }
         }
 
         /// <summary>
@@ -166,7 +127,7 @@ namespace SmallQyest.ViewModels
         /// </summary>
         public IEnumerable<CharacterWrapper> Characters
         {
-            get { return this.characters; }
+            get { return this.levelWrapper.Characters; }
         }
 
         /// <summary>
@@ -174,12 +135,15 @@ namespace SmallQyest.ViewModels
         /// </summary>
         public ICommand Back { get; private set; }
 
+        /// <summary>
+        /// Retrieves a Command to restart the Level.
+        /// </summary>
+        public ICommand Restart { get; private set; }
+
         #endregion
 
         #region Fields
-        private Level level = null;
-        private IEnumerable<TileWrapper> tiles = null;
-        private IEnumerable<CharacterWrapper> characters = null;
+        private LevelWrapper levelWrapper = null;
 
         private CancellationTokenSource cancel = new CancellationTokenSource();
 

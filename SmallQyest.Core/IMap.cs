@@ -32,6 +32,11 @@ namespace SmallQyest.Core
         void Update();
 
         /// <summary>
+        /// Retrieves a Level the Map belongs to.
+        /// </summary>
+        ILevel Level { get; }
+
+        /// <summary>
         /// Retrieves Width of the Map.
         /// </summary>
         int Width { get; }

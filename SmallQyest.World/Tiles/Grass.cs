@@ -1,11 +1,12 @@
 ﻿using SmallQyest.Core;
+using SmallQyest.World.Characters;
 
 namespace SmallQyest.World.Tiles
 {
     /// <summary>
     /// Represents a Grass on the Map. This Tile can not be passed by a Character.
     /// </summary>
-    public class Grass : TileBase
+    public class Grass : Tile
     {
         /// <summary>
         /// Checks whether a Tiles can be passed by another Item.

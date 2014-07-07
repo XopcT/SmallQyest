@@ -18,6 +18,6 @@ namespace SmallQyest
         /// </summary>
         /// <param name="level">Level to get View Model for.</param>
         /// <returns>View Model Instance.</returns>
-        IViewModel GetLevelViewModel(Level level);
+        IViewModel GetLevelViewModel(ILevel level);
     }
 }

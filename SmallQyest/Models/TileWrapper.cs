@@ -5,19 +5,19 @@ namespace SmallQyest.Models
     /// <summary>
     /// Model for Tiles.
     /// </summary>
-    public class TileWrapper : BindableBase
+    public class TileWrapper : WrapperBase<Tile>
     {
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
         /// <param name="wrapped">Tile to wrap.</param>
-        public TileWrapper(TileBase wrapped)
+        public TileWrapper(Tile wrapped)
+            : base(wrapped)
         {
-            this.wrapped = wrapped;
         }
 
         /// <summary>
-        /// Updates the State of the Wrapper.
+        /// Updates the State of the Tile.
         /// </summary>
         public void Update()
         {
@@ -26,19 +26,11 @@ namespace SmallQyest.Models
         #region Properties
 
         /// <summary>
-        /// Retrieves the original Tile.
-        /// </summary>
-        public TileBase Wrapped
-        {
-            get { return this.wrapped; }
-        }
-
-        /// <summary>
         /// Retrieves the X-Coordinate of the Tile.
         /// </summary>
         public int X
         {
-            get { return this.wrapped.X; }
+            get { return base.Wrapped.X; }
         }
 
         /// <summary>
@@ -46,13 +38,12 @@ namespace SmallQyest.Models
         /// </summary>
         public int Y
         {
-            get { return this.wrapped.Y; }
+            get { return base.Wrapped.Y; }
         }
 
         #endregion
 
         #region Fields
-        private readonly TileBase wrapped = null;
 
         #endregion
     }

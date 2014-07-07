@@ -1,39 +1,31 @@
-﻿using SmallQyest.World;
+﻿using SmallQyest.World.Characters;
 
 namespace SmallQyest.Models
 {
     /// <summary>
     /// Model for Chracters.
     /// </summary>
-    public class CharacterWrapper : BindableBase
+    public class CharacterWrapper : WrapperBase<CharacterBase>
     {
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
         /// <param name="wrapped">Character to wrap.</param>
         public CharacterWrapper(CharacterBase wrapped)
+            : base(wrapped)
         {
-            this.wrapped = wrapped;
         }
 
         /// <summary>
-        /// Updates the State of the Wrapper
+        /// Updates the State of the Character.
         /// </summary>
         public void Update()
         {
-            this.X = this.wrapped.X;
-            this.Y = this.wrapped.Y;
+            this.X = base.Wrapped.X;
+            this.Y = this.Wrapped.Y;
         }
 
         #region Properties
-
-        /// <summary>
-        /// Retrieves the original Character.
-        /// </summary>
-        public CharacterBase Wrapped
-        {
-            get { return this.wrapped; }
-        }
 
         /// <summary>
         /// Sets/retrieves the X-Coordinate of the Character.
@@ -64,7 +56,6 @@ namespace SmallQyest.Models
         #endregion
 
         #region Fields
-        private readonly CharacterBase wrapped = null;
         private int x = 0;
         private int y = 0;
 

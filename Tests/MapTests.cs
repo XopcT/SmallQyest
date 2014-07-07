@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SmallQyest.Core;
+using SmallQyest.World;
 
 namespace Tests
 {
@@ -17,7 +18,8 @@ namespace Tests
         [TestMethod()]
         public void ConstructorTest()
         {
-            Map map = new Map(2, 2);
+            ILevel level = new Level();
+            Map map = new Map(level, 2, 2);
         }
 
         /// <summary>
@@ -27,7 +29,8 @@ namespace Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ConstructorValidationTest1()
         {
-            Map map = new Map(0, 2);
+            ILevel level = new Level();
+            Map map = new Map(level, 0, 2);
         }
 
         /// <summary>
@@ -37,7 +40,8 @@ namespace Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ConstructorValidationTest2()
         {
-            Map map = new Map(2, 0);
+            ILevel level = new Level();
+            Map map = new Map(level, 2, 0);
         }
     }
 }

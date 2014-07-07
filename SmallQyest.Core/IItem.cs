@@ -16,7 +16,7 @@ namespace SmallQyest.Core
         /// <summary>
         /// Sets/retrieves the Map the Item belongs to.
         /// </summary>
-        Map Map { get; set; }
+        IMap Map { get; set; }
 
         /// <summary>
         /// Sets/retrieves the Item's X-Coordinate on the Map.

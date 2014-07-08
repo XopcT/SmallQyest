@@ -1,5 +1,6 @@
 ﻿using SmallQyest.Core;
 using Logging;
+using System;
 
 namespace SmallQyest
 {
@@ -32,10 +33,18 @@ namespace SmallQyest
         /// <param name="levelId">ID of the desired Level.</param>
         public void ToLevel(int levelId)
         {
-            this.Logger.LogMessage("Navigating to Level {0}", levelId);
-            ILevel level = this.LevelProvider.LoadLevel(levelId);
-            level.Initialize();
-            this.CurrentScreen = this.ViewModelFactory.GetLevelViewModel(level);
+            try
+            {
+                this.Logger.LogMessage("Navigating to Level {0}", levelId);
+                ILevel level = this.LevelProvider.LoadLevel(levelId);
+                level.Initialize();
+                this.CurrentScreen = this.ViewModelFactory.GetLevelViewModel(level);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogError("An Exception occured while loading Level {0}: {1}\n{2}", levelId, ex.Message, ex.StackTrace);
+                throw;
+            }
         }
 
         #region Properties

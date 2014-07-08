@@ -13,6 +13,7 @@ namespace SmallQyest.World.Triggers
         /// </summary>
         public LevelEndTrigger()
         {
+            // TODO Move this to Level Provider:
             this.NextLevelIndex = 1;
         }
 

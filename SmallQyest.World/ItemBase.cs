@@ -3,12 +3,20 @@
 namespace SmallQyest.World
 {
     /// <summary>
-    /// Base Class for World Items.
+    /// Base Class for all Items.
     /// </summary>
-    public class WorldItem : IItem
+    public class ItemBase : IItem
     {
         /// <summary>
-        /// Updates the Item.
+        /// Initializes the Item.
+        /// </summary>
+        public virtual void Initialize()
+        {
+            // Nothing needs to be done in current Context.
+        }
+
+        /// <summary>
+        /// Updates the State of the Item.
         /// </summary>
         public virtual void Update()
         {

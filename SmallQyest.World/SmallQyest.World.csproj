@@ -42,8 +42,12 @@
   <ItemGroup>
     <Compile Include="Characters\CharacterBase.cs" />
     <Compile Include="Characters\Player.cs" />
+    <Compile Include="Things\FallTrap.cs" />
+    <Compile Include="Things\MoveableObstacle.cs" />
+    <Compile Include="Things\OneTimePassObstacle.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="Map.cs" />
+    <Compile Include="Things\Thing.cs" />
     <Compile Include="Tiles\Grass.cs" />
     <Compile Include="IItemFactory.cs" />
     <Compile Include="Tiles\Tile.cs" />
@@ -51,11 +55,15 @@
     <Compile Include="Triggers\LevelEndTrigger.cs" />
     <Compile Include="Triggers\Trigger.cs" />
     <Compile Include="Vector.cs" />
-    <Compile Include="WorldItem.cs" />
+    <Compile Include="ItemBase.cs" />
     <Compile Include="Tiles\Path.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{813cb390-8bfd-40f2-9c56-9790bf504605}</Project>
+      <Name>Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SmallQyest.Core\SmallQyest.Core.csproj">
       <Project>{33c4207e-cf23-4cc3-a31f-43986fb24186}</Project>
       <Name>SmallQyest.Core</Name>

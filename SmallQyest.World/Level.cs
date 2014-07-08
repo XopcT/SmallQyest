@@ -3,6 +3,7 @@ using System.Linq;
 using SmallQyest.Core;
 using SmallQyest.World.Triggers;
 using SmallQyest.World.Characters;
+using Logging;
 
 namespace SmallQyest.World
 {
@@ -16,22 +17,36 @@ namespace SmallQyest.World
         /// </summary>
         public void Initialize()
         {
+            this.Logger.LogDebug("Initializing Level");
             // Looking for Level Endings:
-            if (!this.Map.Where(item => item is LevelEndTrigger).Any())
+            if (!this.Map.FindItems<LevelEndTrigger>().Any())
+            {
+                this.Logger.LogError("Level does not have any End");
                 throw new InvalidOperationException("Level must have at least one End");
-
+            }
             // Looking for a Player:
-            IItem player = this.Map.Where(item => item is Player).FirstOrDefault();
+            Player player = this.Map.FindItems<Player>().FirstOrDefault();
             if (player == null)
+            {
+                this.Logger.LogError("Level does not have a Player");
                 throw new InvalidOperationException("Player not found");
-
+            }
             // Looking for a Level Start:
-            IItem levelStart = this.Map.Where(item => item is LevelStartTrigger).FirstOrDefault();
+            LevelStartTrigger levelStart = this.Map.FindItems<LevelStartTrigger>().FirstOrDefault();
             if (levelStart == null)
+            {
+                this.Logger.LogError("Level does not have a Start");
                 throw new InvalidCastException("Level Start not found");
-
+            }
+            // Placing Player on the Start:
             player.X = levelStart.X;
             player.Y = levelStart.Y;
+            player.Direction = levelStart.Direction;
+            // Initializing Items:
+            foreach (IItem item in this.Map)
+                item.Initialize();
+
+            this.Logger.LogDebug("Level initialized");
         }
 
         /// <summary>
@@ -40,6 +55,7 @@ namespace SmallQyest.World
         /// <param name="levelId">ID of the next Level.</param>
         public void Pass(int levelId)
         {
+            this.Logger.LogDebug("Passing to Level {0}", levelId);
             this.OnLevelPassed(this, new LevelPassedEventArgs(levelId));
         }
 
@@ -48,6 +64,7 @@ namespace SmallQyest.World
         /// </summary>
         public void Fail()
         {
+            this.Logger.LogDebug("Level failed");
             this.OnLevelFailed(this, EventArgs.Empty);
         }
 
@@ -91,6 +108,11 @@ namespace SmallQyest.World
         /// Sets/retrieves the Level Map.
         /// </summary>
         public IMap Map { get; set; }
+
+        /// <summary>
+        /// Sets/retrieves a Logger for Level Messages.
+        /// </summary>
+        public ILogger Logger { get; set; }
 
         #endregion
 

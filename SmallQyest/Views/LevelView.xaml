@@ -4,15 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converters="clr-namespace:SmallQyest.Converters"
+             xmlns:sprites="clr-namespace:SmallQyest.Sprites"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <ImageBrush x:Key="GrassBrush" ImageSource="pack://application:,,,/Resources/Sprites/grass.png" />
-
-        <ImageBrush x:Key="PathBrush" ImageSource="pack://application:,,,/Resources/Sprites/path.png" />
-
         <!-- Converter for Tile Coordinates -->
         <converters:ScaleCoverter x:Key="CoordinateConverter" ScaleFactor="32" />
+
+        <!-- Brushes for Map Tiles -->
+        <ImageBrush x:Key="GrassBrush" ImageSource="pack://application:,,,/Resources/Sprites/grass.png" />
+        <ImageBrush x:Key="PathBrush" ImageSource="pack://application:,,,/Resources/Sprites/path.png" />
 
         <!-- Converter for Tile Color s-->
         <converters:TileToBrushConverter x:Key="ColorConverter"
@@ -26,8 +27,22 @@
 
         <!-- Template for Characters -->
         <DataTemplate x:Key="Character">
-            <Ellipse Width="20" Height="20" Fill="Red" />
+            <sprites:PlayerView />
         </DataTemplate>
+
+        <!-- Templates for different Things -->
+        <DataTemplate x:Key="FallTrap">
+            <sprites:FallTrapView />
+        </DataTemplate>
+        <DataTemplate x:Key="OneTimePassObstacle">
+            <sprites:OneTimePassObstacleView />
+        </DataTemplate>
+
+        <!-- Template Selector for different Things -->
+        <sprites:ThingsTemplateSelector
+            x:Key="ThingsTemplateSelector"
+            FallTrapTemplate="{StaticResource FallTrap}"
+            OneTimePassObstacleTemplate="{StaticResource OneTimePassObstacle}" />
 
     </UserControl.Resources>
     <Grid>
@@ -45,6 +60,22 @@
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
+
+        <!-- Things Layer -->
+        <ItemsControl ItemsSource="{Binding Things}" ItemTemplateSelector="{StaticResource ThingsTemplateSelector}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Background="Transparent" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Canvas.Left" Value="{Binding X, Converter={StaticResource CoordinateConverter}}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Y, Converter={StaticResource CoordinateConverter}}" />
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+        </ItemsControl>
+
         <!-- Characters Layer -->
         <ItemsControl ItemsSource="{Binding Characters}" ItemTemplate="{StaticResource Character}">
             <ItemsControl.ItemsPanel>

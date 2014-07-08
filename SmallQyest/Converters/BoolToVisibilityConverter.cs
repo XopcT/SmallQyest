@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Data;
 
 namespace SmallQyest.Converters
 {
     /// <summary>
-    /// Multiplies an Input integer Value by specified Factor.
+    /// Converts boolean Value into Visibility.
     /// </summary>
-    public class ScaleCoverter : IValueConverter
+    public class BoolToVisibilityConverter : IValueConverter
     {
         /// <summary>
         /// Converts an Input Value.
@@ -18,7 +19,11 @@ namespace SmallQyest.Converters
         /// <returns>Scaled Value.</returns>
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return this.ScaleFactor * (int)value;
+            bool isVisible = (bool)value;
+            if (isVisible)
+                return Visibility.Visible;
+            else
+                return Visibility.Collapsed;
         }
 
         /// <summary>
@@ -31,16 +36,11 @@ namespace SmallQyest.Converters
         /// <returns>Converted Value.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            throw new InvalidOperationException();
+            Visibility visibility = (Visibility)value;
+            if (visibility == Visibility.Visible)
+                return true;
+            else
+                return false;
         }
-
-        #region Properties
-
-        /// <summary>
-        /// Sets/retrieves the Factor to scale.
-        /// </summary>
-        public double ScaleFactor { get; set; }
-
-        #endregion
     }
 }

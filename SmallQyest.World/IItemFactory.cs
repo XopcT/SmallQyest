@@ -8,6 +8,12 @@ namespace SmallQyest.World
     public interface IItemFactory
     {
         /// <summary>
+        /// Retrieves a Level.
+        /// </summary>
+        /// <returns>Level Instance.</returns>
+        ILevel GetLevel();
+
+        /// <summary>
         /// Retrieves a Player Item.
         /// </summary>
         /// <returns>Player Instance.</returns>
@@ -36,5 +42,23 @@ namespace SmallQyest.World
         /// </summary>
         /// <returns>Trigger Instance.</returns>
         IItem GetLevelEndTrigger();
+
+        /// <summary>
+        /// Retrieves a Fall Trap.
+        /// </summary>
+        /// <returns>Fall Trap Instance.</returns>
+        IItem GetFallTrap();
+
+        /// <summary>
+        /// Retrieves a one Time pass Obstacle.
+        /// </summary>
+        /// <returns>One Time pass Obstacle Instance.</returns>
+        IItem GetOneTimePassObstacle();
+
+        /// <summary>
+        /// Retrieves a moveable Obstacle.
+        /// </summary>
+        /// <returns>Moveable Obstacle Instance.</returns>
+        IItem GetMoveableObstacle();
     }
 }

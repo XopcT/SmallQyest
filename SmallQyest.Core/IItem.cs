@@ -9,6 +9,11 @@ namespace SmallQyest.Core
     public interface IItem
     {
         /// <summary>
+        /// Initializes the Item.
+        /// </summary>
+        void Initialize();
+
+        /// <summary>
         /// Updates the State of the Item.
         /// </summary>
         void Update();

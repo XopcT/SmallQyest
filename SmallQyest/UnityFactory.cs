@@ -7,6 +7,8 @@ using SmallQyest.World;
 
 namespace SmallQyest
 {
+    // TODO Make a LifetimeManager for a Level.
+
     /// <summary>
     /// Factory which creates Instances via Unity.
     /// </summary>
@@ -66,6 +68,15 @@ namespace SmallQyest
         }
 
         /// <summary>
+        /// Retrieves a Level.
+        /// </summary>
+        /// <returns>Level Instance.</returns>
+        public ILevel GetLevel()
+        {
+            return this.unityContainer.Resolve<ILevel>();
+        }
+
+        /// <summary>
         /// Retrieves a Player Item.
         /// </summary>
         /// <returns>Player Instance.</returns>
@@ -110,6 +121,33 @@ namespace SmallQyest
             return this.unityContainer.Resolve<IItem>("levelEnd");
         }
 
+        /// <summary>
+        /// Retrieves a Fall Trap.
+        /// </summary>
+        /// <returns>Fall Trap Instance.</returns>
+        public IItem GetFallTrap()
+        {
+            return this.unityContainer.Resolve<IItem>("fallTrap");
+        }
+
+        /// <summary>
+        /// Retrieves a one Time pass Obstacle.
+        /// </summary>
+        /// <returns>One Time pass Obstacle Instance.</returns>
+        public IItem GetOneTimePassObstacle()
+        {
+            return this.unityContainer.Resolve<IItem>("oneTimePassObstacle");
+        }
+
+        /// <summary>
+        /// Retrieves a moveable Obstacle.
+        /// </summary>
+        /// <returns>Moveable Obstacle Instance.</returns>
+        public IItem GetMoveableObstacle()
+        {
+            return this.unityContainer.Resolve<IItem>("moveableObstacle");
+        }
+
         #region Properties
 
         #endregion
@@ -118,8 +156,5 @@ namespace SmallQyest
         private readonly IUnityContainer unityContainer = null;
 
         #endregion
-
-
-
     }
 }

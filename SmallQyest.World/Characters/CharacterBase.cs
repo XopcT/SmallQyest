@@ -1,18 +1,20 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using SmallQyest.Core;
 
 namespace SmallQyest.World.Characters
 {
     /// <summary>
     /// Base Class for creating Characters.
     /// </summary>
-    public class CharacterBase : WorldItem
+    public class CharacterBase : ItemBase
     {
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
         public CharacterBase()
         {
-            this.Direction = Vector.Right;
+            this.Inventory = new List<IItem>();
         }
 
         /// <summary>
@@ -21,6 +23,11 @@ namespace SmallQyest.World.Characters
         public override void Update()
         {
             base.Update();
+
+            // Visiting current Location. Alot of interesting must be waiting:
+            foreach (ItemBase item in base.Map.GetItems<ItemBase>(base.X, base.Y))
+                item.OnVisit(this);
+
             // Checking if Character can go forward:
             if (!this.CanGoTo(this.Direction))
             {
@@ -47,9 +54,9 @@ namespace SmallQyest.World.Characters
         {
             int newX = this.X + direction.X;
             int newY = this.Y + direction.Y;
-            return this.Map.GetItems<WorldItem>(newX, newY)
-                .Select(item => item.CanPassThroug(this))
-                .All(result => result == true);
+            IEnumerable<bool> passTestResults = base.Map.GetItems<ItemBase>(newX, newY)
+                .Select(item => item.CanPassThroug(this));
+            return passTestResults.Any() && passTestResults.All(result => result == true);
         }
 
         /// <summary>
@@ -59,14 +66,18 @@ namespace SmallQyest.World.Characters
         private void Move(Vector direction)
         {
             // Leaving previous Location:
-            foreach (WorldItem item in base.Map.GetItems<WorldItem>(base.X, base.Y))
+            foreach (ItemBase item in base.Map.GetItems<ItemBase>(base.X, base.Y))
                 item.OnLeave(this);
             // Updating Coordinates:
             base.X += this.Direction.X;
             base.Y += this.Direction.Y;
-            // Visiting new Location. Alot of interesting is waiting:
-            foreach (WorldItem item in base.Map.GetItems<WorldItem>(base.X, base.Y))
-                item.OnVisit(this);
+        }
+
+        /// <summary>
+        /// Kills the Character.
+        /// </summary>
+        public virtual void Kill()
+        {
         }
 
         #region Properties
@@ -75,6 +86,11 @@ namespace SmallQyest.World.Characters
         /// Sets/retrieves the Direction the Character moves in.
         /// </summary>
         public Vector Direction { get; set; }
+
+        /// <summary>
+        /// Sets/retrieves the Character's Inventory.
+        /// </summary>
+        public ICollection<IItem> Inventory { get; set; }
 
         #endregion
 

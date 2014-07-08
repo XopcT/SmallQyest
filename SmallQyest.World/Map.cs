@@ -31,33 +31,6 @@ namespace SmallQyest.World
         }
 
         /// <summary>
-        /// Retrieves Items with the specified Coordinates.
-        /// </summary>
-        /// <param name="x">X-Coordinate of Items.</param>
-        /// <param name="y">Y-Coordinate of Items.</param>
-        /// <returns>Items with the specified Coordinates.</returns>
-        public IEnumerable<IItem> GetItems(int x, int y)
-        {
-            return this.items
-                .Where(item => item.X == x && item.Y == y);
-        }
-
-        /// <summary>
-        /// Retrieves Items of the specified Type with the specified Coordinates.
-        /// </summary>
-        /// <typeparam name="ItemType">Type of Items to retrieve.</typeparam>
-        /// <param name="x">X-Coordinate of Items.</param>
-        /// <param name="y">Y-Coordinate of Items.</param>
-        /// <returns>Items of the specified Type with the specified Coordinates.</returns>
-        public IEnumerable<ItemType> GetItems<ItemType>(int x, int y)
-            where ItemType : IItem
-        {
-            return this.GetItems(x, y)
-                .Where(item => item is ItemType)
-                .Select(item => (ItemType)item);
-        }
-
-        /// <summary>
         /// Updates the State of the Map.
         /// </summary>
         public void Update()

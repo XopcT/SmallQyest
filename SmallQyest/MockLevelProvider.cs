@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using SmallQyest.Core;
 using SmallQyest.World.Tiles;
 using SmallQyest.World;
+using SmallQyest.World.Triggers;
 
 namespace SmallQyest
 {
@@ -20,7 +21,19 @@ namespace SmallQyest
         /// <returns>Loaded Level Instance.</returns>
         public ILevel LoadLevel(int levelId)
         {
-            int[,] levelMap = new int[,]
+            switch (levelId)
+            {
+                case 1: return this.LoadLevel1();
+                case 2: return this.LoadLevel2();
+                case 3: return this.LoadLevel3();
+                default:
+                    throw new ArgumentException("levelId");
+            }
+        }
+
+        private ILevel LoadLevel1()
+        {
+            return this.CreateLevel(1, new int[,]
             {
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
                 { 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, },
@@ -32,13 +45,41 @@ namespace SmallQyest
                 { 1, 3, 1, 1, 0, 0, 0, 0, 1, 0, },
                 { 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, },
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
-            };
+            });
+        }
 
-            ILevel level = new Level();
-            level.Map = this.CreateMap(level, levelMap);
-            level.Map.Add(this.ItemFactory.GetPlayer());
+        private ILevel LoadLevel2()
+        {
+            return this.CreateLevel(2, new int[,]
+            {
+                {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, },
+                {  0,  0,  1,  0,  0,  0,  0,  0,  0,  0, },
+                {  0,  0,  1,  0,  0,  0,  0,  0,  0,  0, },
+                {  0,  0,  1,  0,  0,  0,  0,  0,  0,  0, },
+                {  0,  0,  1,  0,  0,  1,  1,  1,  0,  0, },
+                {  0,  0,  1,  1,  1,  1,  8,  1,  1,  5, },
+                {  0,  0, 17,  0,  0,  0,  0,  0,  0,  0, },
+                {  0,  0,  1,  0,  0,  0,  0,  0,  0,  0, },
+                {  3,  1,  1,  0,  0,  0,  0,  0,  0,  0, },
+                {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, },
+            });
+        }
 
-            return level;
+        private ILevel LoadLevel3()
+        {
+            return this.CreateLevel(3, new int[,]
+            {
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
+                { 1, 3, 1, 1, 1, 1, 9, 1, 1, 5, },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
+            });
         }
 
         /// <summary>
@@ -51,18 +92,26 @@ namespace SmallQyest
             throw new NotImplementedException();
         }
 
-        private IMap CreateMap(ILevel level, int[,] numericMap)
+        private ILevel CreateLevel(int levelId, int[,] numericMap)
         {
+            // Measuring the Map:
             int width = numericMap.GetLength(1);
             int height = numericMap.GetLength(0);
-
-            IMap map = new Map(level, width, height);
+            // Creating Level Instance:
+            ILevel level = this.ItemFactory.GetLevel();
+            level.Map = new Map(level, width, height);
+            // Creating Map Items:
             IEnumerable<IItem> items = Enumerable.Range(0, width)
                 .SelectMany(x => Enumerable.Range(0, height)
                     .SelectMany(y => this.CreateItems(numericMap[y, x], x, y)));
+            // Filling Map Items:
             foreach (IItem item in items)
-                map.Add(item);
-            return map;
+                level.Map.Add(item);
+            // Customizing special Map Items:
+            level.Map.Add(this.ItemFactory.GetPlayer());
+            level.Map.FindItems<LevelEndTrigger>().FirstOrDefault().NextLevelIndex = (levelId + 1);
+
+            return level;
         }
 
         private IEnumerable<IItem> CreateItems(int value, int x, int y)
@@ -91,6 +140,27 @@ namespace SmallQyest
             if ((value & 4) == 4)
             {
                 IItem item = this.ItemFactory.GetLevelEndTrigger();
+                item.X = x;
+                item.Y = y;
+                yield return item;
+            }
+            if ((value & 8) == 8)
+            {
+                IItem item = this.ItemFactory.GetFallTrap();
+                item.X = x;
+                item.Y = y;
+                yield return item;
+            }
+            if ((value & 16) == 16)
+            {
+                IItem item = this.ItemFactory.GetOneTimePassObstacle();
+                item.X = x;
+                item.Y = y;
+                yield return item;
+            }
+            if ((value & 32) == 32)
+            {
+                IItem item = this.ItemFactory.GetMoveableObstacle();
                 item.X = x;
                 item.Y = y;
                 yield return item;

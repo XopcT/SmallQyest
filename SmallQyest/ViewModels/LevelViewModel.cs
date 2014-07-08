@@ -32,7 +32,7 @@ namespace SmallQyest.ViewModels
             while (!cancel.IsCancellationRequested)
             {
                 this.levelWrapper.Update();
-                await Task.Delay(TimeSpan.FromSeconds(0.5));
+                await Task.Delay(TimeSpan.FromSeconds(0.3));
             }
             base.Logger.LogMessage("Level Loop exited");
         }
@@ -111,6 +111,7 @@ namespace SmallQyest.ViewModels
                 base.OnPropertyChanged(this);
                 base.OnPropertyChanged(this, "GroundTiles");
                 base.OnPropertyChanged(this, "Characters");
+                base.OnPropertyChanged(this, "Things");
             }
         }
 
@@ -128,6 +129,14 @@ namespace SmallQyest.ViewModels
         public IEnumerable<CharacterWrapper> Characters
         {
             get { return this.levelWrapper.Characters; }
+        }
+
+        /// <summary>
+        /// Retrieves Things on the Map.
+        /// </summary>
+        public IEnumerable<ThingWrapper> Things
+        {
+            get { return this.levelWrapper.Things; }
         }
 
         /// <summary>

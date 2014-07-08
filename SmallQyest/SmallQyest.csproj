@@ -68,6 +68,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BindableBase.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ScaleCoverter.cs" />
     <Compile Include="Converters\TileToBrushConverter.cs" />
     <Compile Include="IAppController.cs" />
@@ -76,8 +77,21 @@
     <Compile Include="MockLevelProvider.cs" />
     <Compile Include="Models\CharacterWrapper.cs" />
     <Compile Include="Models\LevelWrapper.cs" />
+    <Compile Include="Models\ThingWrapper.cs" />
+    <Compile Include="Models\ThingWrapperFactory.cs" />
+    <Compile Include="Models\OneTimePassObstacleWrapper.cs" />
     <Compile Include="Models\TileWrapper.cs" />
     <Compile Include="Models\WrapperBase.cs" />
+    <Compile Include="Sprites\FallTrapView.xaml.cs">
+      <DependentUpon>FallTrapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sprites\OneTimePassObstacleView.xaml.cs">
+      <DependentUpon>OneTimePassObstacleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sprites\PlayerView.xaml.cs">
+      <DependentUpon>PlayerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sprites\ThingsTemplateSelector.cs" />
     <Compile Include="UnityFactory.cs" />
     <Compile Include="ViewModels\LevelViewModel.cs" />
     <Compile Include="Views\LevelView.xaml.cs">
@@ -105,6 +119,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Sprites\FallTrapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sprites\OneTimePassObstacleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sprites\PlayerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LevelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

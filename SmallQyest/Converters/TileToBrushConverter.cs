@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 using SmallQyest.World.Tiles;
@@ -19,7 +18,7 @@ namespace SmallQyest.Converters
         /// <param name="parameter">The Converter Parameter to use.</param>
         /// <param name="culture">The Culture to use in the Converter.</param>
         /// <returns>Brush to paint the Tile.</returns>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             if (value is Path)
                 return this.PathBrush;
@@ -36,7 +35,7 @@ namespace SmallQyest.Converters
         /// <param name="parameter">The Converter Parameter to use.</param>
         /// <param name="culture">The Culture to use in the Converter.</param>
         /// <returns>Converted Value.</returns>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             throw new NotImplementedException();
         }

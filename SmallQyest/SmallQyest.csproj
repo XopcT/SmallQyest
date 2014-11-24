@@ -68,6 +68,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BindableBase.cs" />
+    <Compile Include="Converters\NegativeBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ScaleCoverter.cs" />
     <Compile Include="Converters\TileToBrushConverter.cs" />
@@ -75,13 +76,6 @@
     <Compile Include="IAppControllerFactory.cs" />
     <Compile Include="log4netLogger.cs" />
     <Compile Include="MockLevelProvider.cs" />
-    <Compile Include="Models\CharacterWrapper.cs" />
-    <Compile Include="Models\LevelWrapper.cs" />
-    <Compile Include="Models\ThingWrapper.cs" />
-    <Compile Include="Models\ThingWrapperFactory.cs" />
-    <Compile Include="Models\OneTimePassObstacleWrapper.cs" />
-    <Compile Include="Models\TileWrapper.cs" />
-    <Compile Include="Models\WrapperBase.cs" />
     <Compile Include="Sprites\FallTrapView.xaml.cs">
       <DependentUpon>FallTrapView.xaml</DependentUpon>
     </Compile>

@@ -5,5 +5,49 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Ellipse Fill="Red" Width="20" Height="20" Margin="6" />
+    <UserControl.Resources>
+        <Storyboard x:Key="moveUpAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" From="32" Duration="0:0:0.3" />
+        </Storyboard>
+        <Storyboard x:Key="moveRightAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" From="-32" Duration="0:0:0.3" />
+        </Storyboard>
+        <Storyboard x:Key="moveDownAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" From="-32" Duration="0:0:0.3" />
+        </Storyboard>
+        <Storyboard x:Key="moveLeftAnimation">
+            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)" From="32" Duration="0:0:0.3" />
+        </Storyboard>
+    </UserControl.Resources>
+    <Ellipse Fill="Red" Width="20" Height="20" Margin="6">
+        <Ellipse.RenderTransform>
+            <TranslateTransform X="0" Y="0" />
+        </Ellipse.RenderTransform>
+        <Ellipse.Style>
+            <Style>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding CurrentState}" Value="MoveLeft">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource moveLeftAnimation}" />
+                        </DataTrigger.EnterActions>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding CurrentState}" Value="MoveUp">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource moveUpAnimation}" />
+                        </DataTrigger.EnterActions>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding CurrentState}" Value="MoveRight">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource moveRightAnimation}" />
+                        </DataTrigger.EnterActions>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding CurrentState}" Value="MoveDown">
+                        <DataTrigger.EnterActions>
+                            <BeginStoryboard Storyboard="{StaticResource moveDownAnimation}" />
+                        </DataTrigger.EnterActions>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Ellipse.Style>
+    </Ellipse>
 </UserControl>

@@ -46,7 +46,20 @@ namespace SmallQyest.World.Things
         /// <summary>
         /// Retrieves whether an Obstacle is open.
         /// </summary>
-        public bool IsOpen { get; private set; }
+        public bool IsOpen
+        {
+            get { return this.isOpen; }
+            private set
+            {
+                this.isOpen = value;
+                base.OnPropertyChanged(this);
+            }
+        }
+
+        #endregion
+
+        #region Fields
+        private bool isOpen = true;
 
         #endregion
     }

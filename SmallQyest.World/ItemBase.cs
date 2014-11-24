@@ -1,4 +1,7 @@
-﻿using SmallQyest.Core;
+﻿using Logging;
+using SmallQyest.Core;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SmallQyest.World
 {
@@ -52,6 +55,25 @@ namespace SmallQyest.World
             // Nothing needs to be done in current Context.
         }
 
+        #region Events
+
+        /// <summary>
+        /// Occurs when Property Value changes.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Raises the PropertyChanged Event.
+        /// </summary>
+        protected void OnPropertyChanged(object sender, [CallerMemberName()]string propertyName = "")
+        {
+            var temp = this.PropertyChanged;
+            if (temp != null)
+                temp(sender, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -70,16 +92,39 @@ namespace SmallQyest.World
         /// <summary>
         /// Sets/retrieves the Item's X-Coordinate on the Map.
         /// </summary>
-        public int X { get; set; }
+        public int X
+        {
+            get { return this.x; }
+            set
+            {
+                this.x = value;
+                this.OnPropertyChanged(this);
+            }
+        }
 
         /// <summary>
         /// Sets/retrieves the Item's Y-Coordinate on the Map.
         /// </summary>
-        public int Y { get; set; }
+        public int Y
+        {
+            get { return this.y; }
+            set
+            {
+                this.y = value;
+                this.OnPropertyChanged(this);
+            }
+        }
+
+        /// <summary>
+        /// Sets/retrieves a Logger for Item Messages.
+        /// </summary>
+        public ILogger Logger { get; set; }
 
         #endregion
 
         #region Fields
+        private int x = 0;
+        private int y = 0;
 
         #endregion
     }

@@ -1,5 +1,4 @@
-﻿using SmallQyest.Models;
-using SmallQyest.World.Things;
+﻿using SmallQyest.World.Things;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,14 +17,14 @@ namespace SmallQyest.Sprites
         /// <returns>Template for the specified Thing.</returns>
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            WrapperBase<Thing> thing = item as WrapperBase<Thing>;
+            Thing thing = item as Thing;
             if (thing != null)
             {
-                if (thing.Wrapped is FallTrap)
+                if (thing is FallTrap)
                     return this.FallTrapTemplate;
-                if (thing.Wrapped is OneTimePassObstacle)
+                if (thing is OneTimePassObstacle)
                     return this.OneTimePassObstacleTemplate;
-                if (thing.Wrapped is MoveableObstacle)
+                if (thing is MoveableObstacle)
                     return this.MoveableObstacleTemplate;
             }
             return base.SelectTemplate(item, container);
@@ -53,7 +52,5 @@ namespace SmallQyest.Sprites
         #region Fields
 
         #endregion
-
-
     }
 }

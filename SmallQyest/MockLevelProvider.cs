@@ -99,7 +99,10 @@ namespace SmallQyest
             int height = numericMap.GetLength(0);
             // Creating Level Instance:
             ILevel level = this.ItemFactory.GetLevel();
-            level.Map = new Map(level, width, height);
+            level.Map = new Map(level, width, height)
+                {
+                    Logger = ((Level)level).Logger,
+                };
             // Creating Map Items:
             IEnumerable<IItem> items = Enumerable.Range(0, width)
                 .SelectMany(x => Enumerable.Range(0, height)

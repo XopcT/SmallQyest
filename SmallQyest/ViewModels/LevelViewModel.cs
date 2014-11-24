@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Linq;
 using System.Windows.Input;
+using System.Windows.Threading;
 using SmallQyest.Core;
-using SmallQyest.Models;
+using SmallQyest.World.Characters;
+using SmallQyest.World.Things;
+using SmallQyest.World.Tiles;
 
 namespace SmallQyest.ViewModels
 {
@@ -20,21 +22,19 @@ namespace SmallQyest.ViewModels
         {
             this.Back = new Command(arg => this.OnBack());
             this.Restart = new Command(arg => this.OnRestart());
+
+            this.timer = new DispatcherTimer();
+            this.timer.Tick += timer_Tick;
+            this.timer.Interval = TimeSpan.FromSeconds(0.3);
+            this.timer.Start();
         }
 
         /// <summary>
         /// Performs the main Level Activity.
         /// </summary>
-        /// <param name="cancel">Triggers the exiting the Level.</param>
-        private async void MainLoop(CancellationToken cancel)
+        private void timer_Tick(object sender, EventArgs e)
         {
-            base.Logger.LogMessage("Level Loop started.");
-            while (!cancel.IsCancellationRequested)
-            {
-                this.levelWrapper.Update();
-                await Task.Delay(TimeSpan.FromSeconds(0.3));
-            }
-            base.Logger.LogMessage("Level Loop exited");
+            this.level.Map.Update();
         }
 
         /// <summary>
@@ -56,14 +56,12 @@ namespace SmallQyest.ViewModels
         /// <summary>
         /// Handles Navigation to this View Model.
         /// </summary>
-        public override async void OnNavigateTo()
+        public override void OnNavigateTo()
         {
             base.OnNavigateTo();
 
             this.Level.LevelPassed += this.Level_LevelPassed;
             this.Level.LevelFailed += this.Level_LevelFailed;
-
-            await Task.Run(() => this.MainLoop(this.cancel.Token), this.cancel.Token);
         }
 
         /// <summary>
@@ -73,7 +71,7 @@ namespace SmallQyest.ViewModels
         {
             base.OnNavigateFrom();
 
-            this.cancel.Cancel();
+            this.timer.Stop();
 
             this.Level.LevelPassed -= this.Level_LevelPassed;
             this.Level.LevelFailed -= this.Level_LevelFailed;
@@ -84,7 +82,7 @@ namespace SmallQyest.ViewModels
         /// </summary>
         private void OnBack()
         {
-            this.cancel.Cancel();
+            this.timer.Stop();
             base.AppController.ToMainMenu();
         }
 
@@ -93,7 +91,7 @@ namespace SmallQyest.ViewModels
         /// </summary>
         private void OnRestart()
         {
-            this.levelWrapper.Wrapped.Initialize();
+            this.level.Initialize();
         }
 
         #region Properties
@@ -103,40 +101,64 @@ namespace SmallQyest.ViewModels
         /// </summary>
         public ILevel Level
         {
-            get { return this.levelWrapper.Wrapped; }
+            get { return this.level; }
             set
             {
-                this.levelWrapper = new LevelWrapper(value);
-
+                this.level = value;
                 base.OnPropertyChanged(this);
-                base.OnPropertyChanged(this, "GroundTiles");
-                base.OnPropertyChanged(this, "Characters");
-                base.OnPropertyChanged(this, "Things");
+
+                if (level != null)
+                {
+                    this.Tiles = this.level.Map.FindItems<Tile>().ToArray();
+                    this.Characters = this.level.Map.FindItems<CharacterBase>().ToArray();
+                    this.Things = this.level.Map.FindItems<Thing>().ToArray();
+                }
+                else
+                {
+                    this.Tiles = new Tile[0];
+                    this.Characters = new CharacterBase[0];
+                    this.Things = new Thing[0];
+                }
             }
         }
 
         /// <summary>
         /// Retrieves the Ground Tiles of the Map.
         /// </summary>
-        public IEnumerable<TileWrapper> Tiles
+        public IEnumerable<Tile> Tiles
         {
-            get { return this.levelWrapper.Tiles; }
+            get { return this.tiles; }
+            private set
+            {
+                this.tiles = value;
+                base.OnPropertyChanged(this);
+            }
         }
 
         /// <summary>
         /// Retrieves the Characters of the Map.
         /// </summary>
-        public IEnumerable<CharacterWrapper> Characters
+        public IEnumerable<CharacterBase> Characters
         {
-            get { return this.levelWrapper.Characters; }
+            get { return this.characters; }
+            private set
+            {
+                this.characters = value;
+                base.OnPropertyChanged(this);
+            }
         }
 
         /// <summary>
         /// Retrieves Things on the Map.
         /// </summary>
-        public IEnumerable<ThingWrapper> Things
+        public IEnumerable<Thing> Things
         {
-            get { return this.levelWrapper.Things; }
+            get { return this.things; }
+            private set
+            {
+                this.things = value;
+                base.OnPropertyChanged(this);
+            }
         }
 
         /// <summary>
@@ -152,9 +174,12 @@ namespace SmallQyest.ViewModels
         #endregion
 
         #region Fields
-        private LevelWrapper levelWrapper = null;
+        private ILevel level = null;
+        private IEnumerable<Tile> tiles = null;
+        private IEnumerable<CharacterBase> characters = null;
+        private IEnumerable<Thing> things = null;
 
-        private CancellationTokenSource cancel = new CancellationTokenSource();
+        private DispatcherTimer timer = null;
 
         #endregion
     }

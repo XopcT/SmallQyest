@@ -22,7 +22,7 @@
 
         <!-- Template for Ground Tiles -->
         <DataTemplate x:Key="GroundTileTemplate">
-            <Border Width="32" Height="32" Background="{Binding Wrapped, Converter={StaticResource ColorConverter}}" />
+            <Border Width="32" Height="32" Background="{Binding Converter={StaticResource ColorConverter}}" />
         </DataTemplate>
 
         <!-- Template for Characters -->

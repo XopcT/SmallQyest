@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using SmallQyest.Core;
+using Logging;
 
 namespace SmallQyest.World
 {
@@ -28,6 +29,7 @@ namespace SmallQyest.World
             this.width = width;
             this.height = height;
             this.items = new List<IItem>();
+            //this.Logger.LogMessage("Map {0}x{1} created.", this.width, this.height);
         }
 
         /// <summary>
@@ -35,10 +37,12 @@ namespace SmallQyest.World
         /// </summary>
         public void Update()
         {
+            this.Logger.LogMessage("Updating Map.");
             foreach (IItem item in this.items)
             {
                 item.Update();
             }
+            this.Logger.LogMessage("Map updated.");
         }
 
         /// <summary>
@@ -49,6 +53,7 @@ namespace SmallQyest.World
         {
             this.items.Add(item);
             item.Map = this;
+            this.Logger.LogMessage("{0} added to Map.", item);
         }
 
         /// <summary>
@@ -89,9 +94,16 @@ namespace SmallQyest.World
         /// <returns>True if Item was removed, False otherwise.</returns>
         public bool Remove(IItem item)
         {
-            if (this.Contains(item))
-                item.Map = null;
-            return this.items.Remove(item);
+            try
+            {
+                if (this.Contains(item))
+                    item.Map = null;
+                return this.items.Remove(item);
+            }
+            finally
+            {
+                this.Logger.LogMessage("{0} removed from Map.", item);
+            }
         }
 
         /// <summary>
@@ -152,6 +164,11 @@ namespace SmallQyest.World
         {
             get { return this.items.IsReadOnly; }
         }
+
+        /// <summary>
+        /// Sets/retrieves a Logger for Map Messages.
+        /// </summary>
+        public ILogger Logger { get; set; }
 
         #endregion
 

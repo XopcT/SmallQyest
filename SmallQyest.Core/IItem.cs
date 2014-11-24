@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace SmallQyest.Core
 {
     /// <summary>
     /// Defines an Interface of an Item.
     /// </summary>
-    public interface IItem
+    public interface IItem : INotifyPropertyChanged
     {
         /// <summary>
         /// Initializes the Item.

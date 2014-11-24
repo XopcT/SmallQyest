@@ -24,6 +24,8 @@ namespace SmallQyest.World.Characters
         {
             base.Update();
 
+            this.CurrentState = "Default";
+
             // Visiting current Location. Alot of interesting must be waiting:
             foreach (ItemBase item in base.Map.GetItems<ItemBase>(base.X, base.Y))
                 item.OnVisit(this);
@@ -65,12 +67,24 @@ namespace SmallQyest.World.Characters
         /// <param name="direction">Direction to move.</param>
         private void Move(Vector direction)
         {
+            if (direction.X == Vector.Left.X && direction.Y == Vector.Left.Y)
+                this.CurrentState = "MoveLeft";
+            else if (direction.X == Vector.Up.X && direction.Y == Vector.Up.Y)
+                this.CurrentState = "MoveUp";
+            else if (direction.X == Vector.Right.X && direction.Y == Vector.Right.Y)
+                this.CurrentState = "MoveRight";
+            else if (direction.X == Vector.Down.X && direction.Y == Vector.Down.Y)
+                this.CurrentState = "MoveDown";
+            else
+                throw new System.InvalidOperationException();
+
             // Leaving previous Location:
             foreach (ItemBase item in base.Map.GetItems<ItemBase>(base.X, base.Y))
                 item.OnLeave(this);
+
             // Updating Coordinates:
-            base.X += this.Direction.X;
-            base.Y += this.Direction.Y;
+            base.X += direction.X;
+            base.Y += direction.Y;
         }
 
         /// <summary>
@@ -88,6 +102,20 @@ namespace SmallQyest.World.Characters
         public Vector Direction { get; set; }
 
         /// <summary>
+        /// Sets/retrieves the current Character's State.
+        /// </summary>
+        public string CurrentState
+        {
+            get { return this.currentState; }
+            set
+            {
+                this.currentState = value;
+                base.OnPropertyChanged(this);
+                this.Logger.LogMessage("Player is now in {0} State.", this.currentState);
+            }
+        }
+
+        /// <summary>
         /// Sets/retrieves the Character's Inventory.
         /// </summary>
         public ICollection<IItem> Inventory { get; set; }
@@ -95,6 +123,7 @@ namespace SmallQyest.World.Characters
         #endregion
 
         #region Fields
+        private string currentState = string.Empty;
 
         #endregion
     }

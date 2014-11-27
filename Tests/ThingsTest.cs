@@ -15,7 +15,7 @@ namespace Tests
     public class ThingsTest
     {
         /// <summary>
-        /// Tests visiting the LevelEndTrigger.
+        /// Tests the LevelEndTrigger.OnVisit Method.
         /// </summary>
         [TestMethod()]
         public void LevelEndTriggerVisitTest()
@@ -30,7 +30,7 @@ namespace Tests
         }
 
         /// <summary>
-        /// Tests visiting the FallTrap.
+        /// Tests the FallTrap.OnVisit Method.
         /// </summary>
         [TestMethod()]
         public void FallTrapTest()
@@ -46,7 +46,7 @@ namespace Tests
         }
 
         /// <summary>
-        /// Tests initializing the OneTimePassObstacle.
+        /// Tests the OneTimePassObstacle.Initialize Method.
         /// </summary>
         [TestMethod()]
         public void OneTimePassObstacleInitializeTest()
@@ -57,7 +57,7 @@ namespace Tests
         }
 
         /// <summary>
-        /// Tests leaving the OneTimePassObstacle.
+        /// Tests OneTimePassObstacle.OnLeave Method.
         /// </summary>
         [TestMethod()]
         public void OneTimePassObstacleLeaveTest()
@@ -67,6 +67,108 @@ namespace Tests
             tested.Initialize();
             tested.OnLeave(player);
             Assert.IsFalse(tested.IsOpen);
+        }
+
+        /// <summary>
+        /// Tests the DoorWithAKey.Initialize Method.
+        /// </summary>
+        [TestMethod()]
+        public void DoorWithAKeyInitializeTest()
+        {
+            DoorWithAKey tested = new DoorWithAKey() { X = 2, Y = 2, Map = this.map.Object };
+            tested.Initialize();
+            Assert.IsFalse(tested.IsOpen);
+        }
+
+        /// <summary>
+        /// Tests the DoorWithAKey.CanPassThrough Method.
+        /// </summary>
+        [TestMethod()]
+        public void DoorWithAKeyCanPassTest1()
+        {
+            Player player = new Player() { X = 1, Y = 2, Map = this.map.Object };
+            DoorWithAKey tested = new DoorWithAKey() { X = 2, Y = 2, Map = this.map.Object, Color = KeyColor.Red };
+            tested.Initialize();
+            bool canPass = tested.CanPassThrough(player);
+            Assert.IsFalse(canPass);
+        }
+
+        /// <summary>
+        /// Tests the DoorWithAKey.CanPassThrough Method.
+        /// </summary>
+        [TestMethod()]
+        public void DoorWithAKeyCanPassTest2()
+        {
+            Player player = new Player() { X = 1, Y = 2, Map = this.map.Object };
+            player.Inventory = new List<IItem>() { new Key() { Color = KeyColor.Blue } };
+
+            DoorWithAKey tested = new DoorWithAKey() { X = 2, Y = 2, Map = this.map.Object, Color = KeyColor.Red };
+            tested.Initialize();
+            bool canPass = tested.CanPassThrough(player);
+            Assert.IsFalse(canPass);
+        }
+
+        /// <summary>
+        /// Tests the DoorWithAKey.CanPassThrough Method.
+        /// </summary>
+        [TestMethod()]
+        public void DoorWithAKeyCanPassTest3()
+        {
+            Player player = new Player() { X = 1, Y = 2, Map = this.map.Object };
+            player.Inventory = new List<IItem>() { new Key() { Color = KeyColor.Red } };
+
+            DoorWithAKey tested = new DoorWithAKey() { X = 2, Y = 2, Map = this.map.Object, Color = KeyColor.Red };
+            tested.Initialize();
+            bool canPass = tested.CanPassThrough(player);
+            Assert.IsTrue(canPass);
+        }
+
+        /// <summary>
+        /// Tests the DoorWithAKey.OnVisit Method.
+        /// </summary>
+        [TestMethod()]
+        public void DoorWithAKeyVisitTest1()
+        {
+            Player player = new Player() { X = 2, Y = 2, Map = this.map.Object };
+            player.Inventory = new List<IItem>() { new Key() { Color = KeyColor.Blue } };
+
+            DoorWithAKey tested = new DoorWithAKey() { X = 2, Y = 2, Map = this.map.Object, Color = KeyColor.Red };
+            tested.Initialize();
+            tested.OnVisit(player);
+            Assert.IsFalse(tested.IsOpen);
+        }
+
+        /// <summary>
+        /// Tests the DoorWithAKey.OnVisit Method.
+        /// </summary>
+        [TestMethod()]
+        public void DoorWithAKeyVisitTest2()
+        {
+            Player player = new Player() { X = 2, Y = 2, Map = this.map.Object };
+            player.Inventory = new List<IItem>() { new Key() { Color = KeyColor.Red } };
+
+            DoorWithAKey tested = new DoorWithAKey() { X = 2, Y = 2, Map = this.map.Object, Color = KeyColor.Red };
+            tested.Initialize();
+            tested.OnVisit(player);
+            Assert.IsTrue(tested.IsOpen);
+        }
+
+        /// <summary>
+        /// Tests the MoveableObstacle.CanPassThrough Method.
+        /// </summary>
+        [TestMethod()]
+        public void MoveableObstacleCanPassTest1()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Tests the MoveableObstacle.CanPassThrough Method.
+        /// </summary>
+        [TestMethod()]
+        public void MoveableObstacleCanPassTest2()
+        {
+            throw new System.NotImplementedException();
         }
 
         /// <summary>

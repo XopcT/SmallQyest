@@ -13,7 +13,7 @@ namespace SmallQyest.World.Tiles
         /// </summary>
         /// <param name="item">Item to check with.</param>
         /// <returns>True if a Tile can be passed, False otherwise.</returns>
-        public override bool CanPassThroug(IItem item)
+        public override bool CanPassThrough(IItem item)
         {
             return true;
         }

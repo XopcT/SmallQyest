@@ -10,7 +10,7 @@ namespace SmallQyest.World
     /// <summary>
     /// Contains Information of a single Level.
     /// </summary>
-    public class Level : ILevel
+    public class GameLevel : ILevel
     {
         /// <summary>
         /// Initializes the Level.

@@ -9,7 +9,7 @@ namespace SmallQyest.World
     /// <summary>
     /// Contains a Level Map.
     /// </summary>
-    public class Map : IMap
+    public class GameMap : IMap
     {
         /// <summary>
         /// Initializes a new Instance of current Class.
@@ -17,7 +17,7 @@ namespace SmallQyest.World
         /// <param name="level">Level the Map belongs to.</param>
         /// <param name="width">Width of the Map.</param>
         /// <param name="height">Height of the Map.</param>
-        public Map(ILevel level, int width, int height)
+        public GameMap(ILevel level, int width, int height)
         {
             if (level == null)
                 throw new ArgumentNullException("level");

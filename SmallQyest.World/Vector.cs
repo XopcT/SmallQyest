@@ -4,10 +4,10 @@ namespace SmallQyest.World
     /// <summary>
     /// 2D Vector.
     /// </summary>
-    public class Vector
+    public struct Vector
     {
         /// <summary>
-        /// Initializes a new Instance of current Class.
+        /// Initializes a new Instance of current Structure.
         /// </summary>
         /// <param name="x">X-Component of the Vector.</param>
         /// <param name="y">Y-Component of the Vector.</param>
@@ -18,62 +18,89 @@ namespace SmallQyest.World
         }
 
         /// <summary>
-        /// Retrieves a Vector with the same Direction as this one.
+        /// Adds two Vectors.
         /// </summary>
-        /// <returns>Vector Instance.</returns>
-        public Vector GetForward()
+        /// <param name="left">First Vector to add.</param>
+        /// <param name="right">Second Vector to add.</param>
+        /// <returns>Sum of two Vectors.</returns>
+        public static Vector operator +(Vector left, Vector right)
         {
-            return this;
+            return new Vector(left.X + right.X, left.Y + right.Y);
         }
 
         /// <summary>
-        /// Retrieves a Vector directing to the right from this one.
+        /// Subtracts one Vector from another.
         /// </summary>
-        /// <returns>Vector Instance.</returns>
-        public Vector GetRight()
+        /// <param name="left">Vector to subtract from.</param>
+        /// <param name="right">Vector to subtract.</param>
+        /// <returns>Subtract Result of two Vectors.</returns>
+        public static Vector operator -(Vector left, Vector right)
         {
-            int newX = -this.Y;
-            int newY = this.X;
-            return new Vector(newX, newY);
+            return new Vector(left.X - right.X, left.Y - right.Y);
         }
 
         /// <summary>
-        /// Retrieves a Vector directing to the left from this one.
+        /// Retrieves a Vector negative to current one.
         /// </summary>
-        /// <returns>Vector Instance.</returns>
-        public Vector GetLeft()
+        /// <param name="vector">Source Vector.</param>
+        /// <returns>Vector negative to current one.</returns>
+        public static Vector operator -(Vector vector)
         {
-            int newX = this.Y;
-            int newY = -this.X;
-            return new Vector(newX, newY);
+            return new Vector(-vector.X, -vector.Y);
         }
 
         /// <summary>
-        /// Retrieves a Vector with the backward Direction from this one.
+        /// Checks whether two Vectors are equal.
         /// </summary>
-        /// <returns>Vector Instance.</returns>
-        public Vector GetBackward()
+        /// <param name="left">First Vector to compare.</param>
+        /// <param name="right">Second Vector to compare.</param>
+        /// <returns>True if Vectors are equal, False otherwise.</returns>
+        public static bool operator ==(Vector left, Vector right)
         {
-            int newX = -this.X;
-            int newY = -this.Y;
-            return new Vector(newX, newY);
+            return (left.X == right.X && left.Y == right.Y);
         }
 
-        #region Properties
+        /// <summary>
+        /// Checks whether two Vectors are unequal.
+        /// </summary>
+        /// <param name="left">First Vector to compare.</param>
+        /// <param name="right">Second Vector to compare.</param>
+        /// <returns>True if Vectors are unequal, False otherwise.</returns>
+        public static bool operator !=(Vector left, Vector right)
+        {
+            return (left.X != right.X || left.Y != right.Y);
+        }
 
         /// <summary>
-        /// Retrieves the X-Component of the Vector.
+        /// Checks whether a Vector is equal to current one.
         /// </summary>
-        public int X { get; private set; }
+        /// <param name="obj">Vector to compare.</param>
+        /// <returns>True if Vector is equal to current one, False otherwise.</returns>
+        public override bool Equals(object obj)
+        {
+            return (obj is Vector && this == (Vector)obj);
+        }
 
         /// <summary>
-        /// Retrieves the Y-Component of the Vector.
+        /// Retrieves a Hashcode for a Vector.
         /// </summary>
-        public int Y { get; private set; }
-
-        #endregion
+        /// <returns>Hashcode for a Vector.</returns>
+        public override int GetHashCode()
+        {
+            return this.X.GetHashCode() ^ this.Y.GetHashCode();
+        }
 
         #region Fields
+
+        /// <summary>
+        /// X-Component of the Vector.
+        /// </summary>
+        public int X;
+
+        /// <summary>
+        /// Y-Component of the Vector.
+        /// </summary>
+        public int Y;
 
         /// <summary>
         /// Vector which directs up.

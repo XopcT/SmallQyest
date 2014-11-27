@@ -31,7 +31,7 @@ namespace SmallQyest.World
         /// </summary>
         /// <param name="item">Item to check with.</param>
         /// <returns>True if an Item can be passed, False otherwise.</returns>
-        public virtual bool CanPassThroug(IItem item)
+        public virtual bool CanPassThrough(IItem item)
         {
             // An Item may be passed by any other Item by default:
             return true;

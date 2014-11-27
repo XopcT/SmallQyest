@@ -4,9 +4,9 @@ using SmallQyest.World.Characters;
 namespace SmallQyest.World.Things
 {
     /// <summary>
-    /// An Obstacle which can be passed only once. Then it's closed.
+    /// Door which can be passed only once. Then it's closed.
     /// </summary>
-    public class OneTimePassObstacle : Thing
+    public class OneTimePassObstacle : Door
     {
         /// <summary>
         /// Initializes the Obstacle.
@@ -15,7 +15,7 @@ namespace SmallQyest.World.Things
         {
             base.Initialize();
             // Initially the Obstacle is open:
-            this.IsOpen = true;
+            base.IsOpen = true;
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace SmallQyest.World.Things
         /// </summary>
         /// <param name="item">Item to check with.</param>
         /// <returns>True if Obstacle can be passed, False otherwise.</returns>
-        public override bool CanPassThroug(IItem item)
+        public override bool CanPassThrough(IItem item)
         {
             return this.IsOpen;
         }
@@ -41,26 +41,5 @@ namespace SmallQyest.World.Things
                 this.IsOpen = false;
         }
 
-        #region Properties
-
-        /// <summary>
-        /// Retrieves whether an Obstacle is open.
-        /// </summary>
-        public bool IsOpen
-        {
-            get { return this.isOpen; }
-            private set
-            {
-                this.isOpen = value;
-                base.OnPropertyChanged(this);
-            }
-        }
-
-        #endregion
-
-        #region Fields
-        private bool isOpen = true;
-
-        #endregion
     }
 }

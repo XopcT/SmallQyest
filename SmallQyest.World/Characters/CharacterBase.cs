@@ -57,7 +57,7 @@ namespace SmallQyest.World.Characters
             int newX = this.X + direction.X;
             int newY = this.Y + direction.Y;
             IEnumerable<bool> passTestResults = base.Map.GetItems<ItemBase>(newX, newY)
-                .Select(item => item.CanPassThroug(this));
+                .Select(item => item.CanPassThrough(this));
             return passTestResults.Any() && passTestResults.All(result => result == true);
         }
 

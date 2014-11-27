@@ -18,8 +18,8 @@ namespace Tests
         [TestMethod()]
         public void ConstructorTest()
         {
-            ILevel level = new Level();
-            Map map = new Map(level, 2, 2);
+            ILevel level = new GameLevel();
+            GameMap map = new GameMap(level, 2, 2);
         }
 
         /// <summary>
@@ -29,8 +29,8 @@ namespace Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ConstructorValidationTest1()
         {
-            ILevel level = new Level();
-            Map map = new Map(level, 0, 2);
+            ILevel level = new GameLevel();
+            GameMap map = new GameMap(level, 0, 2);
         }
 
         /// <summary>
@@ -40,8 +40,8 @@ namespace Tests
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void ConstructorValidationTest2()
         {
-            ILevel level = new Level();
-            Map map = new Map(level, 2, 0);
+            ILevel level = new GameLevel();
+            GameMap map = new GameMap(level, 2, 0);
         }
     }
 }

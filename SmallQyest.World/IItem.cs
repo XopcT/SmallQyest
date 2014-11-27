@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
-namespace SmallQyest.Core
+namespace SmallQyest.World
 {
     /// <summary>
     /// Defines an Interface of an Item.
@@ -20,9 +18,9 @@ namespace SmallQyest.Core
         void Update();
 
         /// <summary>
-        /// Sets/retrieves the Map the Item belongs to.
+        /// Sets/retrieves the Level the Item belongs to.
         /// </summary>
-        IMap Map { get; set; }
+        ILevel Level { get; set; }
 
         /// <summary>
         /// Sets/retrieves the Item's X-Coordinate on the Map.

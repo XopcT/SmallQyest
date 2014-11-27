@@ -1,4 +1,4 @@
-﻿using SmallQyest.Core;
+﻿using SmallQyest.World;
 
 namespace SmallQyest.World.Tiles
 {

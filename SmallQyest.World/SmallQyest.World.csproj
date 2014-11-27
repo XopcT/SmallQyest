@@ -40,8 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters\BasicMovementStrategy.cs" />
     <Compile Include="Characters\CharacterBase.cs" />
+    <Compile Include="Characters\CharacterBehaviorStrategy.cs" />
     <Compile Include="Characters\Player.cs" />
+    <Compile Include="IItem.cs" />
+    <Compile Include="ILevel.cs" />
+    <Compile Include="ILevelProvider.cs" />
+    <Compile Include="IMap.cs" />
+    <Compile Include="ItemExtensions.cs" />
+    <Compile Include="LevelPassedEventArgs.cs" />
     <Compile Include="Things\Door.cs" />
     <Compile Include="Things\DoorWithAKey.cs" />
     <Compile Include="Things\FallTrap.cs" />
@@ -68,10 +76,6 @@
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{813cb390-8bfd-40f2-9c56-9790bf504605}</Project>
       <Name>Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SmallQyest.Core\SmallQyest.Core.csproj">
-      <Project>{33c4207e-cf23-4cc3-a31f-43986fb24186}</Project>
-      <Name>SmallQyest.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

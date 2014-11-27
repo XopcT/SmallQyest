@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SmallQyest.Core;
-using SmallQyest.World.Tiles;
 using SmallQyest.World;
+using SmallQyest.World.Tiles;
 using SmallQyest.World.Triggers;
+using Logging;
 
 namespace SmallQyest
 {
@@ -99,10 +99,6 @@ namespace SmallQyest
             int height = numericMap.GetLength(0);
             // Creating Level Instance:
             ILevel level = this.ItemFactory.GetLevel();
-            level.Map = new GameMap(level, width, height)
-                {
-                    Logger = ((GameLevel)level).Logger,
-                };
             // Creating Map Items:
             IEnumerable<IItem> items = Enumerable.Range(0, width)
                 .SelectMany(x => Enumerable.Range(0, height)
@@ -110,7 +106,7 @@ namespace SmallQyest
             // Filling Map Items:
             foreach (IItem item in items)
                 level.Map.Add(item);
-            // Customizing special Map Items:
+            // Customizing special Map Items:            
             level.Map.Add(this.ItemFactory.GetPlayer());
             level.Map.FindItems<LevelEndTrigger>().FirstOrDefault().NextLevelIndex = (levelId + 1);
 
@@ -139,6 +135,9 @@ namespace SmallQyest
                 item.X = x;
                 item.Y = y;
                 yield return item;
+                IItem player = this.ItemFactory.GetPlayer();
+                player.X = x;
+                player.Y = y;
             }
             if ((value & 4) == 4)
             {

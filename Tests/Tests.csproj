@@ -61,10 +61,6 @@
     <Compile Include="VectorTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SmallQyest.Core\SmallQyest.Core.csproj">
-      <Project>{33c4207e-cf23-4cc3-a31f-43986fb24186}</Project>
-      <Name>SmallQyest.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SmallQyest.World\SmallQyest.World.csproj">
       <Project>{d025cd32-9b40-4e8f-a61b-b7f38f3fb813}</Project>
       <Name>SmallQyest.World</Name>

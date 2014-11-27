@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SmallQyest.Core;
+using SmallQyest.World;
 using SmallQyest.World.Characters;
 
 namespace Tests
@@ -21,7 +21,7 @@ namespace Tests
             bool levelFailed = false;
             this.level.Setup(arg => arg.Fail()).Callback(() => { levelFailed = true; });
 
-            Player player = new Player() { X = 2, Y = 2, Map = this.map.Object };
+            Player player = new Player() { X = 2, Y = 2, Level = this.level.Object };
             player.Kill();
 
             Assert.IsTrue(levelFailed);
@@ -33,14 +33,12 @@ namespace Tests
         [TestInitialize()]
         public void Initialize()
         {
-            this.level = new Mock<ILevel>();
             this.map = new Mock<IMap>();
             this.mapItems = new List<IItem>();
-
-            this.map.Setup(arg => arg.Level).Returns(this.level.Object);
-            this.map.Setup(arg => arg.Width).Returns(5);
-            this.map.Setup(arg => arg.Height).Returns(5);
             this.map.Setup(arg => arg.GetEnumerator()).Returns(this.mapItems.GetEnumerator());
+
+            this.level = new Mock<ILevel>();
+            this.level.Setup(arg => arg.Map).Returns(this.map.Object);
         }
 
         #region Properties

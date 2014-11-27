@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace SmallQyest.Core
+namespace SmallQyest.World
 {
     /// <summary>
     /// Defines an Interface of a Factory which retrieves Game Levels.

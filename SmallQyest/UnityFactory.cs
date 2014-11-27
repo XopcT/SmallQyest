@@ -1,9 +1,8 @@
-﻿using Logging;
-using Microsoft.Practices.Unity;
+﻿using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
-using SmallQyest.Core;
-using SmallQyest.ViewModels;
 using SmallQyest.World;
+using SmallQyest.ViewModels;
+using Logging;
 
 namespace SmallQyest
 {

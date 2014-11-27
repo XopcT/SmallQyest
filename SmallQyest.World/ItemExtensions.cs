@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SmallQyest.Core
+namespace SmallQyest.World
 {
     /// <summary>
     /// Contains Extension Methods for Items' Collections.

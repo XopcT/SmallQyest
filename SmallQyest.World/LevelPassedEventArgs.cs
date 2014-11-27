@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SmallQyest.Core
+namespace SmallQyest.World
 {
     /// <summary>
     /// Contains Arguments for LevelPassed Event.

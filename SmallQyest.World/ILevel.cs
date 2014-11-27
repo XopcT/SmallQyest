@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SmallQyest.Core
+namespace SmallQyest.World
 {
     /// <summary>
     /// Defines an Interface of a Level.
@@ -11,6 +11,11 @@ namespace SmallQyest.Core
         /// Initializes the Level.
         /// </summary>
         void Initialize();
+
+        /// <summary>
+        /// Resets the Level to initial State.
+        /// </summary>
+        void Reset();
 
         /// <summary>
         /// Passes the Level.
@@ -36,6 +41,6 @@ namespace SmallQyest.Core
         /// <summary>
         /// Sets/retrieves the Level Map.
         /// </summary>
-        IMap Map { get; set; }
+        IMap Map { get; }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using SmallQyest.Core;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SmallQyest.World;
 
 namespace Tests
@@ -18,30 +15,9 @@ namespace Tests
         [TestMethod()]
         public void ConstructorTest()
         {
-            ILevel level = new GameLevel();
-            GameMap map = new GameMap(level, 2, 2);
+            GameMap map = new GameMap();
+            ILevel level = new GameLevel(map);
         }
 
-        /// <summary>
-        /// Tests how the Map Constructor validates the Arguments.
-        /// </summary>
-        [TestMethod()]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void ConstructorValidationTest1()
-        {
-            ILevel level = new GameLevel();
-            GameMap map = new GameMap(level, 0, 2);
-        }
-
-        /// <summary>
-        /// Tests how the Map Constructor validates the Arguments.
-        /// </summary>
-        [TestMethod()]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void ConstructorValidationTest2()
-        {
-            ILevel level = new GameLevel();
-            GameMap map = new GameMap(level, 2, 0);
-        }
     }
 }

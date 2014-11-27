@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
-using SmallQyest.Core;
-using SmallQyest.World.Triggers;
 using SmallQyest.World.Characters;
+using SmallQyest.World.Triggers;
 using Logging;
 
 namespace SmallQyest.World
@@ -13,40 +12,52 @@ namespace SmallQyest.World
     public class GameLevel : ILevel
     {
         /// <summary>
+        /// Initializes a new Instance of current Class.
+        /// </summary>
+        /// <param name="map">Map of the Level.</param>
+        public GameLevel(IMap map)
+        {
+            if (map == null)
+                throw new ArgumentNullException("map");
+            this.Map = map;
+        }
+
+        /// <summary>
         /// Initializes the Level.
         /// </summary>
         public void Initialize()
         {
             this.Logger.LogDebug("Initializing Level");
-            // Looking for Level Endings:
-            if (!this.Map.FindItems<LevelEndTrigger>().Any())
-            {
-                this.Logger.LogError("Level does not have any End");
-                throw new InvalidOperationException("Level must have at least one End");
-            }
-            // Looking for a Player:
-            Player player = this.Map.FindItems<Player>().FirstOrDefault();
-            if (player == null)
-            {
-                this.Logger.LogError("Level does not have a Player");
-                throw new InvalidOperationException("Player not found");
-            }
-            // Looking for a Level Start:
-            LevelStartTrigger levelStart = this.Map.FindItems<LevelStartTrigger>().FirstOrDefault();
-            if (levelStart == null)
-            {
-                this.Logger.LogError("Level does not have a Start");
-                throw new InvalidCastException("Level Start not found");
-            }
-            // Placing Player on the Start:
-            player.X = levelStart.X;
-            player.Y = levelStart.Y;
-            player.Direction = levelStart.Direction;
-            // Initializing Items:
-            foreach (IItem item in this.Map)
-                item.Initialize();
+
+            this.ValidateMap();
+            this.InitializeItems();
+            this.Reset();
 
             this.Logger.LogDebug("Level initialized");
+        }
+
+        /// <summary>
+        /// Initializes Items on the Map.
+        /// </summary>
+        private void InitializeItems()
+        {
+            foreach (IItem item in this.Map)
+            {
+                item.Level = this;
+                item.Initialize();
+            }
+        }
+
+        /// <summary>
+        /// Resets the Level to initial State.
+        /// </summary>
+        public void Reset()
+        {
+            IItem levelStart = this.Map.FindItems<LevelStartTrigger>().First();
+            Player player = this.Map.FindItems<Player>().First();
+            player.X = levelStart.X;
+            player.Y = levelStart.Y;
+            player.Direction = Vector.Right;
         }
 
         /// <summary>
@@ -66,6 +77,33 @@ namespace SmallQyest.World
         {
             this.Logger.LogDebug("Level failed");
             this.OnLevelFailed(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Checks whether a Map is valid.
+        /// </summary>
+        private void ValidateMap()
+        {
+            // Looking for a Level Start:
+            if (!this.Map.FindItems<LevelStartTrigger>().Any())
+            {
+                this.Logger.LogError("Level does not have a Start");
+                throw new InvalidCastException("Level Start not found");
+            }
+
+            // Looking for Level Endings:
+            if (!this.Map.FindItems<LevelEndTrigger>().Any())
+            {
+                this.Logger.LogError("Level does not have any End");
+                throw new InvalidOperationException("Level must have at least one End");
+            }
+
+            // Looking for a Player:
+            if (!this.Map.FindItems<Player>().Any())
+            {
+                this.Logger.LogError("Level does not have a Player");
+                throw new InvalidOperationException("Player not found");
+            }
         }
 
         #region Events
@@ -105,9 +143,9 @@ namespace SmallQyest.World
         #region Properties
 
         /// <summary>
-        /// Sets/retrieves the Level Map.
+        /// Retrieves the Level Map.
         /// </summary>
-        public IMap Map { get; set; }
+        public IMap Map { get; private set; }
 
         /// <summary>
         /// Sets/retrieves a Logger for Level Messages.

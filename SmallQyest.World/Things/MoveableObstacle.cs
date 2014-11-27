@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SmallQyest.Core;
+using SmallQyest.World;
 using SmallQyest.World.Characters;
 
 namespace SmallQyest.World.Things

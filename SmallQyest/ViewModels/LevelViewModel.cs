@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using System.Windows.Threading;
-using SmallQyest.Core;
+using SmallQyest.World;
 using SmallQyest.World.Characters;
 using SmallQyest.World.Things;
 using SmallQyest.World.Tiles;
@@ -91,7 +91,7 @@ namespace SmallQyest.ViewModels
         /// </summary>
         private void OnRestart()
         {
-            this.level.Initialize();
+            this.level.Reset();
         }
 
         #region Properties

@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
+# Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallQyest", "SmallQyest\SmallQyest.csproj", "{DC4CF938-F393-43B2-AC51-FB1A08F578B5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallQyest.Core", "SmallQyest.Core\SmallQyest.Core.csproj", "{33C4207E-CF23-4CC3-A31F-43986FB24186}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallQyest.World", "SmallQyest.World\SmallQyest.World.csproj", "{D025CD32-9B40-4E8F-A61B-B7F38F3FB813}"
 EndProject
@@ -23,10 +21,6 @@ Global
 		{DC4CF938-F393-43B2-AC51-FB1A08F578B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC4CF938-F393-43B2-AC51-FB1A08F578B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC4CF938-F393-43B2-AC51-FB1A08F578B5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33C4207E-CF23-4CC3-A31F-43986FB24186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33C4207E-CF23-4CC3-A31F-43986FB24186}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33C4207E-CF23-4CC3-A31F-43986FB24186}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33C4207E-CF23-4CC3-A31F-43986FB24186}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D025CD32-9B40-4E8F-A61B-B7F38F3FB813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D025CD32-9B40-4E8F-A61B-B7F38F3FB813}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D025CD32-9B40-4E8F-A61B-B7F38F3FB813}.Release|Any CPU.ActiveCfg = Release|Any CPU

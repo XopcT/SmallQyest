@@ -1,6 +1,4 @@
-﻿using Logging;
-using SmallQyest.Core;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace SmallQyest.World
@@ -79,15 +77,15 @@ namespace SmallQyest.World
         /// <summary>
         /// Sets/retrieves the Map the Item belongs to.
         /// </summary>
-        public IMap Map { get; set; }
+        public IMap Map
+        {
+            get { return this.Level.Map; }
+        }
 
         /// <summary>
-        /// Retrieves the Level the Item belongs to.
+        /// Sets/retrieves the Level the Item belongs to.
         /// </summary>
-        protected ILevel Level
-        {
-            get { return this.Map.Level; }
-        }
+        public ILevel Level { get; set; }
 
         /// <summary>
         /// Sets/retrieves the Item's X-Coordinate on the Map.
@@ -114,11 +112,6 @@ namespace SmallQyest.World
                 this.OnPropertyChanged(this);
             }
         }
-
-        /// <summary>
-        /// Sets/retrieves a Logger for Item Messages.
-        /// </summary>
-        public ILogger Logger { get; set; }
 
         #endregion
 

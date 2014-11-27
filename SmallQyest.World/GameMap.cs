@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using SmallQyest.Core;
 using Logging;
 
 namespace SmallQyest.World
@@ -14,22 +12,9 @@ namespace SmallQyest.World
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
-        /// <param name="level">Level the Map belongs to.</param>
-        /// <param name="width">Width of the Map.</param>
-        /// <param name="height">Height of the Map.</param>
-        public GameMap(ILevel level, int width, int height)
+        public GameMap()
         {
-            if (level == null)
-                throw new ArgumentNullException("level");
-            if (width <= 0)
-                throw new ArgumentOutOfRangeException("width");
-            if (height <= 0)
-                throw new ArgumentOutOfRangeException("height");
-            this.level = level;
-            this.width = width;
-            this.height = height;
             this.items = new List<IItem>();
-            //this.Logger.LogMessage("Map {0}x{1} created.", this.width, this.height);
         }
 
         /// <summary>
@@ -52,7 +37,6 @@ namespace SmallQyest.World
         public void Add(IItem item)
         {
             this.items.Add(item);
-            item.Map = this;
             this.Logger.LogMessage("{0} added to Map.", item);
         }
 
@@ -96,8 +80,6 @@ namespace SmallQyest.World
         {
             try
             {
-                if (this.Contains(item))
-                    item.Map = null;
                 return this.items.Remove(item);
             }
             finally
@@ -127,29 +109,6 @@ namespace SmallQyest.World
         #region Properties
 
         /// <summary>
-        /// Retrieves a Level the Map belongs to.
-        /// </summary>
-        public ILevel Level
-        {
-            get { return this.level; }
-        }
-        /// <summary>
-        /// Retrieves the Width of the Map.
-        /// </summary>
-        public int Width
-        {
-            get { return this.width; }
-        }
-
-        /// <summary>
-        /// Retrieves the Height of the Map.
-        /// </summary>
-        public int Height
-        {
-            get { return this.height; }
-        }
-
-        /// <summary>
         /// Retrieves the Number of Items on the Map.
         /// </summary>
         public int Count
@@ -173,10 +132,7 @@ namespace SmallQyest.World
         #endregion
 
         #region Fields
-        private readonly int width = 0;
-        private readonly int height = 0;
         private readonly IList<IItem> items = null;
-        private readonly ILevel level = null;
 
         #endregion
 

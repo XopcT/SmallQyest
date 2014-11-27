@@ -42,8 +42,7 @@ namespace SmallQyest.World.Things
             {
                 if (this.CanMoveTo(character.Direction))
                 {
-                    base.X += character.Direction.X;
-                    base.Y += character.Direction.Y;
+                    base.Position += character.Direction;
                 }
             }
         }
@@ -55,9 +54,9 @@ namespace SmallQyest.World.Things
         /// <returns>True if there is a free Space, False otherwise.</returns>
         private bool CanMoveTo(Vector direction)
         {
-            int newX = this.X + direction.X;
-            int newY = this.Y + direction.Y;
-            IEnumerable<bool> passTestResults = base.Map.GetItems<ItemBase>(newX, newY)
+            Vector newPosition = this.Position + direction;
+            IEnumerable<bool> passTestResults = base.Map
+                .GetItems<ItemBase>(newPosition)
                 .Select(item => item.CanPassThrough(this));
             return passTestResults.Any() && passTestResults.All(result => result == true);
         }

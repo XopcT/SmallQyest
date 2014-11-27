@@ -21,7 +21,7 @@ namespace Tests
             bool levelFailed = false;
             this.level.Setup(arg => arg.Fail()).Callback(() => { levelFailed = true; });
 
-            Player player = new Player() { X = 2, Y = 2, Level = this.level.Object };
+            Player player = new Player() { Level = this.level.Object };
             player.Kill();
 
             Assert.IsTrue(levelFailed);

@@ -12,6 +12,7 @@ namespace SmallQyest.World
         /// <param name="x">X-Component of the Vector.</param>
         /// <param name="y">Y-Component of the Vector.</param>
         public Vector(int x, int y)
+            : this()
         {
             this.X = x;
             this.Y = y;
@@ -93,14 +94,14 @@ namespace SmallQyest.World
         #region Fields
 
         /// <summary>
-        /// X-Component of the Vector.
+        /// Retrieves the X-Component of the Vector.
         /// </summary>
-        public int X;
+        public int X { get; private set; }
 
         /// <summary>
-        /// Y-Component of the Vector.
+        /// Retrieves the Y-Component of the Vector.
         /// </summary>
-        public int Y;
+        public int Y { get; private set; }
 
         /// <summary>
         /// Vector which directs up.
@@ -121,6 +122,11 @@ namespace SmallQyest.World
         /// Vector which directs left.
         /// </summary>
         public static readonly Vector Left = new Vector(-1, 0);
+
+        /// <summary>
+        /// Vector with Zero Coordinates.
+        /// </summary>
+        public static readonly Vector Zero = new Vector(0, 0);
 
         #endregion
     }

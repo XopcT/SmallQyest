@@ -55,8 +55,7 @@ namespace SmallQyest.World
         {
             IItem levelStart = this.Map.FindItems<LevelStartTrigger>().First();
             Player player = this.Map.FindItems<Player>().First();
-            player.X = levelStart.X;
-            player.Y = levelStart.Y;
+            player.Position = levelStart.Position;
             player.Direction = Vector.Right;
         }
 

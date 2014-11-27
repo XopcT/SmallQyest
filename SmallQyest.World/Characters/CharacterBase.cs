@@ -27,7 +27,7 @@ namespace SmallQyest.World.Characters
             this.CurrentState = "Default";
 
             // Visiting current Location. Alot of interesting must be waiting:
-            foreach (ItemBase item in base.Map.GetItems<ItemBase>(base.X, base.Y))
+            foreach (ItemBase item in base.Map.GetItems<ItemBase>(base.Position))
                 item.OnVisit(this);
 
             this.movementStrategy.Navigate(this);
@@ -41,9 +41,9 @@ namespace SmallQyest.World.Characters
         /// <returns>True if Character can go in specified Direction, False otherwise.</returns>
         public bool CanGoTo(Vector direction)
         {
-            int newX = this.X + direction.X;
-            int newY = this.Y + direction.Y;
-            IEnumerable<bool> passTestResults = this.Map.GetItems<ItemBase>(newX, newY)
+            Vector newPosition = this.Position + direction;
+            IEnumerable<bool> passTestResults = this.Map
+                .GetItems<ItemBase>(newPosition)
                 .Select(item => item.CanPassThrough(this));
             return passTestResults.Any() && passTestResults.All(result => result == true);
         }

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SmallQyest.World;
-using SmallQyest.World.Tiles;
 using SmallQyest.World.Triggers;
-using Logging;
 
 namespace SmallQyest
 {
@@ -118,71 +116,47 @@ namespace SmallQyest
             if ((value & 1) == 1)
             {
                 IItem item = this.ItemFactory.GetPath();
-                item.X = x;
-                item.Y = y;
+                item.Position = new Vector(x, y);
                 yield return item;
             }
             else
             {
                 IItem item = this.ItemFactory.GetGrass();
-                item.X = x;
-                item.Y = y;
+                item.Position = new Vector(x, y);
                 yield return item;
             }
             if ((value & 2) == 2)
             {
                 IItem item = this.ItemFactory.GetLevelStartTrigger();
-                item.X = x;
-                item.Y = y;
+                item.Position = new Vector(x, y);
                 yield return item;
                 IItem player = this.ItemFactory.GetPlayer();
-                player.X = x;
-                player.Y = y;
+                player.Position = new Vector(x, y);
             }
             if ((value & 4) == 4)
             {
                 IItem item = this.ItemFactory.GetLevelEndTrigger();
-                item.X = x;
-                item.Y = y;
+                item.Position = new Vector(x, y);
                 yield return item;
             }
             if ((value & 8) == 8)
             {
                 IItem item = this.ItemFactory.GetFallTrap();
-                item.X = x;
-                item.Y = y;
+                item.Position = new Vector(x, y);
                 yield return item;
             }
             if ((value & 16) == 16)
             {
                 IItem item = this.ItemFactory.GetOneTimePassObstacle();
-                item.X = x;
-                item.Y = y;
+                item.Position = new Vector(x, y);
                 yield return item;
             }
             if ((value & 32) == 32)
             {
                 IItem item = this.ItemFactory.GetMoveableObstacle();
-                item.X = x;
-                item.Y = y;
+                item.Position = new Vector(x, y);
                 yield return item;
             }
-        }
-
-        /// <summary>
-        /// Converts Value from a numeric Map Source into an Item.
-        /// </summary>
-        /// <param name="value">Value to convert.</param>
-        /// <param name="x">X-Coordinate of an Item.</param>
-        /// <param name="y">Y-Coordinate of an Item.</param>
-        /// <returns>Created Item Instance.</returns>
-        private IItem ValueToItem(int value, int x, int y)
-        {
-            if (value == 0)
-                return new Grass() { X = x, Y = y, };
-            else if (value == 1)
-                return new Path() { X = x, Y = y };
-            throw new ArgumentException();
         }
 
         #region Properties

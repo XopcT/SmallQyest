@@ -22,8 +22,9 @@ namespace Tests
         {
             bool levelPassed = false;
             this.level.Setup(arg => arg.Pass(It.IsAny<int>())).Callback(() => { levelPassed = true; });
-            IItem player = new Player() { X = 2, Y = 2, Level = this.level.Object };
-            LevelEndTrigger tested = new LevelEndTrigger() { X = 2, Y = 2, Level = this.level.Object };
+
+            IItem player = new Player() { Level = this.level.Object };
+            LevelEndTrigger tested = new LevelEndTrigger() { Level = this.level.Object };
 
             tested.OnVisit(player);
             Assert.IsTrue(levelPassed);
@@ -39,7 +40,7 @@ namespace Tests
             Mock<Player> player = new Mock<Player>();
             player.Setup(arg => arg.Kill()).Callback(() => { playerKilled = true; });
 
-            FallTrap tested = new FallTrap() { X = 2, Y = 2, Level = this.level.Object };
+            FallTrap tested = new FallTrap() { Level = this.level.Object };
             tested.OnVisit(player.Object);
 
             Assert.IsTrue(playerKilled);
@@ -51,7 +52,7 @@ namespace Tests
         [TestMethod()]
         public void OneTimePassObstacleInitializeTest()
         {
-            OneTimePassObstacle tested = new OneTimePassObstacle() { X = 2, Y = 2, Level = this.level.Object };
+            OneTimePassObstacle tested = new OneTimePassObstacle() { Level = this.level.Object };
             tested.Initialize();
             Assert.IsTrue(tested.IsOpen);
         }
@@ -62,8 +63,8 @@ namespace Tests
         [TestMethod()]
         public void OneTimePassObstacleLeaveTest()
         {
-            IItem player = new Player() { X = 2, Y = 2, Level = this.level.Object };
-            OneTimePassObstacle tested = new OneTimePassObstacle() { X = 2, Y = 2, Level = this.level.Object };
+            IItem player = new Player() { Level = this.level.Object };
+            OneTimePassObstacle tested = new OneTimePassObstacle() { Level = this.level.Object };
             tested.Initialize();
             tested.OnLeave(player);
             Assert.IsFalse(tested.IsOpen);
@@ -75,7 +76,7 @@ namespace Tests
         [TestMethod()]
         public void DoorWithAKeyInitializeTest()
         {
-            DoorWithAKey tested = new DoorWithAKey() { X = 2, Y = 2, Level = this.level.Object };
+            DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object };
             tested.Initialize();
             Assert.IsFalse(tested.IsOpen);
         }
@@ -86,8 +87,8 @@ namespace Tests
         [TestMethod()]
         public void DoorWithAKeyCanPassTest1()
         {
-            Player player = new Player() { X = 1, Y = 2, Level = this.level.Object };
-            DoorWithAKey tested = new DoorWithAKey() { X = 2, Y = 2, Level = this.level.Object, Color = KeyColor.Red };
+            Player player = new Player() { Level = this.level.Object };
+            DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();
             bool canPass = tested.CanPassThrough(player);
             Assert.IsFalse(canPass);
@@ -99,10 +100,10 @@ namespace Tests
         [TestMethod()]
         public void DoorWithAKeyCanPassTest2()
         {
-            Player player = new Player() { X = 1, Y = 2, Level = this.level.Object };
+            Player player = new Player() { Level = this.level.Object };
             player.Inventory = new List<IItem>() { new Key() { Color = KeyColor.Blue } };
 
-            DoorWithAKey tested = new DoorWithAKey() { X = 2, Y = 2, Level = this.level.Object, Color = KeyColor.Red };
+            DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();
             bool canPass = tested.CanPassThrough(player);
             Assert.IsFalse(canPass);
@@ -114,10 +115,10 @@ namespace Tests
         [TestMethod()]
         public void DoorWithAKeyCanPassTest3()
         {
-            Player player = new Player() { X = 1, Y = 2, Level = this.level.Object };
+            Player player = new Player() { Level = this.level.Object };
             player.Inventory = new List<IItem>() { new Key() { Color = KeyColor.Red } };
 
-            DoorWithAKey tested = new DoorWithAKey() { X = 2, Y = 2, Level = this.level.Object, Color = KeyColor.Red };
+            DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();
             bool canPass = tested.CanPassThrough(player);
             Assert.IsTrue(canPass);
@@ -129,10 +130,10 @@ namespace Tests
         [TestMethod()]
         public void DoorWithAKeyVisitTest1()
         {
-            Player player = new Player() { X = 2, Y = 2, Level = this.level.Object };
+            Player player = new Player() { Level = this.level.Object };
             player.Inventory = new List<IItem>() { new Key() { Color = KeyColor.Blue } };
 
-            DoorWithAKey tested = new DoorWithAKey() { X = 2, Y = 2, Level = this.level.Object, Color = KeyColor.Red };
+            DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();
             tested.OnVisit(player);
             Assert.IsFalse(tested.IsOpen);
@@ -144,10 +145,10 @@ namespace Tests
         [TestMethod()]
         public void DoorWithAKeyVisitTest2()
         {
-            Player player = new Player() { X = 2, Y = 2, Level = this.level.Object };
+            Player player = new Player() { Level = this.level.Object };
             player.Inventory = new List<IItem>() { new Key() { Color = KeyColor.Red } };
 
-            DoorWithAKey tested = new DoorWithAKey() { X = 2, Y = 2, Level = this.level.Object, Color = KeyColor.Red };
+            DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();
             tested.OnVisit(player);
             Assert.IsTrue(tested.IsOpen);

@@ -55,8 +55,8 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="Canvas.Left" Value="{Binding X, Converter={StaticResource CoordinateConverter}}" />
-                    <Setter Property="Canvas.Top" Value="{Binding Y, Converter={StaticResource CoordinateConverter}}" />
+                    <Setter Property="Canvas.Left" Value="{Binding Position.X, Converter={StaticResource CoordinateConverter}}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Position.Y, Converter={StaticResource CoordinateConverter}}" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
@@ -70,8 +70,8 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="Canvas.Left" Value="{Binding X, Converter={StaticResource CoordinateConverter}}" />
-                    <Setter Property="Canvas.Top" Value="{Binding Y, Converter={StaticResource CoordinateConverter}}" />
+                    <Setter Property="Canvas.Left" Value="{Binding Position.X, Converter={StaticResource CoordinateConverter}}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Position.Y, Converter={StaticResource CoordinateConverter}}" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>
@@ -85,8 +85,8 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="ContentPresenter">
-                    <Setter Property="Canvas.Left" Value="{Binding X, Converter={StaticResource CoordinateConverter}}" />
-                    <Setter Property="Canvas.Top" Value="{Binding Y, Converter={StaticResource CoordinateConverter}}" />
+                    <Setter Property="Canvas.Left" Value="{Binding Position.X, Converter={StaticResource CoordinateConverter}}" />
+                    <Setter Property="Canvas.Top" Value="{Binding Position.Y, Converter={StaticResource CoordinateConverter}}" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
         </ItemsControl>

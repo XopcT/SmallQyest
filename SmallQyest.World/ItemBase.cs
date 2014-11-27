@@ -75,7 +75,12 @@ namespace SmallQyest.World
         #region Properties
 
         /// <summary>
-        /// Sets/retrieves the Map the Item belongs to.
+        /// Sets/retrieves the Level the Item belongs to.
+        /// </summary>
+        public ILevel Level { get; set; }
+
+        /// <summary>
+        /// Retrieves the Map the Item belongs to.
         /// </summary>
         public IMap Map
         {
@@ -83,32 +88,14 @@ namespace SmallQyest.World
         }
 
         /// <summary>
-        /// Sets/retrieves the Level the Item belongs to.
+        /// Sets/retrieves the Item's Position on the Map.
         /// </summary>
-        public ILevel Level { get; set; }
-
-        /// <summary>
-        /// Sets/retrieves the Item's X-Coordinate on the Map.
-        /// </summary>
-        public int X
+        public Vector Position
         {
-            get { return this.x; }
+            get { return this.position; }
             set
             {
-                this.x = value;
-                this.OnPropertyChanged(this);
-            }
-        }
-
-        /// <summary>
-        /// Sets/retrieves the Item's Y-Coordinate on the Map.
-        /// </summary>
-        public int Y
-        {
-            get { return this.y; }
-            set
-            {
-                this.y = value;
+                this.position = value;
                 this.OnPropertyChanged(this);
             }
         }
@@ -116,8 +103,7 @@ namespace SmallQyest.World
         #endregion
 
         #region Fields
-        private int x = 0;
-        private int y = 0;
+        private Vector position = Vector.Zero;
 
         #endregion
     }

@@ -23,13 +23,8 @@ namespace SmallQyest.World
         ILevel Level { get; set; }
 
         /// <summary>
-        /// Sets/retrieves the Item's X-Coordinate on the Map.
+        /// Sets/retrieves the Item's Position on the Map.
         /// </summary>
-        int X { get; set; }
-
-        /// <summary>
-        /// Sets/retrieves the Item's Y-Coordinate on the Map.
-        /// </summary>
-        int Y { get; set; }
+        Vector Position { get; set; }
     }
 }

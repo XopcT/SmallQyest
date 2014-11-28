@@ -50,7 +50,7 @@ namespace SmallQyest.World.Characters
             else
                 throw new System.InvalidOperationException();
             // Leaving previous Location:
-            foreach (ItemBase item in character.Map.GetItems<ItemBase>(character.Position))
+            foreach (Item item in character.Map.GetItems<Item>(character.Position))
                 item.OnLeave(character);
             // Updating Coordinates:
             character.Position += character.Direction;

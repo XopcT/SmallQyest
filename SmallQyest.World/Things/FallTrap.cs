@@ -12,7 +12,7 @@ namespace SmallQyest.World.Things
         /// Handles Collision of the Trap against an Item. If Character visits the trap, he falls down.
         /// </summary>
         /// <param name="item">Collider Item.</param>
-        public override void OnVisit(IItem item)
+        public override void OnVisit(Item item)
         {
             base.OnVisit(item);
             CharacterBase character = item as CharacterBase;

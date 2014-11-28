@@ -6,7 +6,7 @@ namespace SmallQyest.World.Characters
     /// <summary>
     /// Base Class for creating Characters.
     /// </summary>
-    public class CharacterBase : ItemBase
+    public class CharacterBase : Item
     {
         /// <summary>
         /// Initializes a new Instance of current Class.
@@ -14,7 +14,7 @@ namespace SmallQyest.World.Characters
         public CharacterBase()
         {
             this.movementStrategy = new BasicMovementStrategy();
-            this.Inventory = new List<IItem>();
+            this.Inventory = new List<Item>();
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace SmallQyest.World.Characters
             this.CurrentState = "Default";
 
             // Visiting current Location. Alot of interesting must be waiting:
-            foreach (ItemBase item in base.Map.GetItems<ItemBase>(base.Position))
+            foreach (Item item in base.Map.GetItems<Item>(base.Position))
                 item.OnVisit(this);
 
             this.movementStrategy.Navigate(this);
@@ -43,7 +43,7 @@ namespace SmallQyest.World.Characters
         {
             Vector newPosition = this.Position + direction;
             IEnumerable<bool> passTestResults = this.Map
-                .GetItems<ItemBase>(newPosition)
+                .GetItems<Item>(newPosition)
                 .Select(item => item.CanPassThrough(this));
             return passTestResults.Any() && passTestResults.All(result => result == true);
         }
@@ -78,7 +78,7 @@ namespace SmallQyest.World.Characters
         /// <summary>
         /// Sets/retrieves the Character's Inventory.
         /// </summary>
-        public ICollection<IItem> Inventory { get; set; }
+        public ICollection<Item> Inventory { get; set; }
 
         #endregion
 

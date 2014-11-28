@@ -17,48 +17,48 @@ namespace SmallQyest.World
         /// Retrieves a Player Item.
         /// </summary>
         /// <returns>Player Instance.</returns>
-        IItem GetPlayer();
+        Item GetPlayer();
 
         /// <summary>
         /// Retrieves a Grass Item.
         /// </summary>
         /// <returns>Grass Instance.</returns>
-        IItem GetGrass();
+        Item GetGrass();
 
         /// <summary>
         /// Retrieves a Path Item.
         /// </summary>
         /// <returns>Path Instance.</returns>
-        IItem GetPath();
+        Item GetPath();
 
         /// <summary>
         /// Retrieves a Trigger which starts the Level.
         /// </summary>
         /// <returns>Trigger Instance.</returns>
-        IItem GetLevelStartTrigger();
+        Item GetLevelStartTrigger();
 
         /// <summary>
         /// Retrieves a Trigger which ends the Level.
         /// </summary>
         /// <returns>Trigger Instance.</returns>
-        IItem GetLevelEndTrigger();
+        Item GetLevelEndTrigger();
 
         /// <summary>
         /// Retrieves a Fall Trap.
         /// </summary>
         /// <returns>Fall Trap Instance.</returns>
-        IItem GetFallTrap();
+        Item GetFallTrap();
 
         /// <summary>
         /// Retrieves a one Time pass Obstacle.
         /// </summary>
         /// <returns>One Time pass Obstacle Instance.</returns>
-        IItem GetOneTimePassObstacle();
+        Item GetOneTimePassObstacle();
 
         /// <summary>
         /// Retrieves a moveable Obstacle.
         /// </summary>
         /// <returns>Moveable Obstacle Instance.</returns>
-        IItem GetMoveableObstacle();
+        Item GetMoveableObstacle();
     }
 }

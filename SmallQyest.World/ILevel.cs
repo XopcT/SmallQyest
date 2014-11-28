@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using SmallQyest.World.Things;
 
 namespace SmallQyest.World
 {
@@ -41,6 +43,11 @@ namespace SmallQyest.World
         /// <summary>
         /// Sets/retrieves the Level Map.
         /// </summary>
-        IMap Map { get; }
+        Map Map { get; }
+
+        /// <summary>
+        /// Retrieves the Collection of Tools available for this Level.
+        /// </summary>
+        ObservableCollection<Thing> Tools { get; }
     }
 }

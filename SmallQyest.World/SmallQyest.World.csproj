@@ -44,11 +44,10 @@
     <Compile Include="Characters\CharacterBase.cs" />
     <Compile Include="Characters\CharacterBehaviorStrategy.cs" />
     <Compile Include="Characters\Player.cs" />
-    <Compile Include="IItem.cs" />
+    <Compile Include="DebugMap.cs" />
     <Compile Include="ILevel.cs" />
     <Compile Include="ILevelProvider.cs" />
-    <Compile Include="IMap.cs" />
-    <Compile Include="ItemExtensions.cs" />
+    <Compile Include="MapExtensions.cs" />
     <Compile Include="LevelPassedEventArgs.cs" />
     <Compile Include="Things\Door.cs" />
     <Compile Include="Things\DoorWithAKey.cs" />
@@ -58,7 +57,7 @@
     <Compile Include="Things\MoveableObstacle.cs" />
     <Compile Include="Things\OneTimePassObstacle.cs" />
     <Compile Include="GameLevel.cs" />
-    <Compile Include="GameMap.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Things\Thing.cs" />
     <Compile Include="Tiles\Grass.cs" />
     <Compile Include="IItemFactory.cs" />
@@ -67,7 +66,7 @@
     <Compile Include="Triggers\LevelEndTrigger.cs" />
     <Compile Include="Triggers\Trigger.cs" />
     <Compile Include="Vector.cs" />
-    <Compile Include="ItemBase.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="Tiles\Path.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VectorExtensions.cs" />

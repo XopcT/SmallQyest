@@ -1,7 +1,7 @@
 ﻿using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
-using SmallQyest.World;
 using SmallQyest.ViewModels;
+using SmallQyest.World;
 using Logging;
 
 namespace SmallQyest
@@ -79,72 +79,72 @@ namespace SmallQyest
         /// Retrieves a Player Item.
         /// </summary>
         /// <returns>Player Instance.</returns>
-        public IItem GetPlayer()
+        public Item GetPlayer()
         {
-            return this.unityContainer.Resolve<IItem>("player");
+            return this.unityContainer.Resolve<Item>("player");
         }
 
         /// <summary>
         /// Retrieves a Grass Item.
         /// </summary>
         /// <returns>Grass Instance.</returns>
-        public IItem GetGrass()
+        public Item GetGrass()
         {
-            return this.unityContainer.Resolve<IItem>("grass");
+            return this.unityContainer.Resolve<Item>("grass");
         }
 
         /// <summary>
         /// Retrieves a Path Item.
         /// </summary>
         /// <returns>Path Instance.</returns>
-        public IItem GetPath()
+        public Item GetPath()
         {
-            return this.unityContainer.Resolve<IItem>("path");
+            return this.unityContainer.Resolve<Item>("path");
         }
 
         /// <summary>
         /// Retrieves a Level Start.
         /// </summary>
         /// <returns>Trigger Instance.</returns>
-        public IItem GetLevelStartTrigger()
+        public Item GetLevelStartTrigger()
         {
-            return this.unityContainer.Resolve<IItem>("levelStart");
+            return this.unityContainer.Resolve<Item>("levelStart");
         }
 
         /// <summary>
         /// Retrieves a Level End.
         /// </summary>
         /// <returns>Trigger Instance.</returns>
-        public IItem GetLevelEndTrigger()
+        public Item GetLevelEndTrigger()
         {
-            return this.unityContainer.Resolve<IItem>("levelEnd");
+            return this.unityContainer.Resolve<Item>("levelEnd");
         }
 
         /// <summary>
         /// Retrieves a Fall Trap.
         /// </summary>
         /// <returns>Fall Trap Instance.</returns>
-        public IItem GetFallTrap()
+        public Item GetFallTrap()
         {
-            return this.unityContainer.Resolve<IItem>("fallTrap");
+            return this.unityContainer.Resolve<Item>("fallTrap");
         }
 
         /// <summary>
         /// Retrieves a one Time pass Obstacle.
         /// </summary>
         /// <returns>One Time pass Obstacle Instance.</returns>
-        public IItem GetOneTimePassObstacle()
+        public Item GetOneTimePassObstacle()
         {
-            return this.unityContainer.Resolve<IItem>("oneTimePassObstacle");
+            return this.unityContainer.Resolve<Item>("oneTimePassObstacle");
         }
 
         /// <summary>
         /// Retrieves a moveable Obstacle.
         /// </summary>
         /// <returns>Moveable Obstacle Instance.</returns>
-        public IItem GetMoveableObstacle()
+        public Item GetMoveableObstacle()
         {
-            return this.unityContainer.Resolve<IItem>("moveableObstacle");
+            return this.unityContainer.Resolve<Item>("moveableObstacle");
         }
 
         #region Properties

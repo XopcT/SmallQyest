@@ -1,8 +1,8 @@
-﻿using SmallQyest.World.Things;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using SmallQyest.World.Things;
 
-namespace SmallQyest.Sprites
+namespace SmallQyest.Sprites.Things
 {
     /// <summary>
     /// Selects an appropriate Template for a Thing.

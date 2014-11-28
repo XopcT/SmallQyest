@@ -24,7 +24,7 @@ namespace SmallQyest.World.Things
         /// </summary>
         /// <param name="item">Item to check with.</param>
         /// <returns>True if Obstacle can be passed, False otherwise.</returns>
-        public override bool CanPassThrough(IItem item)
+        public override bool CanPassThrough(Item item)
         {
             return this.IsOpen;
         }
@@ -33,7 +33,7 @@ namespace SmallQyest.World.Things
         /// Handles Leaving of the Obstacle by some Item.
         /// </summary>
         /// <param name="item">Item that lived.</param>
-        public override void OnLeave(IItem item)
+        public override void OnLeave(Item item)
         {
             base.OnLeave(item);
             CharacterBase character = item as CharacterBase;

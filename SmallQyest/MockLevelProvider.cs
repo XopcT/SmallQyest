@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SmallQyest.World;
 using SmallQyest.World.Triggers;
+using SmallQyest.World.Things;
 
 namespace SmallQyest
 {
@@ -50,16 +51,16 @@ namespace SmallQyest
         {
             return this.CreateLevel(2, new int[,]
             {
-                {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, },
-                {  0,  0,  1,  0,  0,  0,  0,  0,  0,  0, },
-                {  0,  0,  1,  0,  0,  0,  0,  0,  0,  0, },
-                {  0,  0,  1,  0,  0,  0,  0,  0,  0,  0, },
-                {  0,  0,  1,  0,  0,  1,  1,  1,  0,  0, },
-                {  0,  0,  1,  1,  1,  1,  8,  1,  1,  5, },
-                {  0,  0, 17,  0,  0,  0,  0,  0,  0,  0, },
-                {  0,  0,  1,  0,  0,  0,  0,  0,  0,  0, },
-                {  3,  1,  1,  0,  0,  0,  0,  0,  0,  0, },
-                {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, },
+                { 0, 0, 1, 1, 1, 1, 8, 1, 1, 5, },
+                { 0, 0,17, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, },
+                { 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, },
+                { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
             });
         }
 
@@ -97,63 +98,69 @@ namespace SmallQyest
             int height = numericMap.GetLength(0);
             // Creating Level Instance:
             ILevel level = this.ItemFactory.GetLevel();
+            level.Tools.Add(new FallTrap());
+            level.Tools.Add(new FallTrap());
+            level.Tools.Add(new OneTimePassObstacle());
+            level.Tools.Add(new OneTimePassObstacle());
+
             // Creating Map Items:
-            IEnumerable<IItem> items = Enumerable.Range(0, width)
+            IEnumerable<Item> items = Enumerable.Range(0, width)
                 .SelectMany(x => Enumerable.Range(0, height)
                     .SelectMany(y => this.CreateItems(numericMap[y, x], x, y)));
             // Filling Map Items:
-            foreach (IItem item in items)
+            foreach (Item item in items)
                 level.Map.Add(item);
+
             // Customizing special Map Items:            
             level.Map.Add(this.ItemFactory.GetPlayer());
-            level.Map.FindItems<LevelEndTrigger>().FirstOrDefault().NextLevelIndex = (levelId + 1);
+            level.Map.GetItems<LevelEndTrigger>().FirstOrDefault().NextLevelIndex = (levelId + 1);
 
             return level;
         }
 
-        private IEnumerable<IItem> CreateItems(int value, int x, int y)
+        private IEnumerable<Item> CreateItems(int value, int x, int y)
         {
             if ((value & 1) == 1)
             {
-                IItem item = this.ItemFactory.GetPath();
+                Item item = this.ItemFactory.GetPath();
                 item.Position = new Vector(x, y);
                 yield return item;
             }
             else
             {
-                IItem item = this.ItemFactory.GetGrass();
+                Item item = this.ItemFactory.GetGrass();
                 item.Position = new Vector(x, y);
                 yield return item;
             }
             if ((value & 2) == 2)
             {
-                IItem item = this.ItemFactory.GetLevelStartTrigger();
+                Item item = this.ItemFactory.GetLevelStartTrigger();
                 item.Position = new Vector(x, y);
                 yield return item;
-                IItem player = this.ItemFactory.GetPlayer();
+                Item player = this.ItemFactory.GetPlayer();
                 player.Position = new Vector(x, y);
             }
             if ((value & 4) == 4)
             {
-                IItem item = this.ItemFactory.GetLevelEndTrigger();
+                Item item = this.ItemFactory.GetLevelEndTrigger();
                 item.Position = new Vector(x, y);
                 yield return item;
             }
             if ((value & 8) == 8)
             {
-                IItem item = this.ItemFactory.GetFallTrap();
+                Item item = this.ItemFactory.GetFallTrap();
                 item.Position = new Vector(x, y);
                 yield return item;
             }
             if ((value & 16) == 16)
             {
-                IItem item = this.ItemFactory.GetOneTimePassObstacle();
+                Item item = this.ItemFactory.GetOneTimePassObstacle();
                 item.Position = new Vector(x, y);
                 yield return item;
             }
             if ((value & 32) == 32)
             {
-                IItem item = this.ItemFactory.GetMoveableObstacle();
+                Item item = this.ItemFactory.GetMoveableObstacle();
                 item.Position = new Vector(x, y);
                 yield return item;
             }

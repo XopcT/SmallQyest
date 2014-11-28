@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using SmallQyest.World.Characters;
+using SmallQyest.World.Things;
+using SmallQyest.World.Tiles;
 using Logging;
 
 namespace SmallQyest.World
@@ -7,45 +11,42 @@ namespace SmallQyest.World
     /// <summary>
     /// Contains a Level Map.
     /// </summary>
-    public class GameMap : IMap
+    public class Map : ICollection<Item>
     {
-        /// <summary>
-        /// Initializes a new Instance of current Class.
-        /// </summary>
-        public GameMap()
-        {
-            this.items = new List<IItem>();
-        }
-
         /// <summary>
         /// Updates the State of the Map.
         /// </summary>
-        public void Update()
+        public virtual void Update()
         {
-            this.Logger.LogMessage("Updating Map.");
-            foreach (IItem item in this.items)
-            {
+            foreach (Item item in this.items)
                 item.Update();
-            }
-            this.Logger.LogMessage("Map updated.");
         }
 
         /// <summary>
         /// Adds Item on the Map.
         /// </summary>
         /// <param name="item">Item to add.</param>
-        public void Add(IItem item)
+        public virtual void Add(Item item)
         {
             this.items.Add(item);
-            this.Logger.LogMessage("{0} added to Map.", item);
+
+            Tile tile = item as Tile;
+            CharacterBase actor = item as CharacterBase;
+            Thing thing = item as Thing;
+            if (tile != null)
+                this.tiles.Add(tile);
+            else if (actor != null)
+                this.actors.Add(actor);
+            else if (thing != null)
+                this.things.Add(thing);
         }
 
         /// <summary>
         /// Removes all Items from the Map.
         /// </summary>
-        public void Clear()
+        public virtual void Clear()
         {
-            foreach (IItem item in this.items.ToArray())
+            foreach (Item item in this.items.ToArray())
             {
                 this.Remove(item);
             }
@@ -56,7 +57,7 @@ namespace SmallQyest.World
         /// </summary>
         /// <param name="item">Item to check.</param>
         /// <returns>True if Map contains the Item, False otherwise.</returns>
-        public bool Contains(IItem item)
+        public bool Contains(Item item)
         {
             return this.items.Contains(item);
         }
@@ -66,7 +67,7 @@ namespace SmallQyest.World
         /// </summary>
         /// <param name="array">Array to copy Items to.</param>
         /// <param name="arrayIndex">Index in Array at which Copy begins.</param>
-        public void CopyTo(IItem[] array, int arrayIndex)
+        public void CopyTo(Item[] array, int arrayIndex)
         {
             this.items.CopyTo(array, arrayIndex);
         }
@@ -76,23 +77,25 @@ namespace SmallQyest.World
         /// </summary>
         /// <param name="item">Item to remove.</param>
         /// <returns>True if Item was removed, False otherwise.</returns>
-        public bool Remove(IItem item)
+        public virtual bool Remove(Item item)
         {
-            try
-            {
-                return this.items.Remove(item);
-            }
-            finally
-            {
-                this.Logger.LogMessage("{0} removed from Map.", item);
-            }
+            Tile tile = item as Tile;
+            CharacterBase actor = item as CharacterBase;
+            Thing thing = item as Thing;
+            if (tile != null)
+                this.tiles.Remove(tile);
+            else if (actor != null)
+                this.actors.Remove(actor);
+            else if (thing != null)
+                this.things.Remove(thing);
+            return this.items.Remove(item);
         }
 
         /// <summary>
         /// Retrieves the Enumerator to iterate over the Map Items.
         /// </summary>
         /// <returns>Enumerator Instance.</returns>
-        public IEnumerator<IItem> GetEnumerator()
+        public IEnumerator<Item> GetEnumerator()
         {
             return this.items.GetEnumerator();
         }
@@ -109,6 +112,30 @@ namespace SmallQyest.World
         #region Properties
 
         /// <summary>
+        /// Retrieves Tiles from the Map.
+        /// </summary>
+        public ObservableCollection<Tile> Tiles
+        {
+            get { return this.tiles; }
+        }
+
+        /// <summary>
+        /// Retrieves Actors from the Map.
+        /// </summary>
+        public ObservableCollection<CharacterBase> Actors
+        {
+            get { return this.actors; }
+        }
+
+        /// <summary>
+        /// Retrieves Things from the Map.
+        /// </summary>
+        public ObservableCollection<Thing> Things
+        {
+            get { return this.things; }
+        }
+
+        /// <summary>
         /// Retrieves the Number of Items on the Map.
         /// </summary>
         public int Count
@@ -121,20 +148,17 @@ namespace SmallQyest.World
         /// </summary>
         public bool IsReadOnly
         {
-            get { return this.items.IsReadOnly; }
+            get { return false; }
         }
-
-        /// <summary>
-        /// Sets/retrieves a Logger for Map Messages.
-        /// </summary>
-        public ILogger Logger { get; set; }
 
         #endregion
 
         #region Fields
-        private readonly IList<IItem> items = null;
+        private readonly IList<Item> items = new List<Item>();
+        private readonly ObservableCollection<Tile> tiles = new ObservableCollection<Tile>();
+        private readonly ObservableCollection<CharacterBase> actors = new ObservableCollection<CharacterBase>();
+        private readonly ObservableCollection<Thing> things = new ObservableCollection<Thing>();
 
         #endregion
-
     }
 }

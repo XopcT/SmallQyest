@@ -38,6 +38,9 @@
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Blend.Interctivity.WPF.v4.0.1.0.3\lib\net40\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
@@ -51,6 +54,9 @@
     <Reference Include="System.Runtime" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Blend.Interctivity.WPF.v4.0.1.0.3\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -68,25 +74,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\DragBehavior.cs" />
+    <Compile Include="Behaviors\DropBehavior.cs" />
     <Compile Include="BindableBase.cs" />
+    <Compile Include="Controls\MapControl.xaml.cs">
+      <DependentUpon>MapControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\NegativeBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ScaleCoverter.cs" />
-    <Compile Include="Converters\TileToBrushConverter.cs" />
     <Compile Include="IAppController.cs" />
     <Compile Include="IAppControllerFactory.cs" />
     <Compile Include="log4netLogger.cs" />
     <Compile Include="MockLevelProvider.cs" />
-    <Compile Include="Sprites\FallTrapView.xaml.cs">
-      <DependentUpon>FallTrapView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Sprites\OneTimePassObstacleView.xaml.cs">
-      <DependentUpon>OneTimePassObstacleView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Sprites\PlayerView.xaml.cs">
+    <Compile Include="Sprites\Actors\ActorsTemplateSelector.cs" />
+    <Compile Include="Sprites\Actors\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Sprites\ThingsTemplateSelector.cs" />
+    <Compile Include="Sprites\Things\FallTrapView.xaml.cs">
+      <DependentUpon>FallTrapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sprites\Things\OneTimePassObstacleView.xaml.cs">
+      <DependentUpon>OneTimePassObstacleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sprites\Things\ThingsTemplateSelector.cs" />
+    <Compile Include="Sprites\Tiles\GrassView.xaml.cs">
+      <DependentUpon>GrassView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sprites\Tiles\PathView.xaml.cs">
+      <DependentUpon>PathView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sprites\Tiles\TilesTemlpateSelector.cs" />
     <Compile Include="UnityFactory.cs" />
     <Compile Include="ViewModels\LevelViewModel.cs" />
     <Compile Include="Views\LevelView.xaml.cs">
@@ -96,6 +114,10 @@
       <DependentUpon>MenuView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ScreenTemplateSelector.cs" />
+    <Page Include="Controls\MapControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -114,15 +136,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Sprites\FallTrapView.xaml">
+    <Page Include="Sprites\Actors\PlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Sprites\OneTimePassObstacleView.xaml">
+    <Page Include="Sprites\Things\FallTrapView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Sprites\PlayerView.xaml">
+    <Page Include="Sprites\Things\OneTimePassObstacleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sprites\Tiles\GrassView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sprites\Tiles\PathView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -22,7 +22,7 @@ namespace SmallQyest.World.Triggers
         /// When Player enters the Trigger, the Level ends and new one is loaded.
         /// </summary>
         /// <param name="item">Collider Item.</param>
-        public override void OnVisit(IItem item)
+        public override void OnVisit(Item item)
         {
             base.OnVisit(item);
             base.Level.Pass(this.NextLevelIndex);

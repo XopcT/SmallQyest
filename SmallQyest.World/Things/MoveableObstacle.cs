@@ -16,7 +16,7 @@ namespace SmallQyest.World.Things
         /// </summary>
         /// <param name="item">Item which tries to pass the Obstacle.</param>
         /// <returns>True if Item can pass, False otherwise.</returns>
-        public override bool CanPassThrough(IItem item)
+        public override bool CanPassThrough(Item item)
         {
             CharacterBase character = item as CharacterBase;
             if (character != null)
@@ -34,7 +34,7 @@ namespace SmallQyest.World.Things
         /// If Character visits the Obstacle, he moves it in Front of him.
         /// </summary>
         /// <param name="item">Item visiting the Obstacle.</param>
-        public override void OnVisit(IItem item)
+        public override void OnVisit(Item item)
         {
             base.OnVisit(item);
             CharacterBase character = item as CharacterBase;
@@ -56,7 +56,7 @@ namespace SmallQyest.World.Things
         {
             Vector newPosition = this.Position + direction;
             IEnumerable<bool> passTestResults = base.Map
-                .GetItems<ItemBase>(newPosition)
+                .GetItems<Item>(newPosition)
                 .Select(item => item.CanPassThrough(this));
             return passTestResults.Any() && passTestResults.All(result => result == true);
         }

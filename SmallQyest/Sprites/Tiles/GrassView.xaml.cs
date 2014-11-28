@@ -13,17 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SmallQyest.Sprites
+namespace SmallQyest.Sprites.Tiles
 {
     /// <summary>
-    /// Interaction logic for OneTimePassObstacleView.xaml
+    /// Interaction logic for GrassView.xaml
     /// </summary>
-    public partial class OneTimePassObstacleView : UserControl
+    public partial class GrassView : UserControl
     {
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
-        public OneTimePassObstacleView()
+        public GrassView()
         {
             InitializeComponent();
         }

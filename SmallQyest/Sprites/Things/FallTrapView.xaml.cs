@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SmallQyest.Sprites
+namespace SmallQyest.Sprites.Things
 {
     /// <summary>
     /// Interaction logic for FallTrapView.xaml

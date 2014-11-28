@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SmallQyest.World;
 using SmallQyest.World.Characters;
@@ -33,12 +32,8 @@ namespace Tests
         [TestInitialize()]
         public void Initialize()
         {
-            this.map = new Mock<IMap>();
-            this.mapItems = new List<IItem>();
-            this.map.Setup(arg => arg.GetEnumerator()).Returns(this.mapItems.GetEnumerator());
-
             this.level = new Mock<ILevel>();
-            this.level.Setup(arg => arg.Map).Returns(this.map.Object);
+            this.level.Setup(arg => arg.Map).Returns(this.map);
         }
 
         #region Properties
@@ -46,10 +41,8 @@ namespace Tests
         #endregion
 
         #region Fields
-
+        private Map map = new Map();
         private Mock<ILevel> level = null;
-        private Mock<IMap> map = null;
-        private ICollection<IItem> mapItems = null;
 
         #endregion
     }

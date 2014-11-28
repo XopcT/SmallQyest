@@ -1,6 +1,6 @@
-﻿using SmallQyest.World;
+﻿using System;
+using SmallQyest.World;
 using Logging;
-using System;
 
 namespace SmallQyest
 {

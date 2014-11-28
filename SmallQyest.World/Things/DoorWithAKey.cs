@@ -22,7 +22,7 @@ namespace SmallQyest.World.Things
         /// </summary>
         /// <param name="item">Item to check with.</param>
         /// <returns>True if an Item can be passed, False otherwise.</returns>
-        public override bool CanPassThrough(IItem item)
+        public override bool CanPassThrough(Item item)
         {
             // Any Object can pass an opened Door:
             if (this.IsOpen)
@@ -35,7 +35,7 @@ namespace SmallQyest.World.Things
         /// Handles Collision of this Item against another one.
         /// </summary>
         /// <param name="item">Collider Item.</param>
-        public override void OnVisit(IItem item)
+        public override void OnVisit(Item item)
         {
             base.OnVisit(item);
             if (this.IsOpen)
@@ -49,7 +49,7 @@ namespace SmallQyest.World.Things
         /// </summary>
         /// <param name="item">Item to check.</param>
         /// <returns>True if Character has a Key from this Door, False otherwise.</returns>
-        private bool HasKey(IItem item)
+        private bool HasKey(Item item)
         {
             Characters.CharacterBase character = item as Characters.CharacterBase;
             if (character != null && character.Inventory != null)

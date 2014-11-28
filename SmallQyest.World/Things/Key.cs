@@ -4,7 +4,7 @@ namespace SmallQyest.World.Things
     /// <summary>
     /// Represents a Key to pass a Door.
     /// </summary>
-    public class Key : ItemBase
+    public class Key : Item
     {
         #region Properties
 

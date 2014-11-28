@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using SmallQyest.World.Characters;
+using SmallQyest.World.Things;
 using SmallQyest.World.Triggers;
 using Logging;
 
@@ -15,7 +17,7 @@ namespace SmallQyest.World
         /// Initializes a new Instance of current Class.
         /// </summary>
         /// <param name="map">Map of the Level.</param>
-        public GameLevel(IMap map)
+        public GameLevel(Map map)
         {
             if (map == null)
                 throw new ArgumentNullException("map");
@@ -41,10 +43,37 @@ namespace SmallQyest.World
         /// </summary>
         private void InitializeItems()
         {
-            foreach (IItem item in this.Map)
+            foreach (Item item in this.Map)
             {
                 item.Level = this;
                 item.Initialize();
+            }
+        }
+
+        /// <summary>
+        /// Checks whether a Map is valid.
+        /// </summary>
+        private void ValidateMap()
+        {
+            // Looking for a Level Start:
+            if (!this.Map.GetItems<LevelStartTrigger>().Any())
+            {
+                this.Logger.LogError("Level does not have a Start");
+                throw new InvalidCastException("Level Start not found");
+            }
+
+            // Looking for Level Endings:
+            if (!this.Map.GetItems<LevelEndTrigger>().Any())
+            {
+                this.Logger.LogError("Level does not have any End");
+                throw new InvalidOperationException("Level must have at least one End");
+            }
+
+            // Looking for a Player:
+            if (!this.Map.GetItems<Player>().Any())
+            {
+                this.Logger.LogError("Level does not have a Player");
+                throw new InvalidOperationException("Player not found");
             }
         }
 
@@ -53,8 +82,8 @@ namespace SmallQyest.World
         /// </summary>
         public void Reset()
         {
-            IItem levelStart = this.Map.FindItems<LevelStartTrigger>().First();
-            Player player = this.Map.FindItems<Player>().First();
+            Item levelStart = this.Map.GetItems<LevelStartTrigger>().First();
+            Player player = this.Map.GetItems<Player>().First();
             player.Position = levelStart.Position;
             player.Direction = Vector.Right;
         }
@@ -76,33 +105,6 @@ namespace SmallQyest.World
         {
             this.Logger.LogDebug("Level failed");
             this.OnLevelFailed(this, EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// Checks whether a Map is valid.
-        /// </summary>
-        private void ValidateMap()
-        {
-            // Looking for a Level Start:
-            if (!this.Map.FindItems<LevelStartTrigger>().Any())
-            {
-                this.Logger.LogError("Level does not have a Start");
-                throw new InvalidCastException("Level Start not found");
-            }
-
-            // Looking for Level Endings:
-            if (!this.Map.FindItems<LevelEndTrigger>().Any())
-            {
-                this.Logger.LogError("Level does not have any End");
-                throw new InvalidOperationException("Level must have at least one End");
-            }
-
-            // Looking for a Player:
-            if (!this.Map.FindItems<Player>().Any())
-            {
-                this.Logger.LogError("Level does not have a Player");
-                throw new InvalidOperationException("Player not found");
-            }
         }
 
         #region Events
@@ -144,7 +146,15 @@ namespace SmallQyest.World
         /// <summary>
         /// Retrieves the Level Map.
         /// </summary>
-        public IMap Map { get; private set; }
+        public Map Map { get; private set; }
+
+        /// <summary>
+        /// Retrieves the Collection of Tools available for this Level.
+        /// </summary>
+        public ObservableCollection<Thing> Tools
+        {
+            get { return this.tools; }
+        }
 
         /// <summary>
         /// Sets/retrieves a Logger for Level Messages.
@@ -154,6 +164,8 @@ namespace SmallQyest.World
         #endregion
 
         #region Fields
+
+        private readonly ObservableCollection<Thing> tools = new ObservableCollection<Thing>();
 
         #endregion
     }

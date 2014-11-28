@@ -6,7 +6,7 @@ namespace SmallQyest.World
     /// <summary>
     /// Base Class for all Items.
     /// </summary>
-    public class ItemBase : IItem
+    public class Item : INotifyPropertyChanged
     {
         /// <summary>
         /// Initializes the Item.
@@ -29,7 +29,7 @@ namespace SmallQyest.World
         /// </summary>
         /// <param name="item">Item to check with.</param>
         /// <returns>True if an Item can be passed, False otherwise.</returns>
-        public virtual bool CanPassThrough(IItem item)
+        public virtual bool CanPassThrough(Item item)
         {
             // An Item may be passed by any other Item by default:
             return true;
@@ -39,7 +39,7 @@ namespace SmallQyest.World
         /// Handles Collision of this Item against another one.
         /// </summary>
         /// <param name="item">Collider Item.</param>
-        public virtual void OnVisit(IItem item)
+        public virtual void OnVisit(Item item)
         {
             // Nothing needs to be done in current Context.
         }
@@ -48,7 +48,7 @@ namespace SmallQyest.World
         /// Handles Leaving of this Item by another one.
         /// </summary>
         /// <param name="item">Item that lived.</param>
-        public virtual void OnLeave(IItem item)
+        public virtual void OnLeave(Item item)
         {
             // Nothing needs to be done in current Context.
         }
@@ -82,7 +82,7 @@ namespace SmallQyest.World
         /// <summary>
         /// Retrieves the Map the Item belongs to.
         /// </summary>
-        public IMap Map
+        public Map Map
         {
             get { return this.Level.Map; }
         }

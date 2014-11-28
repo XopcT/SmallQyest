@@ -21,12 +21,12 @@ namespace SmallQyest.ViewModels
         public LevelViewModel()
         {
             this.Back = new Command(arg => this.OnBack());
+            this.Start = new Command(arg => this.OnStart());
             this.Restart = new Command(arg => this.OnRestart());
 
             this.timer = new DispatcherTimer();
             this.timer.Tick += timer_Tick;
             this.timer.Interval = TimeSpan.FromSeconds(0.3);
-            this.timer.Start();
         }
 
         /// <summary>
@@ -87,10 +87,19 @@ namespace SmallQyest.ViewModels
         }
 
         /// <summary>
+        /// Handles starting the Level.
+        /// </summary>
+        private void OnStart()
+        {
+            this.timer.Start();
+        }
+
+        /// <summary>
         /// Handles restarting the Level.
         /// </summary>
         private void OnRestart()
         {
+            this.timer.Stop();
             this.level.Reset();
         }
 
@@ -106,58 +115,6 @@ namespace SmallQyest.ViewModels
             {
                 this.level = value;
                 base.OnPropertyChanged(this);
-
-                if (level != null)
-                {
-                    this.Tiles = this.level.Map.FindItems<Tile>().ToArray();
-                    this.Characters = this.level.Map.FindItems<CharacterBase>().ToArray();
-                    this.Things = this.level.Map.FindItems<Thing>().ToArray();
-                }
-                else
-                {
-                    this.Tiles = new Tile[0];
-                    this.Characters = new CharacterBase[0];
-                    this.Things = new Thing[0];
-                }
-            }
-        }
-
-        /// <summary>
-        /// Retrieves the Ground Tiles of the Map.
-        /// </summary>
-        public IEnumerable<Tile> Tiles
-        {
-            get { return this.tiles; }
-            private set
-            {
-                this.tiles = value;
-                base.OnPropertyChanged(this);
-            }
-        }
-
-        /// <summary>
-        /// Retrieves the Characters of the Map.
-        /// </summary>
-        public IEnumerable<CharacterBase> Characters
-        {
-            get { return this.characters; }
-            private set
-            {
-                this.characters = value;
-                base.OnPropertyChanged(this);
-            }
-        }
-
-        /// <summary>
-        /// Retrieves Things on the Map.
-        /// </summary>
-        public IEnumerable<Thing> Things
-        {
-            get { return this.things; }
-            private set
-            {
-                this.things = value;
-                base.OnPropertyChanged(this);
             }
         }
 
@@ -165,6 +122,11 @@ namespace SmallQyest.ViewModels
         /// Retrieves a Command to go Back from the Level.
         /// </summary>
         public ICommand Back { get; private set; }
+
+        /// <summary>
+        /// Retrieves a Command to start the Level.
+        /// </summary>
+        public ICommand Start { get; private set; }
 
         /// <summary>
         /// Retrieves a Command to restart the Level.
@@ -175,10 +137,6 @@ namespace SmallQyest.ViewModels
 
         #region Fields
         private ILevel level = null;
-        private IEnumerable<Tile> tiles = null;
-        private IEnumerable<CharacterBase> characters = null;
-        private IEnumerable<Thing> things = null;
-
         private DispatcherTimer timer = null;
 
         #endregion

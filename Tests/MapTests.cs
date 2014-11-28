@@ -15,8 +15,7 @@ namespace Tests
         [TestMethod()]
         public void ConstructorTest()
         {
-            GameMap map = new GameMap();
-            ILevel level = new GameLevel(map);
+            Map map = new Map();
         }
 
     }

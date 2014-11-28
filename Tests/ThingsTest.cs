@@ -23,7 +23,7 @@ namespace Tests
             bool levelPassed = false;
             this.level.Setup(arg => arg.Pass(It.IsAny<int>())).Callback(() => { levelPassed = true; });
 
-            IItem player = new Player() { Level = this.level.Object };
+            Item player = new Player() { Level = this.level.Object };
             LevelEndTrigger tested = new LevelEndTrigger() { Level = this.level.Object };
 
             tested.OnVisit(player);
@@ -63,7 +63,7 @@ namespace Tests
         [TestMethod()]
         public void OneTimePassObstacleLeaveTest()
         {
-            IItem player = new Player() { Level = this.level.Object };
+            Item player = new Player() { Level = this.level.Object };
             OneTimePassObstacle tested = new OneTimePassObstacle() { Level = this.level.Object };
             tested.Initialize();
             tested.OnLeave(player);
@@ -101,7 +101,7 @@ namespace Tests
         public void DoorWithAKeyCanPassTest2()
         {
             Player player = new Player() { Level = this.level.Object };
-            player.Inventory = new List<IItem>() { new Key() { Color = KeyColor.Blue } };
+            player.Inventory = new List<Item>() { new Key() { Color = KeyColor.Blue } };
 
             DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();
@@ -116,7 +116,7 @@ namespace Tests
         public void DoorWithAKeyCanPassTest3()
         {
             Player player = new Player() { Level = this.level.Object };
-            player.Inventory = new List<IItem>() { new Key() { Color = KeyColor.Red } };
+            player.Inventory = new List<Item>() { new Key() { Color = KeyColor.Red } };
 
             DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();
@@ -131,7 +131,7 @@ namespace Tests
         public void DoorWithAKeyVisitTest1()
         {
             Player player = new Player() { Level = this.level.Object };
-            player.Inventory = new List<IItem>() { new Key() { Color = KeyColor.Blue } };
+            player.Inventory = new List<Item>() { new Key() { Color = KeyColor.Blue } };
 
             DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();
@@ -146,7 +146,7 @@ namespace Tests
         public void DoorWithAKeyVisitTest2()
         {
             Player player = new Player() { Level = this.level.Object };
-            player.Inventory = new List<IItem>() { new Key() { Color = KeyColor.Red } };
+            player.Inventory = new List<Item>() { new Key() { Color = KeyColor.Red } };
 
             DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();
@@ -178,12 +178,10 @@ namespace Tests
         [TestInitialize()]
         public void Initialize()
         {
-            this.map = new Mock<IMap>();
-            this.mapItems = new List<IItem>();
-            this.map.Setup(arg => arg.GetEnumerator()).Returns(this.mapItems.GetEnumerator());
+            this.map = new Map();
 
             this.level = new Mock<ILevel>();
-            this.level.Setup(arg => arg.Map).Returns(this.map.Object);
+            this.level.Setup(arg => arg.Map).Returns(this.map);
         }
 
         #region Properties
@@ -193,8 +191,7 @@ namespace Tests
         #region Fields
 
         private Mock<ILevel> level = null;
-        private Mock<IMap> map = null;
-        private ICollection<IItem> mapItems = null;
+        private Map map = null;
 
         #endregion
     }

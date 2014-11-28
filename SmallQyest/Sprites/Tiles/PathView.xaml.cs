@@ -13,17 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SmallQyest.Sprites
+namespace SmallQyest.Sprites.Tiles
 {
     /// <summary>
-    /// Interaction logic for PlayerView.xaml
+    /// Interaction logic for PathView.xaml
     /// </summary>
-    public partial class PlayerView : UserControl
+    public partial class PathView : UserControl
     {
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
-        public PlayerView()
+        public PathView()
         {
             InitializeComponent();
         }

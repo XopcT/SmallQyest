@@ -1,6 +1,4 @@
 ﻿using Logging;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace SmallQyest.ViewModels
 {

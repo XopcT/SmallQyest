@@ -13,40 +13,17 @@
              d:DataContext="{d:DesignInstance world:Map}"
              Width="400" Height="400">
     <UserControl.Resources>
-        <!-- Converter for Tile Coordinates -->
-        <converters:ScaleCoverter x:Key="CoordinateConverter" ScaleFactor="32" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/SpriteResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <!-- Templates for Ground Tiles -->
-        <DataTemplate x:Key="GrassTile">
-            <tiles:GrassView />
-        </DataTemplate>
-        <DataTemplate x:Key="PathTile">
-            <tiles:PathView />
-        </DataTemplate>
-        <tiles:TilesTemplateSelector x:Key="TilesTemplateSelector"
-            GrassTemplate="{StaticResource GrassTile}"
-            PathTemplate="{StaticResource PathTile}" />
+            <!-- Converter for Tile Coordinates -->
+            <converters:ScaleCoverter x:Key="CoordinateConverter" ScaleFactor="32" />
 
-        <!-- Templates for Actors -->
-        <DataTemplate x:Key="Player">
-            <actors:PlayerView />
-        </DataTemplate>
-        <actors:ActorsTemplateSelector x:Key="ActorsTemplateSelector"
-            PlayerTemplate="{StaticResource Player}" />
-
-        <!-- Templates for different Things -->
-        <DataTemplate x:Key="FallTrap">
-            <things:FallTrapView />
-        </DataTemplate>
-        <DataTemplate x:Key="OneTimePassObstacle">
-            <things:OneTimePassObstacleView />
-        </DataTemplate>
-
-        <things:ThingsTemplateSelector x:Key="ThingsTemplateSelector"
-            FallTrapTemplate="{StaticResource FallTrap}"
-            OneTimePassObstacleTemplate="{StaticResource OneTimePassObstacle}" />
-
+        </ResourceDictionary>
     </UserControl.Resources>
+
     <Grid>
         <!-- Game Field -->
         <ItemsControl ItemsSource="{Binding Tiles}" ItemTemplateSelector="{StaticResource TilesTemplateSelector}">

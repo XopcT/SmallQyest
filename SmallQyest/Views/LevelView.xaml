@@ -12,17 +12,12 @@
              d:DesignHeight="500" d:DesignWidth="700"
              d:DataContext="{d:DesignInstance viewModels:LevelViewModel }">
     <UserControl.Resources>
-        <!-- Templates for different Things -->
-        <DataTemplate x:Key="FallTrap">
-            <things:FallTrapView />
-        </DataTemplate>
-        <DataTemplate x:Key="OneTimePassObstacle">
-            <things:OneTimePassObstacleView />
-        </DataTemplate>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/SpriteResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <things:ThingsTemplateSelector x:Key="ThingsTemplateSelector"
-            FallTrapTemplate="{StaticResource FallTrap}"
-            OneTimePassObstacleTemplate="{StaticResource OneTimePassObstacle}" />
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
@@ -52,14 +47,10 @@
         <!-- Map -->
         <Grid Grid.Column="1" Background="CornflowerBlue">
             <controls:MapControl Grid.Column="1" DataContext="{Binding Level.Map}" SnapsToDevicePixels="True" />
-
             <!-- Button to leave the Level -->
             <Button Command="{Binding Back}" Content="Back" HorizontalAlignment="Left" Width="75" Height="30" VerticalAlignment="Bottom" Margin="10,0,0,10" />
             <!-- Button to start the Level -->
             <Button Command="{Binding Start}" Content="Start" HorizontalAlignment="Left" Width="75" Height="30" VerticalAlignment="Bottom" Margin="90,0,0,10" />
         </Grid>
-
-
-
     </Grid>
 </UserControl>

@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:actors="clr-namespace:SmallQyest.Sprites.Actors"
+                    xmlns:things="clr-namespace:SmallQyest.Sprites.Things"
+                    xmlns:tiles="clr-namespace:SmallQyest.Sprites.Tiles">
+    <!-- Templates for Ground Tiles -->
+    <DataTemplate x:Key="GrassTile">
+        <tiles:GrassView />
+    </DataTemplate>
+    <DataTemplate x:Key="PathTile">
+        <tiles:PathView />
+    </DataTemplate>
+    <tiles:TilesTemplateSelector x:Key="TilesTemplateSelector"
+            GrassTemplate="{StaticResource GrassTile}"
+            PathTemplate="{StaticResource PathTile}" />
+
+    <!-- Templates for Actors -->
+    <DataTemplate x:Key="Player">
+        <actors:PlayerView />
+    </DataTemplate>
+    <actors:ActorsTemplateSelector x:Key="ActorsTemplateSelector"
+            PlayerTemplate="{StaticResource Player}" />
+
+    <!-- Templates for different Things -->
+    <DataTemplate x:Key="FallTrap">
+        <things:FallTrapView />
+    </DataTemplate>
+    <DataTemplate x:Key="OneTimePassObstacle">
+        <things:OneTimePassObstacleView />
+    </DataTemplate>
+
+    <things:ThingsTemplateSelector x:Key="ThingsTemplateSelector"
+            FallTrapTemplate="{StaticResource FallTrap}"
+            OneTimePassObstacleTemplate="{StaticResource OneTimePassObstacle}" />
+
+</ResourceDictionary>

@@ -74,8 +74,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behaviors\DragBehavior.cs" />
-    <Compile Include="Behaviors\DropBehavior.cs" />
+    <Compile Include="Behaviors\DragThingBehavior.cs" />
+    <Compile Include="Behaviors\DropThingBehavior.cs" />
     <Compile Include="BindableBase.cs" />
     <Compile Include="Controls\MapControl.xaml.cs">
       <DependentUpon>MapControl.xaml</DependentUpon>

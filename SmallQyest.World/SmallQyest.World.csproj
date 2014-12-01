@@ -47,6 +47,7 @@
     <Compile Include="DebugMap.cs" />
     <Compile Include="ILevel.cs" />
     <Compile Include="ILevelProvider.cs" />
+    <Compile Include="ItemOrigin.cs" />
     <Compile Include="MapExtensions.cs" />
     <Compile Include="LevelPassedEventArgs.cs" />
     <Compile Include="Things\Door.cs" />

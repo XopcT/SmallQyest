@@ -32,22 +32,9 @@ namespace SmallQyest.World
             this.Logger.LogDebug("Initializing Level");
 
             this.ValidateMap();
-            this.InitializeItems();
             this.Reset();
 
             this.Logger.LogDebug("Level initialized");
-        }
-
-        /// <summary>
-        /// Initializes Items on the Map.
-        /// </summary>
-        private void InitializeItems()
-        {
-            foreach (Item item in this.Map)
-            {
-                item.Level = this;
-                item.Initialize();
-            }
         }
 
         /// <summary>
@@ -82,6 +69,12 @@ namespace SmallQyest.World
         /// </summary>
         public void Reset()
         {
+            foreach (Item item in this.Map.Union(this.tools))
+            {
+                item.Level = this;
+                item.Initialize();
+            }
+
             Item levelStart = this.Map.GetItems<LevelStartTrigger>().First();
             Player player = this.Map.GetItems<Player>().First();
             player.Position = levelStart.Position;

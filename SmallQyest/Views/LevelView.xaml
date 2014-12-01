@@ -10,7 +10,8 @@
              xmlns:things="clr-namespace:SmallQyest.Sprites.Things"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="700"
-             d:DataContext="{d:DesignInstance viewModels:LevelViewModel }">
+             d:DataContext="{d:DesignInstance viewModels:LevelViewModel }"
+             x:Name="this">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -37,16 +38,19 @@
                 <DataTemplate>
                     <ContentPresenter ContentTemplateSelector="{StaticResource ThingsTemplateSelector}">
                         <i:Interaction.Behaviors>
-                            <behaviors:DragBehavior />
+                            <behaviors:DragBehavior DataFormat="Thing" />
                         </i:Interaction.Behaviors>
                     </ContentPresenter>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
+            <i:Interaction.Behaviors>
+                <behaviors:DropBehavior AcceptedDataFormat="Thing" DropCommand="{Binding MoveToToolbar}" />
+            </i:Interaction.Behaviors>
         </ItemsControl>
 
         <!-- Map -->
         <Grid Grid.Column="1" Background="CornflowerBlue">
-            <controls:MapControl Grid.Column="1" DataContext="{Binding Level.Map}" SnapsToDevicePixels="True" />
+            <controls:MapControl Grid.Column="1" DataContext="{Binding Level.Map}" AddThing="{Binding DataContext.MoveToMap, ElementName=this}" SnapsToDevicePixels="True" />
             <!-- Button to leave the Level -->
             <Button Command="{Binding Back}" Content="Back" HorizontalAlignment="Left" Width="75" Height="30" VerticalAlignment="Bottom" Margin="10,0,0,10" />
             <!-- Button to start the Level -->

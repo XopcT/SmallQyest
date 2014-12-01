@@ -3,15 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:behaviors="clr-namespace:SmallQyest.Behaviors" 
              xmlns:converters="clr-namespace:SmallQyest.Converters"
              xmlns:world="clr-namespace:SmallQyest.World;assembly=SmallQyest.World"
-             xmlns:actors="clr-namespace:SmallQyest.Sprites.Actors"
-             xmlns:things="clr-namespace:SmallQyest.Sprites.Things"
-             xmlns:tiles="clr-namespace:SmallQyest.Sprites.Tiles"
+             xmlns:views="clr-namespace:SmallQyest.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance world:Map}"
-             Width="400" Height="400">
+             Width="400" Height="400"
+             x:Name="this">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -25,8 +26,9 @@
     </UserControl.Resources>
 
     <Grid>
+
         <!-- Game Field -->
-        <ItemsControl ItemsSource="{Binding Tiles}" ItemTemplateSelector="{StaticResource TilesTemplateSelector}">
+        <ItemsControl ItemsSource="{Binding Tiles}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Canvas Background="Transparent" />
@@ -38,13 +40,22 @@
                     <Setter Property="Canvas.Top" Value="{Binding Position.Y, Converter={StaticResource CoordinateConverter}}" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ContentPresenter ContentTemplateSelector="{StaticResource TilesTemplateSelector}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:DropBehavior AcceptedDataFormat="Thing" DropCommand="{Binding AddThing, ElementName=this}" />
+                        </i:Interaction.Behaviors>
+                    </ContentPresenter>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
         </ItemsControl>
 
         <!-- Things Layer -->
-        <ItemsControl ItemsSource="{Binding Things}" ItemTemplateSelector="{StaticResource ThingsTemplateSelector}">
+        <ItemsControl ItemsSource="{Binding Things}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Background="Transparent" />
+                    <Canvas />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>
@@ -53,13 +64,22 @@
                     <Setter Property="Canvas.Top" Value="{Binding Position.Y, Converter={StaticResource CoordinateConverter}}" />
                 </Style>
             </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ContentPresenter ContentTemplateSelector="{StaticResource ThingsTemplateSelector}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:DragBehavior DataFormat="Thing" />
+                        </i:Interaction.Behaviors>
+                    </ContentPresenter>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
         </ItemsControl>
 
         <!-- Characters Layer -->
         <ItemsControl ItemsSource="{Binding Actors}" ItemTemplateSelector="{StaticResource ActorsTemplateSelector}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Canvas Background="Transparent" />
+                    <Canvas />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemContainerStyle>

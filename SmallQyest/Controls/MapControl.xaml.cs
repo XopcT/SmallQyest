@@ -27,5 +27,24 @@ namespace SmallQyest.Controls
         {
             InitializeComponent();
         }
+
+        #region Properties
+
+        /// <summary>
+        /// Sets/retrieves a Command to add Things on the Map.
+        /// </summary>
+        public ICommand AddThing
+        {
+            get { return (ICommand)base.GetValue(addThingProperty); }
+            set { base.SetValue(addThingProperty, value); }
+        }
+
+        #endregion
+
+        #region Fields
+
+        private static readonly DependencyProperty addThingProperty = DependencyProperty.Register("AddThing", typeof(ICommand), typeof(MapControl), new PropertyMetadata(null, (sender, e) => { System.Diagnostics.Debug.WriteLine("AddThing Command changed"); }));
+
+        #endregion
     }
 }

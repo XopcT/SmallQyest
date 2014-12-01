@@ -111,8 +111,7 @@ namespace SmallQyest
             foreach (Item item in items)
                 level.Map.Add(item);
 
-            // Customizing special Map Items:            
-            level.Map.Add(this.ItemFactory.GetPlayer());
+            // Customizing special Map Items:
             level.Map.GetItems<LevelEndTrigger>().FirstOrDefault().NextLevelIndex = (levelId + 1);
 
             return level;

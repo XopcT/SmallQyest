@@ -9,15 +9,6 @@ namespace SmallQyest.World.Triggers
     public class LevelEndTrigger : Trigger
     {
         /// <summary>
-        /// Initializes a new Instance of current Class.
-        /// </summary>
-        public LevelEndTrigger()
-        {
-            // TODO Move this to Level Provider:
-            this.NextLevelIndex = 1;
-        }
-
-        /// <summary>
         /// Handles Collision of the Trigger against another one.
         /// When Player enters the Trigger, the Level ends and new one is loaded.
         /// </summary>

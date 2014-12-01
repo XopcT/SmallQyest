@@ -69,6 +69,7 @@
     <Compile Include="Tiles\Tile.cs" />
     <Compile Include="Triggers\LevelEndTrigger.cs" />
     <Compile Include="Triggers\LevelStartTrigger.cs" />
+    <Compile Include="Triggers\PlayerSpawnTrigger.cs" />
     <Compile Include="Triggers\Trigger.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="VectorExtensions.cs" />

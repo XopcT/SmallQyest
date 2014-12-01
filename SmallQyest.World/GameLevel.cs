@@ -32,9 +32,72 @@ namespace SmallQyest.World
             this.Logger.LogDebug("Initializing Level");
 
             this.ValidateMap();
-            this.Reset();
+            foreach (Item item in this.Map)
+            {
+                item.Level = this;
+                item.Origin = ItemOrigin.FromMap;
+            }
+            foreach (Item item in this.Tools)
+            {
+                item.Level = this;
+                item.Origin = ItemOrigin.FromToolbar;
+            }
+            this.Restart();
 
             this.Logger.LogDebug("Level initialized");
+        }
+
+        /// <summary>
+        /// Starts the Level again.
+        /// </summary>
+        public void Restart()
+        {
+            foreach (Item item in this.Map.Union(this.tools).ToArray())
+            {
+                item.Initialize();
+            }
+        }
+
+        /// <summary>
+        /// Resets the Level to initial State.
+        /// </summary>
+        public void Reset()
+        {
+            this.MoveItemsFromInventoryToMap();
+            this.MoveItemsFromMapToToolbar();
+        }
+
+        /// <summary>
+        /// Moves Items from Characters' Inventories to the Map.
+        /// </summary>
+        private void MoveItemsFromInventoryToMap()
+        {
+
+            Character[] characters = this.Map.GetItems<Character>().ToArray();
+            foreach (Character character in characters)
+            {
+                Item[] items = character.Inventory.ToArray();
+                foreach (Item item in items)
+                {
+                    this.Map.Add(item);
+                    character.Inventory.Remove(item);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Moves Items from Map to the Toolbar.
+        /// </summary>
+        private void MoveItemsFromMapToToolbar()
+        {
+            Item[] toolbarItems = this.Map.GetItems<Thing>()
+                .Where(item => item.Origin == ItemOrigin.FromToolbar)
+                .ToArray();
+            foreach (Thing toolbarItem in toolbarItems)
+            {
+                this.Tools.Add(toolbarItem);
+                this.Map.Remove(toolbarItem);
+            }
         }
 
         /// <summary>
@@ -43,7 +106,7 @@ namespace SmallQyest.World
         private void ValidateMap()
         {
             // Looking for a Level Start:
-            if (!this.Map.GetItems<LevelStartTrigger>().Any())
+            if (!this.Map.GetItems<PlayerSpawnTrigger>().Any())
             {
                 this.Logger.LogError("Level does not have a Start");
                 throw new InvalidCastException("Level Start not found");
@@ -55,30 +118,6 @@ namespace SmallQyest.World
                 this.Logger.LogError("Level does not have any End");
                 throw new InvalidOperationException("Level must have at least one End");
             }
-
-            // Looking for a Player:
-            if (!this.Map.GetItems<Player>().Any())
-            {
-                this.Logger.LogError("Level does not have a Player");
-                throw new InvalidOperationException("Player not found");
-            }
-        }
-
-        /// <summary>
-        /// Resets the Level to initial State.
-        /// </summary>
-        public void Reset()
-        {
-            foreach (Item item in this.Map.Union(this.tools))
-            {
-                item.Level = this;
-                item.Initialize();
-            }
-
-            Item levelStart = this.Map.GetItems<LevelStartTrigger>().First();
-            Player player = this.Map.GetItems<Player>().First();
-            player.Position = levelStart.Position;
-            player.Direction = Vector.Right;
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -88,6 +89,11 @@ namespace SmallQyest.World
         {
             get { return this.Level.Map; }
         }
+
+        /// <summary>
+        /// Sets/retrieves the Item's Origin.
+        /// </summary>
+        public ItemOrigin Origin { get; set; }
 
         /// <summary>
         /// Sets/retrieves the Item's Position on the Map.

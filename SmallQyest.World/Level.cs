@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using SmallQyest.World.Actors;
 using SmallQyest.World.Things;
 using SmallQyest.World.Triggers;
-using Logging;
 
 namespace SmallQyest.World
 {
     /// <summary>
     /// Contains Information of a single Level.
     /// </summary>
-    public class GameLevel : ILevel
+    public class Level : ILevel
     {
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
         /// <param name="map">Map of the Level.</param>
-        public GameLevel(Map map)
+        public Level(Map map)
         {
             if (map == null)
                 throw new ArgumentNullException("map");
@@ -27,11 +28,15 @@ namespace SmallQyest.World
         /// <summary>
         /// Initializes the Level.
         /// </summary>
-        public void Initialize()
+        public virtual void Initialize()
         {
-            this.Logger.LogDebug("Initializing Level");
+            // Looking for a Level Start:
+            if (!this.Map.GetItems<PlayerSpawnTrigger>().Any())
+                throw new InvalidOperationException("Level Start not found");
+            // Looking for Level Endings:
+            if (!this.Map.GetItems<LevelEndTrigger>().Any())
+                throw new InvalidOperationException("Level must have at least one End");
 
-            this.ValidateMap();
             foreach (Item item in this.Map)
             {
                 item.Level = this;
@@ -42,15 +47,13 @@ namespace SmallQyest.World
                 item.Level = this;
                 item.Origin = ItemOrigin.FromToolbar;
             }
-            this.Restart();
-
-            this.Logger.LogDebug("Level initialized");
+            this.InitializeItems();
         }
 
         /// <summary>
-        /// Starts the Level again.
+        /// Initializes the Items.
         /// </summary>
-        public void Restart()
+        private void InitializeItems()
         {
             foreach (Item item in this.Map.Union(this.tools).ToArray())
             {
@@ -59,10 +62,28 @@ namespace SmallQyest.World
         }
 
         /// <summary>
+        /// Starts playing the Level.
+        /// </summary>
+        public virtual void Start()
+        {
+            this.IsPlaying = true;
+        }
+
+        /// <summary>
+        /// Stops playing the Level.
+        /// </summary>
+        public virtual void Stop()
+        {
+            this.IsPlaying = false;
+            this.InitializeItems();
+        }
+
+        /// <summary>
         /// Resets the Level to initial State.
         /// </summary>
-        public void Reset()
+        public virtual void Reset()
         {
+            this.Stop();
             this.MoveItemsFromInventoryToMap();
             this.MoveItemsFromMapToToolbar();
         }
@@ -72,7 +93,6 @@ namespace SmallQyest.World
         /// </summary>
         private void MoveItemsFromInventoryToMap()
         {
-
             Character[] characters = this.Map.GetItems<Character>().ToArray();
             foreach (Character character in characters)
             {
@@ -101,45 +121,38 @@ namespace SmallQyest.World
         }
 
         /// <summary>
-        /// Checks whether a Map is valid.
-        /// </summary>
-        private void ValidateMap()
-        {
-            // Looking for a Level Start:
-            if (!this.Map.GetItems<PlayerSpawnTrigger>().Any())
-            {
-                this.Logger.LogError("Level does not have a Start");
-                throw new InvalidCastException("Level Start not found");
-            }
-
-            // Looking for Level Endings:
-            if (!this.Map.GetItems<LevelEndTrigger>().Any())
-            {
-                this.Logger.LogError("Level does not have any End");
-                throw new InvalidOperationException("Level must have at least one End");
-            }
-        }
-
-        /// <summary>
         /// Passes the Level.
         /// </summary>
         /// <param name="levelId">ID of the next Level.</param>
-        public void Pass(int levelId)
+        public virtual void Pass(int levelId)
         {
-            this.Logger.LogDebug("Passing to Level {0}", levelId);
             this.OnLevelPassed(this, new LevelPassedEventArgs(levelId));
         }
 
         /// <summary>
         /// Fails the Level.
         /// </summary>
-        public void Fail()
+        public virtual void Fail()
         {
-            this.Logger.LogDebug("Level failed");
             this.OnLevelFailed(this, EventArgs.Empty);
         }
 
         #region Events
+
+        /// <summary>
+        /// Occurs when a Property Value changes.
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Raises the PropertyChanged Event.
+        /// </summary>
+        private void OnPropertyChanged(object sender, [CallerMemberName()]string propertyName = "")
+        {
+            var temp = this.PropertyChanged;
+            if (temp != null)
+                temp(sender, new PropertyChangedEventArgs(propertyName));
+        }
 
         /// <summary>
         /// Occurs when Player passes the Level.
@@ -189,14 +202,22 @@ namespace SmallQyest.World
         }
 
         /// <summary>
-        /// Sets/retrieves a Logger for Level Messages.
+        /// Retrieves whether the Level is currently playing.
         /// </summary>
-        public ILogger Logger { get; set; }
+        public bool IsPlaying
+        {
+            get { return this.isPlaying; }
+            set
+            {
+                this.isPlaying = value;
+                this.OnPropertyChanged(this);
+            }
+        }
 
         #endregion
 
         #region Fields
-
+        private bool isPlaying = false;
         private readonly ObservableCollection<Thing> tools = new ObservableCollection<Thing>();
 
         #endregion

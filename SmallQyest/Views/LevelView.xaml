@@ -51,10 +51,35 @@
         <!-- Map -->
         <Grid Grid.Column="1" Background="CornflowerBlue">
             <controls:MapControl Grid.Column="1" DataContext="{Binding Level.Map}" AddThing="{Binding DataContext.MoveToMap, ElementName=this}" SnapsToDevicePixels="True" />
+
             <!-- Button to leave the Level -->
-            <Button Command="{Binding Back}" Content="Back" HorizontalAlignment="Left" Width="75" Height="30" VerticalAlignment="Bottom" Margin="10,0,0,10" />
+            <Button Command="{Binding Back}" HorizontalAlignment="Left" Width="75" Height="32" VerticalAlignment="Bottom" Margin="10,0,0,10">
+                Back
+            </Button>
+
             <!-- Button to start the Level -->
-            <Button Command="{Binding Start}" Content="Start" HorizontalAlignment="Left" Width="75" Height="30" VerticalAlignment="Bottom" Margin="90,0,0,10" />
+            <Button HorizontalAlignment="Left" Width="75" Height="32" VerticalAlignment="Bottom" Margin="90,0,0,10">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Level.IsPlaying}" Value="True">
+                                <Setter Property="Content" Value="Stop" />
+                                <Setter Property="Command" Value="{Binding Stop}" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Level.IsPlaying}" Value="False">
+                                <Setter Property="Content" Value="Start" />
+                                <Setter Property="Command" Value="{Binding Start}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <!-- Button to reset the Level -->
+            <Button Command="{Binding Reset}" HorizontalAlignment="Left" Width="75" Height="32" VerticalAlignment="Bottom" Margin="170,0,0,10">
+                <Image Source="pack://application:,,,/Resources/Sprites/reset.png" />
+            </Button>
+
         </Grid>
     </Grid>
 </UserControl>

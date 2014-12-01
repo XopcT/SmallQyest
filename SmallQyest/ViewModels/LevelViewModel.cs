@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Input;
-using System.Windows.Threading;
 using SmallQyest.World;
 using SmallQyest.World.Things;
-using SmallQyest.World.Tiles;
 
 namespace SmallQyest.ViewModels
 {
@@ -20,13 +18,10 @@ namespace SmallQyest.ViewModels
         {
             this.Back = new Command(arg => this.OnBack());
             this.Start = new Command(arg => this.OnStart());
-            this.Restart = new Command(arg => this.OnRestart());
+            this.Stop = new Command(arg => this.OnStop());
+            this.Reset = new Command(arg => this.OnReset());
             this.MoveToToolbar = new Command(arg => this.OnMoveToToolbar((dynamic)arg));
             this.MoveToMap = new Command(arg => this.OnMoveToMap((dynamic)arg));
-
-            this.timer = new DispatcherTimer();
-            this.timer.Tick += timer_Tick;
-            this.timer.Interval = TimeSpan.FromSeconds(0.3);
         }
 
         /// <summary>
@@ -47,8 +42,7 @@ namespace SmallQyest.ViewModels
         {
             base.OnNavigateFrom();
 
-            this.timer.Stop();
-
+            this.level.Stop();
             this.Level.LevelPassed -= this.Level_LevelPassed;
             this.Level.LevelFailed -= this.Level_LevelFailed;
         }
@@ -66,7 +60,7 @@ namespace SmallQyest.ViewModels
         /// </summary>
         private void Level_LevelFailed(object sender, EventArgs e)
         {
-            this.OnRestart();
+            this.level.Stop();
         }
 
         /// <summary>
@@ -82,15 +76,22 @@ namespace SmallQyest.ViewModels
         /// </summary>
         private void OnStart()
         {
-            this.timer.Start();
+            this.level.Start();
         }
 
         /// <summary>
-        /// Handles restarting the Level.
+        /// Handles stopping the Level.
         /// </summary>
-        private void OnRestart()
+        private void OnStop()
         {
-            this.timer.Stop();
+            this.level.Stop();
+        }
+
+        /// <summary>
+        /// Handles resetting the Level.
+        /// </summary>
+        private void OnReset()
+        {
             this.level.Reset();
         }
 
@@ -99,7 +100,7 @@ namespace SmallQyest.ViewModels
         /// </summary>
         private void OnBack()
         {
-            this.timer.Stop();
+            this.level.Stop();
             base.AppController.ToMainMenu();
         }
 
@@ -157,9 +158,19 @@ namespace SmallQyest.ViewModels
         public ICommand Start { get; private set; }
 
         /// <summary>
+        /// Retrieves a Command to stop the Level.
+        /// </summary>
+        public ICommand Stop { get; private set; }
+
+        /// <summary>
         /// Retrieves a Command to restart the Level.
         /// </summary>
         public ICommand Restart { get; private set; }
+
+        /// <summary>
+        /// Retrieves a Command to reset the Level.
+        /// </summary>
+        public ICommand Reset { get; private set; }
 
         /// <summary>
         /// Retrieves a Command to move an Object to the Toolbar.
@@ -175,7 +186,6 @@ namespace SmallQyest.ViewModels
 
         #region Fields
         private ILevel level = null;
-        private DispatcherTimer timer = null;
 
         #endregion
     }

@@ -85,6 +85,7 @@
     <Compile Include="Converters\NegativeBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ScaleCoverter.cs" />
+    <Compile Include="DispatcherLevel.cs" />
     <Compile Include="IAppController.cs" />
     <Compile Include="IAppControllerFactory.cs" />
     <Compile Include="log4netLogger.cs" />
@@ -218,6 +219,9 @@
       <Project>{5ec1e3d9-9fc9-47cb-8788-1458a2ec1407}</Project>
       <Name>SmallQyest.World</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Sprites\reset.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

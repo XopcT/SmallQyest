@@ -12,6 +12,7 @@ namespace SmallQyest.World.Triggers
             base.Initialize();
             if (!base.Map.Contains(this.player))
                 base.Map.Add(this.player);
+            this.player.Level = this.Level;
             this.player.Position = this.Position;
             this.player.Direction = Vector.Right;
         }

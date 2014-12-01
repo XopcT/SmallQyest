@@ -58,6 +58,7 @@
     <Compile Include="ThingsTest.cs" />
     <Compile Include="MapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TilesTests.cs" />
     <Compile Include="VectorTests.cs" />
   </ItemGroup>
   <ItemGroup>

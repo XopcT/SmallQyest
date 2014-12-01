@@ -10,7 +10,7 @@ namespace SmallQyest.World
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
-        /// <param name="logger">Logger for Map Messages</param>
+        /// <param name="logger">Logger for Map Messages.</param>
         public DebugMap(ILogger logger)
         {
             this.Logger = logger;

@@ -46,7 +46,7 @@
     <Compile Include="Actors\Character.cs" />
     <Compile Include="Actors\Player.cs" />
     <Compile Include="DebugMap.cs" />
-    <Compile Include="GameLevel.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="IItemFactory.cs" />
     <Compile Include="ILevel.cs" />
     <Compile Include="ILevelProvider.cs" />

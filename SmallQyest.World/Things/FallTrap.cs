@@ -1,5 +1,5 @@
 ﻿using SmallQyest.World;
-using SmallQyest.World.Characters;
+using SmallQyest.World.Actors;
 
 namespace SmallQyest.World.Things
 {
@@ -15,7 +15,7 @@ namespace SmallQyest.World.Things
         public override void OnVisit(Item item)
         {
             base.OnVisit(item);
-            CharacterBase character = item as CharacterBase;
+            Actor character = item as Actor;
             if (character != null)
                 character.Kill();
         }

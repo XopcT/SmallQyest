@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SmallQyest.World.Characters
+namespace SmallQyest.World.Actors
 {
     /// <summary>
     /// The most simple Behavior Strategy to move a Character over the Map.
     /// </summary>
-    public class BasicMovementStrategy : CharacterBehaviorStrategy
+    public class BasicMovementStrategy : ActorBehaviorStrategy
     {
         /// <summary>
         /// Selectes a Direction for a Character.
         /// </summary>
         /// <param name="character">Character to navigate.</param>
-        public override void Navigate(CharacterBase character)
+        public override void Navigate(Actor character)
         {
             // Checking if a Character can keep moving forward:
             if (!character.CanGoTo(character.Direction))
@@ -37,7 +37,7 @@ namespace SmallQyest.World.Characters
         /// Moves a Character over the Map.
         /// </summary>
         /// <param name="character">Character to move.</param>
-        public override void Move(CharacterBase character)
+        public override void Move(Actor character)
         {
             if (character.Direction.X == Vector.Left.X && character.Direction.Y == Vector.Left.Y)
                 character.CurrentState = "MoveLeft";

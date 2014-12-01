@@ -61,13 +61,13 @@
     <Compile Include="VectorTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SmallQyest.World\SmallQyest.World.csproj">
-      <Project>{d025cd32-9b40-4e8f-a61b-b7f38f3fb813}</Project>
-      <Name>SmallQyest.World</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\SmallQyest.World\SmallQyest.World.csproj">
+      <Project>{5ec1e3d9-9fc9-47cb-8788-1458a2ec1407}</Project>
+      <Name>SmallQyest.World</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

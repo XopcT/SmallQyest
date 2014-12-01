@@ -1,5 +1,5 @@
 ﻿using SmallQyest.World;
-using SmallQyest.World.Characters;
+using SmallQyest.World.Actors;
 
 namespace SmallQyest.World.Tiles
 {
@@ -16,7 +16,7 @@ namespace SmallQyest.World.Tiles
         /// <returns>True if a Tile can be passed, False otherwise.</returns>
         public override bool CanPassThrough(Item item)
         {
-            if (item is CharacterBase)
+            if (item is Actor)
                 return false;
             return true;
         }

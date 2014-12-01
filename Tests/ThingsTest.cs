@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SmallQyest.World;
-using SmallQyest.World.Characters;
+using SmallQyest.World.Actors;
 using SmallQyest.World.Things;
 using SmallQyest.World.Triggers;
 

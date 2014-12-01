@@ -1,5 +1,5 @@
 ﻿using SmallQyest.World;
-using SmallQyest.World.Characters;
+using SmallQyest.World.Actors;
 
 namespace SmallQyest.World.Things
 {
@@ -15,7 +15,7 @@ namespace SmallQyest.World.Things
         {
             base.Initialize();
             // Initially the Obstacle is open:
-            base.IsOpen = true;
+            base.Open();
         }
 
         /// <summary>
@@ -36,9 +36,9 @@ namespace SmallQyest.World.Things
         public override void OnLeave(Item item)
         {
             base.OnLeave(item);
-            CharacterBase character = item as CharacterBase;
+            Actor character = item as Actor;
             if (item != null)
-                this.IsOpen = false;
+                base.Close();
         }
 
     }

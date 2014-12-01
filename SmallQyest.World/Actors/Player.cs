@@ -1,10 +1,11 @@
-﻿
-namespace SmallQyest.World.Characters
+﻿using System.Collections.Generic;
+
+namespace SmallQyest.World.Actors
 {
     /// <summary>
     /// Character controller by the Player.
     /// </summary>
-    public class Player : CharacterBase
+    public class Player : Character
     {
         /// <summary>
         /// Kills the Player.
@@ -14,5 +15,6 @@ namespace SmallQyest.World.Characters
             base.Kill();
             base.Level.Fail();
         }
+
     }
 }

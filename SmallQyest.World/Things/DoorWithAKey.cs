@@ -14,7 +14,7 @@ namespace SmallQyest.World.Things
         public override void Initialize()
         {
             base.Initialize();
-            base.IsOpen = false;
+            base.Close();
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace SmallQyest.World.Things
             if (this.IsOpen)
                 return;
             if (this.HasKey(item))
-                this.IsOpen = true;
+                base.Open();
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace SmallQyest.World.Things
         /// <returns>True if Character has a Key from this Door, False otherwise.</returns>
         private bool HasKey(Item item)
         {
-            Characters.CharacterBase character = item as Characters.CharacterBase;
+            Actors.Character character = item as Actors.Character;
             if (character != null && character.Inventory != null)
             {
                 bool hasKey = character.Inventory

@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SmallQyest.World;
-using SmallQyest.World.Characters;
+using SmallQyest.World.Actors;
 
 namespace Tests
 {

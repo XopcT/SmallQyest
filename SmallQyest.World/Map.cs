@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using SmallQyest.World.Characters;
+using SmallQyest.World.Actors;
 using SmallQyest.World.Things;
 using SmallQyest.World.Tiles;
 using Logging;
@@ -31,7 +31,7 @@ namespace SmallQyest.World
             this.items.Add(item);
 
             Tile tile = item as Tile;
-            CharacterBase actor = item as CharacterBase;
+            Actor actor = item as Actor;
             Thing thing = item as Thing;
             if (tile != null)
                 this.tiles.Add(tile);
@@ -80,7 +80,7 @@ namespace SmallQyest.World
         public virtual bool Remove(Item item)
         {
             Tile tile = item as Tile;
-            CharacterBase actor = item as CharacterBase;
+            Actor actor = item as Actor;
             Thing thing = item as Thing;
             if (tile != null)
                 this.tiles.Remove(tile);
@@ -122,7 +122,7 @@ namespace SmallQyest.World
         /// <summary>
         /// Retrieves Actors from the Map.
         /// </summary>
-        public ObservableCollection<CharacterBase> Actors
+        public ObservableCollection<Actor> Actors
         {
             get { return this.actors; }
         }
@@ -156,7 +156,7 @@ namespace SmallQyest.World
         #region Fields
         private readonly IList<Item> items = new List<Item>();
         private readonly ObservableCollection<Tile> tiles = new ObservableCollection<Tile>();
-        private readonly ObservableCollection<CharacterBase> actors = new ObservableCollection<CharacterBase>();
+        private readonly ObservableCollection<Actor> actors = new ObservableCollection<Actor>();
         private readonly ObservableCollection<Thing> things = new ObservableCollection<Thing>();
 
         #endregion

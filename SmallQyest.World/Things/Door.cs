@@ -6,6 +6,22 @@ namespace SmallQyest.World.Things
     /// </summary>
     public class Door : Thing
     {
+        /// <summary>
+        /// Opens the Door.
+        /// </summary>
+        protected void Open()
+        {
+            this.IsOpen = true;
+        }
+
+        /// <summary>
+        /// Closes the Door.
+        /// </summary>
+        protected void Close()
+        {
+            this.IsOpen = false;
+        }
+
         #region Properties
 
         /// <summary>
@@ -14,7 +30,7 @@ namespace SmallQyest.World.Things
         public bool IsOpen
         {
             get { return this.isOpen; }
-            protected set
+            private set
             {
                 this.isOpen = value;
                 base.OnPropertyChanged(this);

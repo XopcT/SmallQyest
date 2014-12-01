@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SmallQyest.World;
-using SmallQyest.World.Characters;
+using SmallQyest.World.Actors;
 
 namespace SmallQyest.World.Things
 {
@@ -18,7 +18,7 @@ namespace SmallQyest.World.Things
         /// <returns>True if Item can pass, False otherwise.</returns>
         public override bool CanPassThrough(Item item)
         {
-            CharacterBase character = item as CharacterBase;
+            Actor character = item as Actor;
             if (character != null)
             {
                 // Checking if there is a free Space in the Character's Moving Direction:
@@ -37,7 +37,7 @@ namespace SmallQyest.World.Things
         public override void OnVisit(Item item)
         {
             base.OnVisit(item);
-            CharacterBase character = item as CharacterBase;
+            Actor character = item as Actor;
             if (character != null)
             {
                 if (this.CanMoveTo(character.Direction))

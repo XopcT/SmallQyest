@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using SmallQyest.World.Characters;
+using SmallQyest.World.Actors;
 using SmallQyest.World.Things;
 using SmallQyest.World.Triggers;
 using Logging;

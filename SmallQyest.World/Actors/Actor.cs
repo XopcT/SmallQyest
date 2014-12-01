@@ -1,24 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SmallQyest.World.Characters
+namespace SmallQyest.World.Actors
 {
     /// <summary>
-    /// Base Class for creating Characters.
+    /// Base Class for creating Actors.
     /// </summary>
-    public class CharacterBase : Item
+    public class Actor : Item
     {
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
-        public CharacterBase()
+        public Actor()
         {
             this.movementStrategy = new BasicMovementStrategy();
-            this.Inventory = new List<Item>();
         }
 
         /// <summary>
-        /// Updates the State of the Character.
+        /// Updates the State of the Actor.
         /// </summary>
         public override void Update()
         {
@@ -35,10 +34,10 @@ namespace SmallQyest.World.Characters
         }
 
         /// <summary>
-        /// Checks whether Character can go in specified Direction.
+        /// Checks whether Actor can go in specified Direction.
         /// </summary>
         /// <param name="direction">Direction to check.</param>
-        /// <returns>True if Character can go in specified Direction, False otherwise.</returns>
+        /// <returns>True if Actor can go in specified Direction, False otherwise.</returns>
         public bool CanGoTo(Vector direction)
         {
             Vector newPosition = this.Position + direction;
@@ -49,7 +48,7 @@ namespace SmallQyest.World.Characters
         }
 
         /// <summary>
-        /// Kills the Character.
+        /// Kills the Actor.
         /// </summary>
         public virtual void Kill()
         {
@@ -58,12 +57,7 @@ namespace SmallQyest.World.Characters
         #region Properties
 
         /// <summary>
-        /// Sets/retrieves the Direction the Character moves in.
-        /// </summary>
-        public Vector Direction { get; set; }
-
-        /// <summary>
-        /// Sets/retrieves the current Character's State.
+        /// Sets/retrieves the current Actor's State.
         /// </summary>
         public string CurrentState
         {
@@ -76,15 +70,15 @@ namespace SmallQyest.World.Characters
         }
 
         /// <summary>
-        /// Sets/retrieves the Character's Inventory.
+        /// Sets/retrieves the Direction the Actor moves in.
         /// </summary>
-        public ICollection<Item> Inventory { get; set; }
+        public Vector Direction { get; set; }
 
         #endregion
 
         #region Fields
         private string currentState = string.Empty;
-        private readonly CharacterBehaviorStrategy movementStrategy = null;
+        private readonly ActorBehaviorStrategy movementStrategy = null;
 
         #endregion
     }

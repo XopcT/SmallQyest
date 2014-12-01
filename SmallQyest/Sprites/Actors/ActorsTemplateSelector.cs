@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using SmallQyest.World.Characters;
+using SmallQyest.World.Actors;
 
 namespace SmallQyest.Sprites.Actors
 {
@@ -17,7 +17,7 @@ namespace SmallQyest.Sprites.Actors
         /// <returns>Template for the specified Actor.</returns>
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            CharacterBase actor = item as CharacterBase;
+            Actor actor = item as Actor;
             if (actor != null)
             {
                 if (actor is Player)

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SmallQyest.World;
 using SmallQyest.World.Actors;
 
 namespace SmallQyest.World.Things
@@ -22,7 +21,8 @@ namespace SmallQyest.World.Things
             if (character != null)
             {
                 // Checking if there is a free Space in the Character's Moving Direction:
-                return this.CanMoveTo(character.Direction);
+                Vector direction = base.Position - character.Position;
+                return this.CanMoveTo(direction);
             }
             else
                 // Anyone except a Character can not move the Obstacle:

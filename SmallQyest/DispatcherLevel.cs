@@ -34,6 +34,7 @@ namespace SmallQyest
         /// </summary>
         public override void Start()
         {
+            this.logger.LogMessage("Level started");
             base.Start();
             this.timer.Start();
         }
@@ -45,6 +46,26 @@ namespace SmallQyest
         {
             base.Stop();
             this.timer.Stop();
+            this.logger.LogMessage("Level stopped");
+        }
+
+        /// <summary>
+        /// Passes the Level.
+        /// </summary>
+        /// <param name="levelId">ID of the next Level.</param>
+        public override void Pass(int levelId)
+        {
+            this.logger.LogMessage("Passing to Level", levelId);
+            base.Pass(levelId);
+        }
+
+        /// <summary>
+        /// Fails the Level.
+        /// </summary>
+        public override void Fail()
+        {
+            this.logger.LogMessage("Level failed");
+            base.Fail();
         }
 
         #region Properties

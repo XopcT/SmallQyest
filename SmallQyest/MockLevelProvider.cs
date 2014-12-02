@@ -41,7 +41,7 @@ namespace SmallQyest
                 { 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, },
                 { 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, },
                 { 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, },
-                { 1, 3, 1, 1, 0, 0, 0, 0, 1, 0, },
+                { 1, 3, 1, 1, 1, 0, 0, 0, 1, 0, },
                 { 0, 0, 0, 0, 0, 0, 0, 0, 1, 5, },
                 { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, },
             });
@@ -102,6 +102,8 @@ namespace SmallQyest
             level.Tools.Add(new FallTrap());
             level.Tools.Add(new OneTimePassObstacle());
             level.Tools.Add(new OneTimePassObstacle());
+            level.Tools.Add(new MoveableObstacle());
+            level.Tools.Add(new MoveableObstacle());
 
             // Creating Map Items:
             IEnumerable<Item> items = Enumerable.Range(0, width)

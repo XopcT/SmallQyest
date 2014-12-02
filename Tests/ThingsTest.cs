@@ -5,6 +5,7 @@ using SmallQyest.World;
 using SmallQyest.World.Actors;
 using SmallQyest.World.Things;
 using SmallQyest.World.Triggers;
+using SmallQyest.World.Tiles;
 
 namespace Tests
 {
@@ -160,7 +161,16 @@ namespace Tests
         [TestMethod()]
         public void MoveableObstacleCanPassTest1()
         {
-            throw new System.NotImplementedException();
+            this.map.Add(new Path() { Position = new Vector(0, 0) });
+            this.map.Add(new Path() { Position = new Vector(1, 0) });
+            this.map.Add(new Path() { Position = new Vector(2, 0) });
+
+            Player player = new Player() { Position = new Vector(0, 0), Direction = Vector.Up, Level = this.level.Object };
+
+            MoveableObstacle tested = new MoveableObstacle() { Position = new Vector(1, 0), Level = this.level.Object };
+            tested.Initialize();
+            bool canPass = tested.CanPassThrough(player);
+            Assert.IsTrue(canPass);
         }
 
         /// <summary>
@@ -169,7 +179,15 @@ namespace Tests
         [TestMethod()]
         public void MoveableObstacleCanPassTest2()
         {
-            throw new System.NotImplementedException();
+            this.map.Add(new Path() { Position = new Vector(0, 0) });
+            this.map.Add(new Path() { Position = new Vector(1, 0) });
+
+            Player player = new Player() { Position = new Vector(0, 0), Direction = Vector.Up, Level = this.level.Object };
+
+            MoveableObstacle tested = new MoveableObstacle() { Position = new Vector(1, 0), Level = this.level.Object };
+            tested.Initialize();
+            bool canPass = tested.CanPassThrough(player);
+            Assert.IsFalse(canPass);
         }
 
         /// <summary>

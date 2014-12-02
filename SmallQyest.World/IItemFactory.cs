@@ -11,7 +11,7 @@ namespace SmallQyest.World
         /// Retrieves a Level.
         /// </summary>
         /// <returns>Level Instance.</returns>
-        ILevel GetLevel();
+        Level GetLevel();
 
         /// <summary>
         /// Retrieves a Player Item.

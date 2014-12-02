@@ -12,13 +12,13 @@ namespace SmallQyest.World
         /// </summary>
         /// <param name="levelId">ID of the Level to load.</param>
         /// <returns>Loaded Level Instance.</returns>
-        ILevel LoadLevel(int levelId);
+        Level LoadLevel(int levelId);
 
         /// <summary>
         /// Asynchronously loads the specified Level.
         /// </summary>
         /// <param name="levelId">ID of the Level to load.</param>
         /// <returns>Loaded Level Instance.</returns>
-        Task<ILevel> LoadLevelAsync(int levelId);
+        Task<Level> LoadLevelAsync(int levelId);
     }
 }

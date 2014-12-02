@@ -18,7 +18,7 @@ namespace SmallQyest
         /// </summary>
         /// <param name="levelId">ID of the Level to load.</param>
         /// <returns>Loaded Level Instance.</returns>
-        public ILevel LoadLevel(int levelId)
+        public Level LoadLevel(int levelId)
         {
             switch (levelId)
             {
@@ -30,7 +30,7 @@ namespace SmallQyest
             }
         }
 
-        private ILevel LoadLevel1()
+        private Level LoadLevel1()
         {
             return this.CreateLevel(1, new int[,]
             {
@@ -47,7 +47,7 @@ namespace SmallQyest
             });
         }
 
-        private ILevel LoadLevel2()
+        private Level LoadLevel2()
         {
             return this.CreateLevel(2, new int[,]
             {
@@ -64,7 +64,7 @@ namespace SmallQyest
             });
         }
 
-        private ILevel LoadLevel3()
+        private Level LoadLevel3()
         {
             return this.CreateLevel(3, new int[,]
             {
@@ -86,18 +86,18 @@ namespace SmallQyest
         /// </summary>
         /// <param name="levelId">ID of the Level to load.</param>
         /// <returns>Loaded Level Instance.</returns>
-        public Task<ILevel> LoadLevelAsync(int levelId)
+        public Task<Level> LoadLevelAsync(int levelId)
         {
             throw new NotImplementedException();
         }
 
-        private ILevel CreateLevel(int levelId, int[,] numericMap)
+        private Level CreateLevel(int levelId, int[,] numericMap)
         {
             // Measuring the Map:
             int width = numericMap.GetLength(1);
             int height = numericMap.GetLength(0);
             // Creating Level Instance:
-            ILevel level = this.ItemFactory.GetLevel();
+            Level level = this.ItemFactory.GetLevel();
             level.Tools.Add(new FallTrap());
             level.Tools.Add(new FallTrap());
             level.Tools.Add(new OneTimePassObstacle());
@@ -115,7 +115,8 @@ namespace SmallQyest
 
             // Customizing special Map Items:
             level.Map.GetItems<LevelEndTrigger>().FirstOrDefault().NextLevelIndex = (levelId + 1);
-
+            level.Initialize();
+            level.Serialize();
             return level;
         }
 

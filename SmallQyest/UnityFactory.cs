@@ -70,9 +70,9 @@ namespace SmallQyest
         /// Retrieves a Level.
         /// </summary>
         /// <returns>Level Instance.</returns>
-        public ILevel GetLevel()
+        public Level GetLevel()
         {
-            return this.unityContainer.Resolve<ILevel>();
+            return this.unityContainer.Resolve<Level>();
         }
 
         /// <summary>

@@ -45,14 +45,26 @@
     <Compile Include="Actors\BasicMovementStrategy.cs" />
     <Compile Include="Actors\Character.cs" />
     <Compile Include="Actors\Player.cs" />
+    <Compile Include="BaseConverter.cs">
+      <DependentUpon>LevelSerializer.cs</DependentUpon>
+    </Compile>
     <Compile Include="DebugMap.cs" />
+    <Compile Include="ItemConverter.cs">
+      <DependentUpon>LevelSerializer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Level.cs" />
     <Compile Include="IItemFactory.cs" />
     <Compile Include="ILevel.cs" />
     <Compile Include="ILevelProvider.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemOrigin.cs" />
+    <Compile Include="LevelConverter.cs">
+      <DependentUpon>LevelSerializer.cs</DependentUpon>
+    </Compile>
     <Compile Include="LevelPassedEventArgs.cs" />
+    <Compile Include="LevelSerializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Map.cs" />
     <Compile Include="MapExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +86,14 @@
     <Compile Include="Triggers\Trigger.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="VectorExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

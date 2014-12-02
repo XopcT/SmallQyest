@@ -48,5 +48,21 @@ namespace SmallQyest.World
                 .Where(item => item is ItemType)
                 .Cast<ItemType>();
         }
+
+        /// <summary>
+        /// Checks whether an Item can move in specified Direction.
+        /// </summary>
+        /// <param name="items">Collection of potential Obstacles.</param>
+        /// <param name="item">Item which tries to move.</param>
+        /// <param name="direction">Direction to check.</param>
+        /// <returns>True if an Item can move, False otherwise.</returns>
+        public static bool CanMoveTo(this IEnumerable<Item> items, Item item, Vector direction)
+        {
+            Vector newPosition = item.Position + direction;
+            IEnumerable<bool> passTestResults = items
+                .GetItems<Item>(newPosition)
+                .Select(arg => arg.CanPassThrough(item));
+            return passTestResults.Any() && passTestResults.All(result => result == true);
+        }
     }
 }

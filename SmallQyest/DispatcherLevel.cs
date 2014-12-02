@@ -18,6 +18,10 @@ namespace SmallQyest
         public DispatcherLevel(Map map, ILogger logger)
             : base(map)
         {
+            if (logger == null)
+                throw new System.ArgumentNullException("logger");
+            this.logger = logger;
+
             this.timer = new DispatcherTimer();
             this.timer.Tick += timer_Tick;
             this.timer.Interval = TimeSpan.FromSeconds(0.3);

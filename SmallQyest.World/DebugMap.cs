@@ -13,6 +13,8 @@ namespace SmallQyest.World
         /// <param name="logger">Logger for Map Messages.</param>
         public DebugMap(ILogger logger)
         {
+            if (logger == null)
+                throw new System.ArgumentNullException("logger");
             this.Logger = logger;
             this.Logger.LogMessage("Map created");
         }

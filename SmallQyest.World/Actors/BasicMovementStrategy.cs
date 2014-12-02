@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
+﻿
 namespace SmallQyest.World.Actors
 {
     /// <summary>
@@ -15,17 +13,17 @@ namespace SmallQyest.World.Actors
         public override void Navigate(Actor character)
         {
             // Checking if a Character can keep moving forward:
-            if (!character.CanGoTo(character.Direction))
+            if (!character.Map.CanMoveTo(character, character.Direction))
             {
                 // Trying to turn right or left:
                 Vector right = character.Direction.GetRight();
                 Vector left = character.Direction.GetLeft();
 
                 // Trying to turn right:
-                if (character.CanGoTo(right))
+                if (character.Map.CanMoveTo(character, right))
                     character.Direction = right;
                 // Trying to go left:
-                else if (character.CanGoTo(left))
+                else if (character.Map.CanMoveTo(character, left))
                     character.Direction = left;
                 // Going back:
                 else

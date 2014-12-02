@@ -4,8 +4,8 @@ using Moq;
 using SmallQyest.World;
 using SmallQyest.World.Actors;
 using SmallQyest.World.Things;
-using SmallQyest.World.Triggers;
 using SmallQyest.World.Tiles;
+using SmallQyest.World.Triggers;
 
 namespace Tests
 {

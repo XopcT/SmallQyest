@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SmallQyest.World.Actors;
+﻿using SmallQyest.World.Actors;
 
 namespace SmallQyest.World.Things
 {
@@ -22,7 +20,7 @@ namespace SmallQyest.World.Things
             {
                 // Checking if there is a free Space in the Character's Moving Direction:
                 Vector direction = base.Position - character.Position;
-                return this.CanMoveTo(direction);
+                return base.Map.CanMoveTo(this, direction);
             }
             else
                 // Anyone except a Character can not move the Obstacle:
@@ -40,25 +38,11 @@ namespace SmallQyest.World.Things
             Actor character = item as Actor;
             if (character != null)
             {
-                if (this.CanMoveTo(character.Direction))
+                if (base.Map.CanMoveTo(this, character.Direction))
                 {
                     base.Position += character.Direction;
                 }
             }
-        }
-
-        /// <summary>
-        /// Checks whether there is a free Space in specified Direction.
-        /// </summary>
-        /// <param name="direction">Direction to check.</param>
-        /// <returns>True if there is a free Space, False otherwise.</returns>
-        private bool CanMoveTo(Vector direction)
-        {
-            Vector newPosition = this.Position + direction;
-            IEnumerable<bool> passTestResults = base.Map
-                .GetItems<Item>(newPosition)
-                .Select(item => item.CanPassThrough(this));
-            return passTestResults.Any() && passTestResults.All(result => result == true);
         }
     }
 }

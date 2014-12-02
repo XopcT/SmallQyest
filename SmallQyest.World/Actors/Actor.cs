@@ -34,20 +34,6 @@ namespace SmallQyest.World.Actors
         }
 
         /// <summary>
-        /// Checks whether Actor can go in specified Direction.
-        /// </summary>
-        /// <param name="direction">Direction to check.</param>
-        /// <returns>True if Actor can go in specified Direction, False otherwise.</returns>
-        public bool CanGoTo(Vector direction)
-        {
-            Vector newPosition = this.Position + direction;
-            IEnumerable<bool> passTestResults = this.Map
-                .GetItems<Item>(newPosition)
-                .Select(item => item.CanPassThrough(this));
-            return passTestResults.Any() && passTestResults.All(result => result == true);
-        }
-
-        /// <summary>
         /// Kills the Actor.
         /// </summary>
         public virtual void Kill()

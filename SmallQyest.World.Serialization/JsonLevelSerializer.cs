@@ -1,19 +1,26 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace SmallQyest.World
+namespace SmallQyest.World.Serialization
 {
     /// <summary>
-    /// Contains Extension Methods to serialize/deserialize a Level.
+    /// Serializes/Deserializes a Level using Json.
     /// </summary>
-    public static class LevelSerializer
+    public class JsonLevelSerializer : ILevelSerializationService
     {
+        public JsonLevelSerializer(IItemFactory itemFactory)
+        {
+            if (itemFactory == null)
+                throw new ArgumentNullException("itemFactory");
+            this.itemFactory = itemFactory;
+        }
+
         /// <summary>
         /// Retrieves a String Representation of a Level.
         /// </summary>
         /// <param name="level">Level to serialize.</param>
         /// <returns>String Representation of a Level.</returns>
-        public static string Serialize(this Level level)
+        public string Serialize(Level level)
         {
             ItemConverter itemConverter = new ItemConverter();
             itemConverter.Register("Grass", () => new Tiles.Grass(), x => x.Position);
@@ -35,12 +42,13 @@ namespace SmallQyest.World
         /// </summary>
         /// <param name="source">String to deserialize a Level from.</param>
         /// <returns>Deserialized Level Instance.</returns>
-        public static Level Deserialize(string source)
+        public Level Deserialize(string source)
         {
             throw new NotImplementedException();
         }
 
         #region Fields
+        private readonly IItemFactory itemFactory = null;
 
         #endregion
     }

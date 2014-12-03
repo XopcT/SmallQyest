@@ -222,6 +222,10 @@
       <Project>{6c18b421-d432-482c-b0a3-9ffdd1c5280f}</Project>
       <Name>Logging</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SmallQyest.World.Serialization\SmallQyest.World.Serialization.csproj">
+      <Project>{a41bfa8d-fad8-408a-affb-ebf6d1e79976}</Project>
+      <Name>SmallQyest.World.Serialization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SmallQyest.World\SmallQyest.World.csproj">
       <Project>{5ec1e3d9-9fc9-47cb-8788-1458a2ec1407}</Project>
       <Name>SmallQyest.World</Name>

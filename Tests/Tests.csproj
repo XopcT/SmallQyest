@@ -70,6 +70,11 @@
       <Name>SmallQyest.World</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ActorTests\" />
+    <Folder Include="ThingTests\" />
+    <Folder Include="TileTests\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -52,6 +52,9 @@
     <Compile Include="ItemConverter.cs">
       <DependentUpon>LevelSerializer.cs</DependentUpon>
     </Compile>
+    <Compile Include="ItemConverterOfT.cs">
+      <DependentUpon>LevelSerializer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Level.cs" />
     <Compile Include="IItemFactory.cs" />
     <Compile Include="ILevel.cs" />

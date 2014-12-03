@@ -15,7 +15,18 @@ namespace SmallQyest.World
         /// <returns>String Representation of a Level.</returns>
         public static string Serialize(this Level level)
         {
-            string result = JsonConvert.SerializeObject(level, Formatting.Indented, converters);
+            ItemConverter itemConverter = new ItemConverter();
+            itemConverter.Register("Grass", () => new Tiles.Grass(), x => x.Position);
+            itemConverter.Register("Path", () => new Tiles.Path(), x => x.Position);
+            itemConverter.Register("FallTrap", () => new Things.FallTrap(), x => x.Position);
+            itemConverter.Register("MoveableObstacle", () => new Things.MoveableObstacle(), x => x.Position);
+            itemConverter.Register("OneTimePassObstacle", () => new Things.OneTimePassObstacle(), x => x.Position);
+            itemConverter.Register("Player", () => new Actors.Player(),
+                x => x.Position,
+                x => x.Direction);
+            itemConverter.Register("LevelEndTrigger", () => new Triggers.LevelEndTrigger(), x => x.Position);
+            itemConverter.Register("PlayerSpawnTrigger", () => new Triggers.PlayerSpawnTrigger(), x => x.Position);
+            string result = JsonConvert.SerializeObject(level, Formatting.Indented, new LevelConverter(), itemConverter);
             return result;
         }
 
@@ -30,12 +41,6 @@ namespace SmallQyest.World
         }
 
         #region Fields
-
-        private static readonly JsonConverter[] converters = new JsonConverter[]
-        {
-            new LevelConverter(),
-            new ItemConverter(),
-        };
 
         #endregion
     }

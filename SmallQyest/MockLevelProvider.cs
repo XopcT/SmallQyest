@@ -115,8 +115,6 @@ namespace SmallQyest
 
             // Customizing special Map Items:
             level.Map.GetItems<LevelEndTrigger>().FirstOrDefault().NextLevelIndex = (levelId + 1);
-            level.Initialize();
-            level.Serialize();
             return level;
         }
 

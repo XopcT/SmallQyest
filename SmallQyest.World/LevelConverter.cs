@@ -9,9 +9,9 @@ namespace SmallQyest.World
     internal class LevelConverter : BaseConverter<Level>
     {
         /// <summary>
-        /// Writes Object into json.
+        /// Writes Object into Json.
         /// </summary>
-        /// <param name="writer">Instance to write json with.</param>
+        /// <param name="writer">Instance to write Json with.</param>
         /// <param name="serializer">Instance to serialize with.</param>
         /// <param name="value">Value to convert.</param>
         protected override void Write(JsonWriter writer, JsonSerializer serializer, Level value)

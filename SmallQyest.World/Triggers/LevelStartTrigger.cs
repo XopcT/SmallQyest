@@ -1,9 +1,11 @@
-﻿
+﻿using System;
+
 namespace SmallQyest.World.Triggers
 {
     /// <summary>
     /// Trigger which has to be placed at the Beginning of each Level.
     /// </summary>
+    [Obsolete("Use Player Spawn Trigger instead.")]
     public class LevelStartTrigger : Trigger
     {
         /// <summary>

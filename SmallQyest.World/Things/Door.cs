@@ -7,6 +7,17 @@ namespace SmallQyest.World.Things
     public class Door : Thing
     {
         /// <summary>
+        /// Checks whether the Door can be passed by another Item.
+        /// If the Door is open, it can be passed by anyone. Nobody can passed the closed Door.
+        /// </summary>
+        /// <param name="item">Item to check with.</param>
+        /// <returns>True if the Door can be passed, False otherwise.</returns>
+        public override bool CanPassThrough(Item item)
+        {
+            return this.IsOpen;
+        }
+
+        /// <summary>
         /// Opens the Door.
         /// </summary>
         protected void Open()

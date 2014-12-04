@@ -20,6 +20,8 @@ namespace SmallQyest.World.Things
             {
                 // Checking if there is a free Space in the Character's Moving Direction:
                 Vector direction = base.Position - character.Position;
+                if (direction.X + direction.Y != 1)
+                    return false;
                 return base.Map.CanMoveTo(this, direction);
             }
             else

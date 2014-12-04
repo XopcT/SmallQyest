@@ -24,8 +24,7 @@ namespace SmallQyest.World.Things
         /// <returns>True if an Item can be passed, False otherwise.</returns>
         public override bool CanPassThrough(Item item)
         {
-            // Any Object can pass an opened Door:
-            if (this.IsOpen)
+            if (base.CanPassThrough(item))
                 return true;
             // The Door is closed, so checking whether a Character has a Key to pass it:
             return this.HasKey(item);

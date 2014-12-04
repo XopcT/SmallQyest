@@ -1,6 +1,7 @@
-﻿using Logging;
+﻿using SmallQyest.World;
+using Logging;
 
-namespace SmallQyest.World
+namespace SmallQyest
 {
     /// <summary>
     /// Level Map with Debug Information.

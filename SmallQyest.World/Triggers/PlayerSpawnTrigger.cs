@@ -2,6 +2,9 @@
 
 namespace SmallQyest.World.Triggers
 {
+    /// <summary>
+    /// Triggers the Player Respawn.
+    /// </summary>
     public class PlayerSpawnTrigger : Trigger
     {
         /// <summary>

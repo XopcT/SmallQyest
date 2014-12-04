@@ -85,6 +85,7 @@
     <Compile Include="Converters\NegativeBoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ScaleCoverter.cs" />
+    <Compile Include="DebugMap.cs" />
     <Compile Include="DispatcherLevel.cs" />
     <Compile Include="IAppController.cs" />
     <Compile Include="IAppControllerFactory.cs" />

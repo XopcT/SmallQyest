@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\SmallQyest.World.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,7 +46,6 @@
     <Compile Include="Actors\BasicMovementStrategy.cs" />
     <Compile Include="Actors\Character.cs" />
     <Compile Include="Actors\Player.cs" />
-    <Compile Include="DebugMap.cs" />
     <Compile Include="ILevelSerializationService.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="IItemFactory.cs" />
@@ -73,6 +73,7 @@
     <Compile Include="Triggers\LevelStartTrigger.cs" />
     <Compile Include="Triggers\PlayerSpawnTrigger.cs" />
     <Compile Include="Triggers\Trigger.cs" />
+    <Compile Include="Triggers\VisibilityRay.cs" />
     <Compile Include="Vector.cs" />
     <Compile Include="VectorExtensions.cs" />
   </ItemGroup>

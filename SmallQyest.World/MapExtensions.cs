@@ -56,7 +56,10 @@ namespace SmallQyest.World
         /// <returns>Width of the Map.</returns>
         public static int GetWidth(this IEnumerable<Item> map)
         {
-            return map.Max(item => item.Position.X);
+            if (map.Any())
+                return map.Max(item => item.Position.X) + 1;
+            else
+                return 0;
         }
 
         /// <summary>
@@ -66,7 +69,10 @@ namespace SmallQyest.World
         /// <returns>Height of the Map.</returns>
         public static int GetHeight(this IEnumerable<Item> map)
         {
-            return map.Max(item => item.Position.Y);
+            if (map.Any())
+                return map.Max(item => item.Position.Y) + 1;
+            else
+                return 0;
         }
 
         /// <summary>
@@ -86,15 +92,30 @@ namespace SmallQyest.World
         }
 
         /// <summary>
-        /// Checks whether specified Point on the Map can be seen by an Item.
+        /// Checks whether one Point can be seen from another.
         /// </summary>
         /// <param name="map">Map with potential Obstacles.</param>
-        /// <param name="item">Item which tries to see specified Point.</param>
-        /// <param name="point">Point to check.</param>
-        /// <returns>True if an Item can see the Point, False otherwise.</returns>
-        public static bool CanSee(this IEnumerable<Item> map, Item item, Vector point)
+        /// <param name="from">Point from which a Visibility Test is casted.</param>
+        /// <param name="to">Point to check for a Visibility.</param>
+        /// <returns>True if a Point is seen, False otherwise.</returns>
+        public static bool CanSee(this IEnumerable<Item> map, Vector from, Vector to)
         {
-            throw new NotImplementedException();
+            Vector direction = to - from;
+            if (!(direction.X == 0 ^ direction.Y == 0))
+                return false;
+
+            Vector dPos = new Vector(Math.Sign(direction.X), Math.Sign(direction.Y));
+
+            visibilityRay.Position = from;
+            while (visibilityRay.Position != to)
+            {
+                if (!map.CanMoveTo(visibilityRay, dPos))
+                    return false;
+                visibilityRay.Position += dPos;
+            }
+            return true;
         }
+
+        private static readonly Triggers.VisibilityRay visibilityRay = new Triggers.VisibilityRay();
     }
 }

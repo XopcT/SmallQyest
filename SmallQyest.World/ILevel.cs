@@ -57,9 +57,9 @@ namespace SmallQyest.World
         Map Map { get; }
 
         /// <summary>
-        /// Retrieves the Collection of Tools available for this Level.
+        /// Retrieves the Collection of Items available for this Level.
         /// </summary>
-        ObservableCollection<Thing> Tools { get; }
+        ObservableCollection<Item> Tools { get; }
 
         /// <summary>
         /// Retrieves whether the Level is currently playing.

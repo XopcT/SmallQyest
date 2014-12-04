@@ -196,7 +196,7 @@ namespace SmallQyest.World
         /// <summary>
         /// Retrieves the Collection of Tools available for this Level.
         /// </summary>
-        public ObservableCollection<Thing> Tools
+        public ObservableCollection<Item> Tools
         {
             get { return this.tools; }
         }
@@ -218,7 +218,7 @@ namespace SmallQyest.World
 
         #region Fields
         private bool isPlaying = false;
-        private readonly ObservableCollection<Thing> tools = new ObservableCollection<Thing>();
+        private readonly ObservableCollection<Item> tools = new ObservableCollection<Item>();
 
         #endregion
     }

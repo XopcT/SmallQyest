@@ -44,6 +44,7 @@ namespace SmallQyest.World.Serialization
         /// <returns>Deserialized Level Instance.</returns>
         public Level Deserialize(string source)
         {
+            JsonConvert.DeserializeObject<Level>(source, new LevelConverter());
             throw new NotImplementedException();
         }
 

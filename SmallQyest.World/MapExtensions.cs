@@ -50,6 +50,26 @@ namespace SmallQyest.World
         }
 
         /// <summary>
+        /// Retrieves the Width of the Map.
+        /// </summary>
+        /// <param name="map">Map who's Width to retrieve.</param>
+        /// <returns>Width of the Map.</returns>
+        public static int GetWidth(this IEnumerable<Item> map)
+        {
+            return map.Max(item => item.Position.X);
+        }
+
+        /// <summary>
+        /// Retrieves the Height of the Map.
+        /// </summary>
+        /// <param name="map">Map who's Height to retrieve.</param>
+        /// <returns>Height of the Map.</returns>
+        public static int GetHeight(this IEnumerable<Item> map)
+        {
+            return map.Max(item => item.Position.Y);
+        }
+
+        /// <summary>
         /// Checks whether an Item can move in specified Direction.
         /// </summary>
         /// <param name="map">Map with potential Obstacles.</param>

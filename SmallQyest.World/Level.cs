@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -14,6 +15,26 @@ namespace SmallQyest.World
     /// </summary>
     public class Level : ILevel
     {
+        #region ItemOrigin enum
+
+        /// <summary>
+        /// Enumerates possible Item Origins.
+        /// </summary>
+        public enum ItemOrigin
+        {
+            /// <summary>
+            /// Item was taken from a Toolbar.
+            /// </summary>
+            FromToolbar,
+
+            /// <summary>
+            /// Item was on the Map by Design.
+            /// </summary>
+            FromMap,
+        }
+
+        #endregion
+
         /// <summary>
         /// Initializes a new Instance of current Class.
         /// </summary>
@@ -40,12 +61,12 @@ namespace SmallQyest.World
             foreach (Item item in this.Map)
             {
                 item.Level = this;
-                item.Origin = ItemOrigin.FromMap;
+                this.itemOrigins.Add(item, ItemOrigin.FromMap);
             }
             foreach (Item item in this.Tools)
             {
                 item.Level = this;
-                item.Origin = ItemOrigin.FromToolbar;
+                this.itemOrigins.Add(item, ItemOrigin.FromToolbar);
             }
             this.InitializeItems();
         }
@@ -110,9 +131,10 @@ namespace SmallQyest.World
         /// </summary>
         private void MoveItemsFromMapToToolbar()
         {
-            Item[] toolbarItems = this.Map.GetItems<Thing>()
-                .Where(item => item.Origin == ItemOrigin.FromToolbar)
+            Item[] toolbarItems = this.Map.GetItems<Item>()
+                .Where(item => this.itemOrigins.ContainsKey(item) && this.itemOrigins[item] == ItemOrigin.FromToolbar)
                 .ToArray();
+
             foreach (Thing toolbarItem in toolbarItems)
             {
                 this.Tools.Add(toolbarItem);
@@ -219,6 +241,7 @@ namespace SmallQyest.World
         #region Fields
         private bool isPlaying = false;
         private readonly ObservableCollection<Item> tools = new ObservableCollection<Item>();
+        private readonly IDictionary<Item, ItemOrigin> itemOrigins = new Dictionary<Item, ItemOrigin>();
 
         #endregion
     }

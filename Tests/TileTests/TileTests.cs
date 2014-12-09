@@ -3,13 +3,13 @@ using SmallQyest.World;
 using SmallQyest.World.Actors;
 using SmallQyest.World.Tiles;
 
-namespace Tests
+namespace Tests.TileTests
 {
     /// <summary>
     /// Contains Tests for Tiles.
     /// </summary>
     [TestClass()]
-    public class TilesTests
+    public class TileTests
     {
         /// <summary>
         /// Tests the Grass' Constructor.

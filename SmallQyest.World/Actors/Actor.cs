@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SmallQyest.World.Actors.BehaviorStrategies;
 
 namespace SmallQyest.World.Actors
 {
@@ -43,19 +44,6 @@ namespace SmallQyest.World.Actors
         #region Properties
 
         /// <summary>
-        /// Sets/retrieves the current Actor's State.
-        /// </summary>
-        public string CurrentState
-        {
-            get { return this.currentState; }
-            set
-            {
-                this.currentState = value;
-                base.OnPropertyChanged(this);
-            }
-        }
-
-        /// <summary>
         /// Sets/retrieves the Direction the Actor moves in.
         /// </summary>
         public Vector Direction { get; set; }
@@ -63,7 +51,6 @@ namespace SmallQyest.World.Actors
         #endregion
 
         #region Fields
-        private string currentState = string.Empty;
         private readonly ActorBehaviorStrategy movementStrategy = null;
 
         #endregion

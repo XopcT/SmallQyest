@@ -7,13 +7,13 @@ using SmallQyest.World.Things;
 using SmallQyest.World.Tiles;
 using SmallQyest.World.Triggers;
 
-namespace Tests
+namespace Tests.ThingTests
 {
     /// <summary>
     /// Contains Tests for different Things.
     /// </summary>
     [TestClass()]
-    public class ThingsTest
+    public class ThingTests
     {
         /// <summary>
         /// Tests the LevelEndTrigger.OnVisit Method.
@@ -157,6 +157,7 @@ namespace Tests
 
         /// <summary>
         /// Tests the MoveableObstacle.CanPassThrough Method.
+        /// Checks moving in positive Direction.
         /// </summary>
         [TestMethod()]
         public void MoveableObstacleCanPassTest1()
@@ -175,9 +176,28 @@ namespace Tests
 
         /// <summary>
         /// Tests the MoveableObstacle.CanPassThrough Method.
+        /// Checks moving in negative Direction.
         /// </summary>
         [TestMethod()]
         public void MoveableObstacleCanPassTest2()
+        {
+            this.map.Add(new Path() { Position = new Vector(0, 0) });
+            this.map.Add(new Path() { Position = new Vector(1, 0) });
+            this.map.Add(new Path() { Position = new Vector(2, 0) });
+
+            Player player = new Player() { Position = new Vector(2, 0), Direction = Vector.Up, Level = this.level.Object };
+
+            MoveableObstacle tested = new MoveableObstacle() { Position = new Vector(1, 0), Level = this.level.Object };
+            tested.Initialize();
+            bool canPass = tested.CanPassThrough(player);
+            Assert.IsTrue(canPass);
+        }
+
+        /// <summary>
+        /// Tests the MoveableObstacle.CanPassThrough Method.
+        /// </summary>
+        [TestMethod()]
+        public void MoveableObstacleCanPassTest3()
         {
             this.map.Add(new Path() { Position = new Vector(0, 0) });
             this.map.Add(new Path() { Position = new Vector(1, 0) });

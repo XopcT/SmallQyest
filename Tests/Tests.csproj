@@ -54,11 +54,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CharactersTests.cs" />
-    <Compile Include="ThingsTest.cs" />
+    <Compile Include="ActorTests\ActorTests.cs" />
+    <Compile Include="ThingTests\ThingTests.cs" />
     <Compile Include="MapTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TilesTests.cs" />
+    <Compile Include="TileTests\TileTests.cs" />
     <Compile Include="VectorTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,11 +70,7 @@
       <Name>SmallQyest.World</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ActorTests\" />
-    <Folder Include="ThingTests\" />
-    <Folder Include="TileTests\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

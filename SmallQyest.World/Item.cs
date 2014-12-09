@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace SmallQyest.World
@@ -91,9 +88,17 @@ namespace SmallQyest.World
         }
 
         /// <summary>
-        /// Sets/retrieves the Item's Origin.
+        /// Sets/retrieves the Item's current State.
         /// </summary>
-        public ItemOrigin Origin { get; set; }
+        public string CurrentState
+        {
+            get { return this.currentState; }
+            set
+            {
+                this.currentState = value;
+                this.OnPropertyChanged(this);
+            }
+        }
 
         /// <summary>
         /// Sets/retrieves the Item's Position on the Map.
@@ -111,6 +116,7 @@ namespace SmallQyest.World
         #endregion
 
         #region Fields
+        private string currentState = string.Empty;
         private Vector position = Vector.Zero;
 
         #endregion

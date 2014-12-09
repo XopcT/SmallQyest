@@ -2,9 +2,9 @@
 namespace SmallQyest.World.Things
 {
     /// <summary>
-    /// A Thing which can grab someone's Attention.
+    /// Gives something nice to the Player.
     /// </summary>
-    public class Decoy : Thing
+    public class Bonus : Thing
     {
     }
 }

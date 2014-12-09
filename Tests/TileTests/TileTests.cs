@@ -34,6 +34,7 @@ namespace Tests.TileTests
         /// <summary>
         /// Tests the Path's Constructor.
         /// </summary>
+        [TestMethod()]
         public void PathConstructorTest()
         {
             Path tested = new Path();

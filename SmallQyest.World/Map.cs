@@ -4,7 +4,7 @@ using System.Linq;
 using SmallQyest.World.Actors;
 using SmallQyest.World.Things;
 using SmallQyest.World.Tiles;
-using Logging;
+using System;
 
 namespace SmallQyest.World
 {
@@ -18,7 +18,7 @@ namespace SmallQyest.World
         /// </summary>
         public virtual void Update()
         {
-            foreach (Item item in this.items)
+            foreach (Item item in this.actors)
                 item.Update();
         }
 

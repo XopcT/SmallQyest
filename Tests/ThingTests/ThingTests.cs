@@ -211,6 +211,27 @@ namespace Tests.ThingTests
         }
 
         /// <summary>
+        /// Tests the Bonus.OnVisit Method.
+        /// </summary>
+        [TestMethod()]
+        public void BonusVisitTest()
+        {
+            Bonus tested = new Bonus() { Position = new Vector(0, 0), Level = this.level.Object };
+            Player player = new Player() { Position = new Vector(0, 0), Level = this.level.Object };
+
+            this.map.Add(tested);
+            this.map.Add(player);
+
+            // Ensuring the Bonus is on the Map:
+            Assert.IsTrue(this.map.Contains(tested));
+
+            tested.OnVisit(player);
+            // Checking if Bonus was moved into the Player's Inventory:
+            Assert.IsFalse(this.map.Contains(tested));
+            Assert.IsTrue(player.Inventory.Contains(tested));
+        }
+
+        /// <summary>
         /// Initializes Tests Environment.
         /// </summary>
         [TestInitialize()]

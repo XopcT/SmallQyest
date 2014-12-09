@@ -29,8 +29,7 @@ namespace SmallQyest
 
         private void timer_Tick(object sender, System.EventArgs e)
         {
-            foreach (Item item in this.Map)
-                item.Update();
+            this.Map.Update();
         }
 
         /// <summary>

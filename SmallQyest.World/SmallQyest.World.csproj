@@ -44,6 +44,7 @@
     <Compile Include="Actors\Actor.cs" />
     <Compile Include="Actors\BehaviorStrategies\ActorBehaviorStrategy.cs" />
     <Compile Include="Actors\BehaviorStrategies\BasicMovementStrategy.cs" />
+    <Compile Include="Actors\BehaviorStrategies\ComplexBehaviorStrategy.cs" />
     <Compile Include="Actors\BehaviorStrategies\ProfitSearchStrategy.cs" />
     <Compile Include="Actors\Character.cs" />
     <Compile Include="Actors\Player.cs" />

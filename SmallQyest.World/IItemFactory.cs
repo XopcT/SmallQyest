@@ -60,5 +60,11 @@ namespace SmallQyest.World
         /// </summary>
         /// <returns>Moveable Obstacle Instance.</returns>
         Item GetMoveableObstacle();
+
+        /// <summary>
+        /// Retrieves a Bonus.
+        /// </summary>
+        /// <returns>Bonus Instance.</returns>
+        Item GetBonus();
     }
 }

@@ -31,10 +31,14 @@
     <DataTemplate x:Key="MoveableObstacle">
         <things:MoveableObstacleView />
     </DataTemplate>
+    <DataTemplate x:Key="Bonus">
+        <things:BonusView />
+    </DataTemplate>
 
     <things:ThingsTemplateSelector x:Key="ThingsTemplateSelector"
             FallTrapTemplate="{StaticResource FallTrap}"
             OneTimePassObstacleTemplate="{StaticResource OneTimePassObstacle}"
-            MoveableObstacleTemplate="{StaticResource MoveableObstacle}" />
+            MoveableObstacleTemplate="{StaticResource MoveableObstacle}"
+            BonusTemplate="{StaticResource Bonus}" />
 
 </ResourceDictionary>

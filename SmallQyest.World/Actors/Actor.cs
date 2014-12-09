@@ -10,14 +10,6 @@ namespace SmallQyest.World.Actors
     public class Actor : Item
     {
         /// <summary>
-        /// Initializes a new Instance of current Class.
-        /// </summary>
-        public Actor()
-        {
-            this.movementStrategy = new BasicMovementStrategy();
-        }
-
-        /// <summary>
         /// Updates the State of the Actor.
         /// </summary>
         public override void Update()
@@ -27,11 +19,18 @@ namespace SmallQyest.World.Actors
             this.CurrentState = "Default";
 
             // Visiting current Location. Alot of interesting must be waiting:
-            foreach (Item item in base.Map.GetItems<Item>(base.Position))
+            foreach (Item item in base.Map.GetItems<Item>(base.Position).ToArray())
                 item.OnVisit(this);
 
-            this.movementStrategy.Navigate(this);
-            this.movementStrategy.Move(this);
+            if (this.BehaviorStrategy == null)
+                return;
+
+            this.BehaviorStrategy.Navigate(this);
+            this.BehaviorStrategy.Move(this);
+
+            // Leaving previous Location:
+            foreach (Item item in base.Map.GetItems<Item>(base.Position).ToArray())
+                item.OnLeave(this);
         }
 
         /// <summary>
@@ -48,10 +47,14 @@ namespace SmallQyest.World.Actors
         /// </summary>
         public Vector Direction { get; set; }
 
+        /// <summary>
+        /// Sets/retrieves a Behavior Strategy for the Actor.
+        /// </summary>
+        protected ActorBehaviorStrategy BehaviorStrategy { get; set; }
+
         #endregion
 
         #region Fields
-        private readonly ActorBehaviorStrategy movementStrategy = null;
 
         #endregion
     }

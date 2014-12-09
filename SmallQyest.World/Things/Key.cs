@@ -6,6 +6,11 @@ namespace SmallQyest.World.Things
     /// </summary>
     public class Key : Thing
     {
+        public override void OnVisit(Item item)
+        {
+            base.OnVisit(item);
+        }
+
         #region Properties
 
         /// <summary>

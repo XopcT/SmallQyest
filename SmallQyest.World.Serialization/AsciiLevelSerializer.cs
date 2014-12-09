@@ -24,6 +24,7 @@ namespace SmallQyest.World.Serialization
             this.Register('•', () => this.itemFactory.GetMoveableObstacle());
             this.Register('≡', () => this.itemFactory.GetOneTimePassObstacle());
             this.Register('◘', () => this.itemFactory.GetFallTrap());
+            this.Register('$', () => this.itemFactory.GetBonus());
             this.Register('a', () => { var item = (Triggers.LevelEndTrigger)this.itemFactory.GetLevelEndTrigger(); item.NextLevelIndex = 1; return item; });
             this.Register('b', () => { var item = (Triggers.LevelEndTrigger)this.itemFactory.GetLevelEndTrigger(); item.NextLevelIndex = 2; return item; });
             this.Register('c', () => { var item = (Triggers.LevelEndTrigger)this.itemFactory.GetLevelEndTrigger(); item.NextLevelIndex = 3; return item; });

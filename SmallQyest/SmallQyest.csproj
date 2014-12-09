@@ -95,6 +95,9 @@
     <Compile Include="Sprites\Actors\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sprites\Things\BonusView.xaml.cs">
+      <DependentUpon>BonusView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sprites\Things\FallTrapView.xaml.cs">
       <DependentUpon>FallTrapView.xaml</DependentUpon>
     </Compile>
@@ -148,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Sprites\Actors\PlayerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sprites\Things\BonusView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

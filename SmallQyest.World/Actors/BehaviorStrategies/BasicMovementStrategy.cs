@@ -7,9 +7,9 @@ namespace SmallQyest.World.Actors.BehaviorStrategies
     public class BasicMovementStrategy : ActorBehaviorStrategy
     {
         /// <summary>
-        /// Selectes a Direction for a Character.
+        /// Selects a Direction for an Actor.
         /// </summary>
-        /// <param name="actor">Character to navigate.</param>
+        /// <param name="actor">Actor to navigate.</param>
         public override void Navigate(Actor actor)
         {
             // Checking if a Character can keep moving forward:
@@ -32,9 +32,9 @@ namespace SmallQyest.World.Actors.BehaviorStrategies
         }
 
         /// <summary>
-        /// Moves a Character over the Map.
+        /// Moves an Actor over the Map.
         /// </summary>
-        /// <param name="actor">Character to move.</param>
+        /// <param name="actor">Actor to move.</param>
         public override void Move(Actor actor)
         {
             if (actor.Direction.X == Vector.Left.X && actor.Direction.Y == Vector.Left.Y)
@@ -47,9 +47,6 @@ namespace SmallQyest.World.Actors.BehaviorStrategies
                 actor.CurrentState = "MoveDown";
             else
                 throw new System.InvalidOperationException();
-            // Leaving previous Location:
-            foreach (Item item in actor.Map.GetItems<Item>(actor.Position))
-                item.OnLeave(actor);
             // Updating Coordinates:
             actor.Position += actor.Direction;
         }

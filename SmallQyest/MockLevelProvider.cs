@@ -33,7 +33,7 @@ namespace SmallQyest
         private Level LoadLevel1()
         {
             return this.LevelSerializer.Deserialize(
-                "◘◘≡≡••\n" +
+                "◘◘≡≡••$$\n" +
                 "██████████\n" +
                 "██████   █\n" +
                 "█   ██ █ █\n" +
@@ -49,7 +49,7 @@ namespace SmallQyest
         private Level LoadLevel2()
         {
             return this.LevelSerializer.Deserialize(
-                "◘◘≡≡••\n" +
+                "◘◘≡≡••$$\n" +
                 "██████████\n" +
                 "██ ███████\n" +
                 "██ ███████\n" +
@@ -65,7 +65,7 @@ namespace SmallQyest
         private Level LoadLevel3()
         {
             return this.LevelSerializer.Deserialize(
-                "◘◘≡≡••\n" +
+                "◘◘≡≡••$$\n" +
                 "██████████\n" +
                 "██████████\n" +
                 "██████████\n" +

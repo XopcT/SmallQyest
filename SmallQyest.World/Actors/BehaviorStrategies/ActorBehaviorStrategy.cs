@@ -7,7 +7,7 @@ namespace SmallQyest.World.Actors.BehaviorStrategies
     public class ActorBehaviorStrategy
     {
         /// <summary>
-        /// Selects a Direction for a Actor.
+        /// Selects a Direction for an Actor.
         /// </summary>
         /// <param name="actor">Actor to navigate.</param>
         public virtual void Navigate(Actor actor)
@@ -16,7 +16,7 @@ namespace SmallQyest.World.Actors.BehaviorStrategies
         }
 
         /// <summary>
-        /// Moves a Actor over the Map.
+        /// Moves an Actor over the Map.
         /// </summary>
         /// <param name="actor">Actor to move.</param>
         public virtual void Move(Actor actor)

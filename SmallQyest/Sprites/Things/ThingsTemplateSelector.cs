@@ -26,6 +26,8 @@ namespace SmallQyest.Sprites.Things
                     return this.OneTimePassObstacleTemplate;
                 if (thing is MoveableObstacle)
                     return this.MoveableObstacleTemplate;
+                if (thing is Bonus)
+                    return this.BonusTemplate;
             }
             return base.SelectTemplate(item, container);
         }
@@ -46,6 +48,11 @@ namespace SmallQyest.Sprites.Things
         /// Sets/retrieves a Template for a moveable Obstacle.
         /// </summary>
         public DataTemplate MoveableObstacleTemplate { get; set; }
+
+        /// <summary>
+        /// Sets/retrieves a Template for a Bonus.
+        /// </summary>
+        public DataTemplate BonusTemplate { get; set; }
 
         #endregion
 

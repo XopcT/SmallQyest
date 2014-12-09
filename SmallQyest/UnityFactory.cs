@@ -147,6 +147,15 @@ namespace SmallQyest
             return this.unityContainer.Resolve<Item>("moveableObstacle");
         }
 
+        /// <summary>
+        /// Retrieves a Bonus.
+        /// </summary>
+        /// <returns>Bonus Instance.</returns>
+        public Item GetBonus()
+        {
+            return this.unityContainer.Resolve<Item>("bonus");
+        }
+
         #region Properties
 
         #endregion

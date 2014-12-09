@@ -4,9 +4,9 @@ using SmallQyest.World;
 namespace SmallQyest.World.Things
 {
     /// <summary>
-    /// A Door which can be passed only with a Key.
+    /// A Door of the specified Color.
     /// </summary>
-    public class DoorWithAKey : Door
+    public class ColoredDoor : Door
     {
         /// <summary>
         /// Initializes the Item.
@@ -54,7 +54,7 @@ namespace SmallQyest.World.Things
             if (character != null && character.Inventory != null)
             {
                 bool hasKey = character.Inventory
-                    .Where(inventoryItem => inventoryItem is Key && ((Key)inventoryItem).Color == this.color)
+                    .Where(inventoryItem => inventoryItem is ColoredKey && ((ColoredKey)inventoryItem).Color == this.color)
                     .Any();
                 return hasKey;
             }
@@ -66,7 +66,7 @@ namespace SmallQyest.World.Things
         /// <summary>
         /// Sets/retrieves a Color of the Key.
         /// </summary>
-        public KeyColor Color
+        public ItemColor Color
         {
             get { return this.color; }
             set
@@ -79,7 +79,7 @@ namespace SmallQyest.World.Things
         #endregion
 
         #region Fields
-        private KeyColor color = KeyColor.Red;
+        private ItemColor color = ItemColor.Red;
 
         #endregion
     }

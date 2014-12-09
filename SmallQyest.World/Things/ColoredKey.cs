@@ -3,9 +3,9 @@
 namespace SmallQyest.World.Things
 {
     /// <summary>
-    /// Represents a Key to pass a Door.
+    /// A Key of the specified Color.
     /// </summary>
-    public class Key : Thing
+    public class ColoredKey : Thing
     {
         /// <summary>
         /// Handles Collision of this Item against another one.
@@ -26,7 +26,7 @@ namespace SmallQyest.World.Things
         /// <summary>
         /// Sets/retrieves a Color of the Key.
         /// </summary>
-        public KeyColor Color
+        public ItemColor Color
         {
             get { return this.color; }
             set
@@ -39,7 +39,7 @@ namespace SmallQyest.World.Things
         #endregion
 
         #region Fields
-        private KeyColor color = KeyColor.Red;
+        private ItemColor color = ItemColor.Red;
 
         #endregion
     }

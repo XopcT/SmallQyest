@@ -20,7 +20,7 @@ namespace SmallQyest.World.Things
         /// <summary>
         /// Opens the Door.
         /// </summary>
-        protected void Open()
+        public void Open()
         {
             this.IsOpen = true;
         }
@@ -28,7 +28,7 @@ namespace SmallQyest.World.Things
         /// <summary>
         /// Closes the Door.
         /// </summary>
-        protected void Close()
+        public void Close()
         {
             this.IsOpen = false;
         }

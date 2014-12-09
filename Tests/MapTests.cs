@@ -32,7 +32,7 @@ namespace Tests
             Map tested = new Map();
             Item someItem = new Item();
             Item actor = new Player() { Position = new Vector(2, 2) };
-            Item thing = new Key() { Position = new Vector(2, 2) };
+            Item thing = new ColoredKey() { Position = new Vector(2, 2) };
             Item tile = new Grass() { Position = new Vector(2, 2) };
             tested.Add(actor);
             tested.Add(thing);
@@ -43,7 +43,7 @@ namespace Tests
             Assert.IsTrue(tested.Contains(thing));
             Assert.IsTrue(tested.Contains(tile));
             Assert.IsTrue(tested.Actors.First() is Player);
-            Assert.IsTrue(tested.Things.First() is Key);
+            Assert.IsTrue(tested.Things.First() is ColoredKey);
             Assert.IsTrue(tested.Tiles.First() is Grass);
         }
 

@@ -72,12 +72,96 @@ namespace Tests.ThingTests
         }
 
         /// <summary>
-        /// Tests the Key.OnVisit Method.
+        /// Tests the ColoredDoor.Initialize Method.
         /// </summary>
         [TestMethod()]
-        public void KeyVisitTest()
+        public void ColoredDoorInitializeTest()
         {
-            Key tested = new Key() { Position = new Vector(0, 0), Level = this.level.Object };
+            ColoredDoor tested = new ColoredDoor() { Level = this.level.Object };
+            tested.Initialize();
+            Assert.IsFalse(tested.IsOpen);
+        }
+
+        /// <summary>
+        /// Tests the ColoredDoor.CanPassThrough Method.
+        /// </summary>
+        [TestMethod()]
+        public void ColoredDoorCanPassTest1()
+        {
+            Player player = new Player() { Level = this.level.Object };
+            ColoredDoor tested = new ColoredDoor() { Level = this.level.Object, Color = ItemColor.Red };
+            tested.Initialize();
+            bool canPass = tested.CanPassThrough(player);
+            Assert.IsFalse(canPass);
+        }
+
+        /// <summary>
+        /// Tests the ColoredDoor.CanPassThrough Method.
+        /// </summary>
+        [TestMethod()]
+        public void ColoredDoorCanPassTest2()
+        {
+            Player player = new Player() { Level = this.level.Object };
+            player.Inventory.Add(new ColoredKey() { Color = ItemColor.Blue });
+
+            ColoredDoor tested = new ColoredDoor() { Level = this.level.Object, Color = ItemColor.Red };
+            tested.Initialize();
+            bool canPass = tested.CanPassThrough(player);
+            Assert.IsFalse(canPass);
+        }
+
+        /// <summary>
+        /// Tests the ColoredDoor.CanPassThrough Method.
+        /// </summary>
+        [TestMethod()]
+        public void ColoredDoorCanPassTest3()
+        {
+            Player player = new Player() { Level = this.level.Object };
+            player.Inventory.Add(new ColoredKey() { Color = ItemColor.Red });
+
+            ColoredDoor tested = new ColoredDoor() { Level = this.level.Object, Color = ItemColor.Red };
+            tested.Initialize();
+            bool canPass = tested.CanPassThrough(player);
+            Assert.IsTrue(canPass);
+        }
+
+        /// <summary>
+        /// Tests the ColoredDoor.OnVisit Method.
+        /// </summary>
+        [TestMethod()]
+        public void ColoredDoorVisitTest1()
+        {
+            Player player = new Player() { Level = this.level.Object };
+            player.Inventory.Add(new ColoredKey() { Color = ItemColor.Blue });
+
+            ColoredDoor tested = new ColoredDoor() { Level = this.level.Object, Color = ItemColor.Red };
+            tested.Initialize();
+            tested.OnVisit(player);
+            Assert.IsFalse(tested.IsOpen);
+        }
+
+        /// <summary>
+        /// Tests the ColoredDoor.OnVisit Method.
+        /// </summary>
+        [TestMethod()]
+        public void ColoredDoorVisitTest2()
+        {
+            Player player = new Player() { Level = this.level.Object };
+            player.Inventory.Add(new ColoredKey() { Color = ItemColor.Red });
+
+            ColoredDoor tested = new ColoredDoor() { Level = this.level.Object, Color = ItemColor.Red };
+            tested.Initialize();
+            tested.OnVisit(player);
+            Assert.IsTrue(tested.IsOpen);
+        }
+
+        /// <summary>
+        /// Tests the ColoredKey.OnVisit Method.
+        /// </summary>
+        [TestMethod()]
+        public void ColoredKeyVisitTest()
+        {
+            ColoredKey tested = new ColoredKey() { Position = new Vector(0, 0), Level = this.level.Object };
             Player player = new Player() { Position = new Vector(0, 0), Level = this.level.Object };
 
             this.map.Add(tested);
@@ -92,87 +176,28 @@ namespace Tests.ThingTests
         }
 
         /// <summary>
-        /// Tests the DoorWithAKey.Initialize Method.
+        /// Tests the ColoredLever.OnVisit Method.
         /// </summary>
         [TestMethod()]
-        public void DoorWithAKeyInitializeTest()
+        public void ColoredLeverVisitTest()
         {
-            DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object };
-            tested.Initialize();
-            Assert.IsFalse(tested.IsOpen);
-        }
+            ColoredLever tested = new ColoredLever() { Position = new Vector(0, 0), Color = ItemColor.Red, Level = this.level.Object };
+            Player player = new Player() { Position = new Vector(0, 1), Level = this.level.Object };
+            ColoredDoor door = new ColoredDoor() { Position = new Vector(0, 2), Level = this.level.Object };
+            door.Initialize();
 
-        /// <summary>
-        /// Tests the DoorWithAKey.CanPassThrough Method.
-        /// </summary>
-        [TestMethod()]
-        public void DoorWithAKeyCanPassTest1()
-        {
-            Player player = new Player() { Level = this.level.Object };
-            DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
-            tested.Initialize();
-            bool canPass = tested.CanPassThrough(player);
-            Assert.IsFalse(canPass);
-        }
+            this.map.Add(tested);
+            this.map.Add(player);
+            this.map.Add(door);
+            // Ensuring the Door is closed before the Test:
+            Assert.IsFalse(door.IsOpen);
 
-        /// <summary>
-        /// Tests the DoorWithAKey.CanPassThrough Method.
-        /// </summary>
-        [TestMethod()]
-        public void DoorWithAKeyCanPassTest2()
-        {
-            Player player = new Player() { Level = this.level.Object };
-            player.Inventory.Add(new Key() { Color = KeyColor.Blue });
-
-            DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
-            tested.Initialize();
-            bool canPass = tested.CanPassThrough(player);
-            Assert.IsFalse(canPass);
-        }
-
-        /// <summary>
-        /// Tests the DoorWithAKey.CanPassThrough Method.
-        /// </summary>
-        [TestMethod()]
-        public void DoorWithAKeyCanPassTest3()
-        {
-            Player player = new Player() { Level = this.level.Object };
-            player.Inventory.Add(new Key() { Color = KeyColor.Red });
-
-            DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
-            tested.Initialize();
-            bool canPass = tested.CanPassThrough(player);
-            Assert.IsTrue(canPass);
-        }
-
-        /// <summary>
-        /// Tests the DoorWithAKey.OnVisit Method.
-        /// </summary>
-        [TestMethod()]
-        public void DoorWithAKeyVisitTest1()
-        {
-            Player player = new Player() { Level = this.level.Object };
-            player.Inventory.Add(new Key() { Color = KeyColor.Blue });
-
-            DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
-            tested.Initialize();
+            // Checking if the Lever opens the Door:
             tested.OnVisit(player);
-            Assert.IsFalse(tested.IsOpen);
-        }
-
-        /// <summary>
-        /// Tests the DoorWithAKey.OnVisit Method.
-        /// </summary>
-        [TestMethod()]
-        public void DoorWithAKeyVisitTest2()
-        {
-            Player player = new Player() { Level = this.level.Object };
-            player.Inventory.Add(new Key() { Color = KeyColor.Red });
-
-            DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
-            tested.Initialize();
+            Assert.IsTrue(door.IsOpen);
+            // Checking if the Lever closes the Door back:
             tested.OnVisit(player);
-            Assert.IsTrue(tested.IsOpen);
+            Assert.IsFalse(door.IsOpen);
         }
 
         /// <summary>

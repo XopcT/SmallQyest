@@ -16,11 +16,14 @@ using System.Windows.Shapes;
 namespace SmallQyest.Sprites.Things
 {
     /// <summary>
-    /// Interaction logic for KeyView.xaml
+    /// Interaction logic for ColoredDoorView.xaml
     /// </summary>
-    public partial class KeyView : UserControl
+    public partial class ColoredDoorView : UserControl
     {
-        public KeyView()
+        /// <summary>
+        /// Initializes a new Instance of current Class.
+        /// </summary>
+        public ColoredDoorView()
         {
             InitializeComponent();
         }

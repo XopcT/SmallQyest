@@ -66,5 +66,23 @@ namespace SmallQyest.World
         /// </summary>
         /// <returns>Bonus Instance.</returns>
         Item GetBonus();
+
+        /// <summary>
+        /// Retrieves a colored Door.
+        /// </summary>
+        /// <returns>Colored Door Instance.</returns>
+        Item GetColoredDoor();
+
+        /// <summary>
+        /// Retrieves a colored Key.
+        /// </summary>
+        /// <returns>Colored Key Instance.</returns>
+        Item GetColoredKey();
+
+        /// <summary>
+        /// Retrieves a colored Lever.
+        /// </summary>
+        /// <returns>Colored Lever Instance.</returns>
+        Item GetColoredLever();
     }
 }

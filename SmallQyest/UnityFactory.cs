@@ -156,6 +156,33 @@ namespace SmallQyest
             return this.unityContainer.Resolve<Item>("bonus");
         }
 
+        /// <summary>
+        /// Retrieves a colored Door.
+        /// </summary>
+        /// <returns>Colored Door Instance.</returns>
+        public Item GetColoredDoor()
+        {
+            return this.unityContainer.Resolve<Item>("coloredDoor");
+        }
+
+        /// <summary>
+        /// Retrieves a colored Key.
+        /// </summary>
+        /// <returns>Colored Key Instance.</returns>
+        public Item GetColoredKey()
+        {
+            return this.unityContainer.Resolve<Item>("coloredKey");
+        }
+
+        /// <summary>
+        /// Retrieves a colored Lever.
+        /// </summary>
+        /// <returns>Colored Lever Instance.</returns>
+        public Item GetColoredLever()
+        {
+            return this.unityContainer.Resolve<Item>("coloredLever");
+        }
+
         #region Properties
 
         #endregion

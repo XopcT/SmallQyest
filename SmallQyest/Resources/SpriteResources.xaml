@@ -25,24 +25,28 @@
     <DataTemplate x:Key="Bonus">
         <things:BonusView />
     </DataTemplate>
+    <DataTemplate x:Key="ColoredKey">
+        <things:ColoredKeyView />
+    </DataTemplate>
+    <DataTemplate x:Key="ColoredDoor">
+        <things:ColoredDoorView />
+    </DataTemplate>
     <DataTemplate x:Key="FallTrap">
         <things:FallTrapView />
-    </DataTemplate>
-    <DataTemplate x:Key="Key">
-        <things:KeyView />
-    </DataTemplate>
-    <DataTemplate x:Key="MoveableObstacle">
-        <things:MoveableObstacleView />
     </DataTemplate>
     <DataTemplate x:Key="OneTimePassObstacle">
         <things:OneTimePassObstacleView />
     </DataTemplate>
+    <DataTemplate x:Key="MoveableObstacle">
+        <things:MoveableObstacleView />
+    </DataTemplate>
 
     <things:ThingsTemplateSelector x:Key="ThingsTemplateSelector"
             BonusTemplate="{StaticResource Bonus}"
+            ColoredKeyTemplate="{StaticResource ColoredKey}"
+            ColoredDoorTemplate="{StaticResource ColoredDoor}"
             FallTrapTemplate="{StaticResource FallTrap}"
-            KeyTemplate="{StaticResource Key}"
-            MoveableObstacleTemplate="{StaticResource MoveableObstacle}"
-            OneTimePassObstacleTemplate="{StaticResource OneTimePassObstacle}" />
+            OneTimePassObstacleTemplate="{StaticResource OneTimePassObstacle}"
+            MoveableObstacleTemplate="{StaticResource MoveableObstacle}" />
 
 </ResourceDictionary>

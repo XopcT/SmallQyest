@@ -17,8 +17,7 @@ namespace SmallQyest.World.Things
             Character character = item as Character;
             if (character != null)
             {
-                this.Map.Remove(this);
-                character.Inventory.Add(this);
+                character.PickUp(this);
             }
         }
     }

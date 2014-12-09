@@ -16,7 +16,12 @@ namespace SmallQyest.World.Tiles
         /// <returns>True if a Tile can be passed, False otherwise.</returns>
         public override bool CanPassThrough(Item item)
         {
-            return false;
+            if (item is Triggers.VisibilityRay)
+                // Anyone can see through the Grass:
+                return true;
+            else
+                // but nobody can pass:
+                return false;
         }
     }
 }

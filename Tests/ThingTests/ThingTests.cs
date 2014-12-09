@@ -72,6 +72,26 @@ namespace Tests.ThingTests
         }
 
         /// <summary>
+        /// Tests the Key.OnVisit Method.
+        /// </summary>
+        [TestMethod()]
+        public void KeyVisitTest()
+        {
+            Key tested = new Key() { Position = new Vector(0, 0), Level = this.level.Object };
+            Player player = new Player() { Position = new Vector(0, 0), Level = this.level.Object };
+
+            this.map.Add(tested);
+            this.map.Add(player);
+
+            // Ensuring the Key is on the Map:
+            Assert.IsTrue(this.map.Contains(tested));
+            tested.OnVisit(player);
+            // Checking if Key was moved into the Player's Inventory:
+            Assert.IsFalse(this.map.Contains(tested));
+            Assert.IsTrue(player.Inventory.Contains(tested));
+        }
+
+        /// <summary>
         /// Tests the DoorWithAKey.Initialize Method.
         /// </summary>
         [TestMethod()]
@@ -102,7 +122,7 @@ namespace Tests.ThingTests
         public void DoorWithAKeyCanPassTest2()
         {
             Player player = new Player() { Level = this.level.Object };
-            player.Inventory = new List<Item>() { new Key() { Color = KeyColor.Blue } };
+            player.Inventory.Add(new Key() { Color = KeyColor.Blue });
 
             DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();
@@ -117,7 +137,7 @@ namespace Tests.ThingTests
         public void DoorWithAKeyCanPassTest3()
         {
             Player player = new Player() { Level = this.level.Object };
-            player.Inventory = new List<Item>() { new Key() { Color = KeyColor.Red } };
+            player.Inventory.Add(new Key() { Color = KeyColor.Red });
 
             DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();
@@ -132,7 +152,7 @@ namespace Tests.ThingTests
         public void DoorWithAKeyVisitTest1()
         {
             Player player = new Player() { Level = this.level.Object };
-            player.Inventory = new List<Item>() { new Key() { Color = KeyColor.Blue } };
+            player.Inventory.Add(new Key() { Color = KeyColor.Blue });
 
             DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();
@@ -147,7 +167,7 @@ namespace Tests.ThingTests
         public void DoorWithAKeyVisitTest2()
         {
             Player player = new Player() { Level = this.level.Object };
-            player.Inventory = new List<Item>() { new Key() { Color = KeyColor.Red } };
+            player.Inventory.Add(new Key() { Color = KeyColor.Red });
 
             DoorWithAKey tested = new DoorWithAKey() { Level = this.level.Object, Color = KeyColor.Red };
             tested.Initialize();

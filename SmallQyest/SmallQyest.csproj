@@ -101,6 +101,9 @@
     <Compile Include="Sprites\Things\FallTrapView.xaml.cs">
       <DependentUpon>FallTrapView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Sprites\Things\KeyView.xaml.cs">
+      <DependentUpon>KeyView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sprites\Things\MoveableObstacleView.xaml.cs">
       <DependentUpon>MoveableObstacleView.xaml</DependentUpon>
     </Compile>
@@ -159,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Sprites\Things\FallTrapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sprites\Things\KeyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

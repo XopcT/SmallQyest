@@ -22,23 +22,27 @@
             PathTemplate="{StaticResource PathTile}" />
 
     <!-- Templates for different Things -->
+    <DataTemplate x:Key="Bonus">
+        <things:BonusView />
+    </DataTemplate>
     <DataTemplate x:Key="FallTrap">
         <things:FallTrapView />
     </DataTemplate>
-    <DataTemplate x:Key="OneTimePassObstacle">
-        <things:OneTimePassObstacleView />
+    <DataTemplate x:Key="Key">
+        <things:KeyView />
     </DataTemplate>
     <DataTemplate x:Key="MoveableObstacle">
         <things:MoveableObstacleView />
     </DataTemplate>
-    <DataTemplate x:Key="Bonus">
-        <things:BonusView />
+    <DataTemplate x:Key="OneTimePassObstacle">
+        <things:OneTimePassObstacleView />
     </DataTemplate>
 
     <things:ThingsTemplateSelector x:Key="ThingsTemplateSelector"
+            BonusTemplate="{StaticResource Bonus}"
             FallTrapTemplate="{StaticResource FallTrap}"
-            OneTimePassObstacleTemplate="{StaticResource OneTimePassObstacle}"
+            KeyTemplate="{StaticResource Key}"
             MoveableObstacleTemplate="{StaticResource MoveableObstacle}"
-            BonusTemplate="{StaticResource Bonus}" />
+            OneTimePassObstacleTemplate="{StaticResource OneTimePassObstacle}" />
 
 </ResourceDictionary>

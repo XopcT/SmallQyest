@@ -19,17 +19,17 @@ namespace SmallQyest.World.Actors
             this.CurrentState = "Default";
 
             // Visiting current Location. Alot of interesting must be waiting:
-            foreach (Item item in base.Map.GetItems<Item>(base.Position).ToArray())
+            foreach (Item item in base.Map.GetItems<Item>(base.Position))
                 item.OnVisit(this);
 
             if (this.BehaviorStrategy == null)
-                return;
-
-            this.BehaviorStrategy.Navigate(this);
-            this.BehaviorStrategy.Move(this);
+            {
+                this.BehaviorStrategy.Navigate(this);
+                this.BehaviorStrategy.Move(this);
+            }
 
             // Leaving previous Location:
-            foreach (Item item in base.Map.GetItems<Item>(base.Position).ToArray())
+            foreach (Item item in base.Map.GetItems<Item>(base.Position))
                 item.OnLeave(this);
         }
 

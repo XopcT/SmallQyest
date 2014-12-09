@@ -17,18 +17,16 @@ namespace SmallQyest.Sprites.Things
         /// <returns>Template for the specified Thing.</returns>
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            Thing thing = item as Thing;
-            if (thing != null)
-            {
-                if (thing is FallTrap)
-                    return this.FallTrapTemplate;
-                if (thing is OneTimePassObstacle)
-                    return this.OneTimePassObstacleTemplate;
-                if (thing is MoveableObstacle)
-                    return this.MoveableObstacleTemplate;
-                if (thing is Bonus)
-                    return this.BonusTemplate;
-            }
+            if (item is FallTrap)
+                return this.FallTrapTemplate;
+            if (item is OneTimePassObstacle)
+                return this.OneTimePassObstacleTemplate;
+            if (item is MoveableObstacle)
+                return this.MoveableObstacleTemplate;
+            if (item is Bonus)
+                return this.BonusTemplate;
+            if (item is Key)
+                return this.KeyTemplate;
             return base.SelectTemplate(item, container);
         }
 
@@ -53,6 +51,11 @@ namespace SmallQyest.Sprites.Things
         /// Sets/retrieves a Template for a Bonus.
         /// </summary>
         public DataTemplate BonusTemplate { get; set; }
+
+        /// <summary>
+        /// Sets/retrieves a Template for a Key.
+        /// </summary>
+        public DataTemplate KeyTemplate { get; set; }
 
         #endregion
 

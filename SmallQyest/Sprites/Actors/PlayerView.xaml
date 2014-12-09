@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:actors="clr-namespace:SmallQyest.World.Actors;assembly=SmallQyest.World"             
              mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance actors:Player}"
              Width="32" Height="32">
     <UserControl.Resources>
         <Storyboard x:Key="moveUpAnimation">

@@ -8,45 +8,14 @@ namespace SmallQyest.World.Actors
     public class Character : Actor
     {
         /// <summary>
-        /// Picks up an Item.
+        /// Checks whether an Item can be passed by another Item.
         /// </summary>
-        /// <param name="item">Item to pick up.</param>
-        public void PickUp(Item item)
+        /// <param name="item">Item to check with.</param>
+        /// <returns>True if an Item can be passed, False otherwise.</returns>
+        public override bool CanPassThrough(Item item)
         {
-            // This Method helps to avoid the Collection change Exception
-            // when an Item is removed from the Map an put into the Character's Inventory.
-            if (this.updating)
-            {
-                this.toPickup.Enqueue(item);
-            }
-            else
-            {
-                this.Map.Remove(item);
-                this.inventory.Add(item);
-            }
-        }
-
-        /// <summary>
-        /// Updates the State of the Character.
-        /// </summary>
-        public override void Update()
-        {
-            try
-            {
-                this.updating = true;
-                base.Update();
-                // Checking if there were any Items to pick up during the OnVisit/OnLeave Loops:
-                while (this.toPickup.Count > 0)
-                {
-                    Item item = this.toPickup.Dequeue();
-                    this.Map.Remove(item);
-                    this.inventory.Add(item);
-                }
-            }
-            finally
-            {
-                this.updating = false;
-            }
+            // Nothing can Pass through a Character:
+            return false;
         }
 
         #region Properties
@@ -62,9 +31,7 @@ namespace SmallQyest.World.Actors
         #endregion
 
         #region Fields
-        private bool updating = false;
         private readonly ICollection<Item> inventory = new List<Item>();
-        private readonly Queue<Item> toPickup = new Queue<Item>();
 
         #endregion
     }

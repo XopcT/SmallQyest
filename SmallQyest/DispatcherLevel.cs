@@ -33,21 +33,27 @@ namespace SmallQyest
         }
 
         /// <summary>
-        /// Starts playing the Level.
+        /// Handles starting the Level.
         /// </summary>
-        public override void Start()
+        protected override void OnStart()
         {
-            this.logger.LogMessage("Level started");
-            base.Start();
             this.timer.Start();
+            this.logger.LogMessage("Level started");
         }
 
         /// <summary>
-        /// Stops playing the Level.
+        /// Handles pausing the Level.
         /// </summary>
-        public override void Stop()
+        protected override void OnPause()
         {
-            base.Stop();
+            base.OnPause();
+        }
+
+        /// <summary>
+        /// Handles stopping the Level.
+        /// </summary>
+        protected override void OnStop()
+        {
             this.timer.Stop();
             this.logger.LogMessage("Level stopped");
         }

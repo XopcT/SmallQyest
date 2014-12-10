@@ -17,7 +17,7 @@ namespace SmallQyest.World.Things
             base.OnVisit(item);
             Actor character = item as Actor;
             if (character != null)
-                character.Kill();
+                character.Destroy();
         }
 
     }

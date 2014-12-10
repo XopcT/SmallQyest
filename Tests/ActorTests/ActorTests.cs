@@ -18,7 +18,7 @@ namespace Tests.ActorTests
         /// Tests the basic Strategy to move over the Map.
         /// </summary>
         [TestMethod()]
-        public void BasicMovementStrategyTest()
+        public void BasicPathfindingStrategyTest()
         {
             // Here is the Map:
             // . . *
@@ -38,12 +38,12 @@ namespace Tests.ActorTests
             Player player = new Player() { Position = new Vector(1, 2), Direction = Vector.Up, Level = this.level.Object };
             this.map.Add(player);
 
-            BasicMovementStrategy tested = new BasicMovementStrategy();
+            BasicPathfindingStrategy tested = new BasicPathfindingStrategy();
             for (int i = 0; i < rout.Length; ++i)
             {
-                tested.Navigate(player); tested.Move(player);
-                Assert.AreEqual(rout[i], player.Position);
+                tested.Navigate(player);
                 Assert.AreEqual(directions[i], player.Direction);
+                player.Position = rout[i];
             }
         }
 
@@ -101,16 +101,82 @@ namespace Tests.ActorTests
         }
 
         /// <summary>
-        /// Tests killing the Player.
+        /// Tests the Complex Behavior Strategy.
         /// </summary>
         [TestMethod()]
-        public void PlayerKillTest()
+        public void ComplexBehaviorStrategyTest()
+        {
+            bool[] navigateCalled = new bool[3] { false, false, false, };
+            bool[] moveCalled = new bool[3] { false, false, false, };
+            Mock<ActorBehaviorStrategy>[] behaviorStrategies = new Mock<ActorBehaviorStrategy>[3]
+            {
+                new Mock<ActorBehaviorStrategy>(),
+                new Mock<ActorBehaviorStrategy>(),
+                new Mock<ActorBehaviorStrategy>(),
+            };
+            for (int i = 0; i < behaviorStrategies.Length; ++i)
+            {
+                int index = i;
+                behaviorStrategies[i].Setup(arg => arg.Navigate(It.IsAny<Actor>())).Callback(() => { navigateCalled[index] = true; });
+                behaviorStrategies[i].Setup(arg => arg.Move(It.IsAny<Actor>())).Callback(() => { moveCalled[index] = true; });
+            }
+            ComplexBehaviorStrategy tested = new ComplexBehaviorStrategy(
+                new ActorBehaviorStrategy[] { behaviorStrategies[0].Object, behaviorStrategies[1].Object },
+                new ActorBehaviorStrategy[] { behaviorStrategies[1].Object, behaviorStrategies[2].Object });
+            Player player = new Player() { Position = Vector.Zero, Direction = Vector.Up };
+            tested.Navigate(player);
+            tested.Move(player);
+            Assert.IsTrue(navigateCalled[0]);
+            Assert.IsTrue(navigateCalled[1]);
+            Assert.IsFalse(navigateCalled[2]);
+            Assert.IsFalse(moveCalled[0]);
+            Assert.IsTrue(moveCalled[1]);
+            Assert.IsTrue(moveCalled[2]);
+        }
+
+        /// <summary>
+        /// Tests the Bullet.Update Method.
+        /// </summary>
+        [TestMethod()]
+        public void BulletUpdateTest()
+        {
+            Bullet tested = new Bullet() { Position = new Vector(1, 1), Level = this.level.Object };
+            tested.Initialize();
+
+            MoveableObstacle obstacle = new MoveableObstacle() { Position = new Vector(1, 1), Level = this.level.Object };
+            this.map.Add(tested);
+            this.map.Add(obstacle);
+            this.map.Update();
+            Assert.IsTrue(tested.IsDestroyed);
+        }
+
+        /// <summary>
+        /// Tests the Bullet.OnVisit Method.
+        /// </summary>
+        [TestMethod()]
+        public void BulletVisitTest()
+        {
+            Player player = new Player() { Level = this.level.Object };
+            Bullet tested = new Bullet() { Level = this.level.Object };
+            player.Initialize();
+            tested.Initialize();
+
+            tested.OnVisit(player);
+            Assert.IsTrue(player.IsDestroyed);
+            Assert.IsTrue(tested.IsDestroyed);
+        }
+
+        /// <summary>
+        /// Tests destroying the Player.
+        /// </summary>
+        [TestMethod()]
+        public void PlayerDestroyTest()
         {
             bool levelFailed = false;
             this.level.Setup(arg => arg.Fail()).Callback(() => { levelFailed = true; });
 
             Player player = new Player() { Level = this.level.Object };
-            player.Kill();
+            player.Destroy();
 
             Assert.IsTrue(levelFailed);
         }

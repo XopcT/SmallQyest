@@ -13,25 +13,17 @@ namespace SmallQyest.World.Actors
         /// </summary>
         public Player()
         {
-            BasicMovementStrategy movementStrategy = new BasicMovementStrategy();
             base.BehaviorStrategy = new ComplexBehaviorStrategy(
-                new ActorBehaviorStrategy[]
-                {
-                    movementStrategy,
-                    new ProfitSearchStrategy<Bonus>() 
-                },
-                new ActorBehaviorStrategy[]
-                {
-                    movementStrategy
-                });
+                new ActorBehaviorStrategy[] { new BasicPathfindingStrategy(), new ProfitSearchStrategy<Bonus>() },
+                new ActorBehaviorStrategy[] { new MoveAheadStrategy() });
         }
 
         /// <summary>
-        /// Kills the Player.
+        /// Destroys the Player.
         /// </summary>
-        public override void Kill()
+        public override void Destroy()
         {
-            base.Kill();
+            base.Destroy();
             base.Level.Fail();
         }
 

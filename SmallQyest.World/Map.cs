@@ -4,7 +4,6 @@ using System.Linq;
 using SmallQyest.World.Actors;
 using SmallQyest.World.Things;
 using SmallQyest.World.Tiles;
-using System;
 
 namespace SmallQyest.World
 {
@@ -18,8 +17,22 @@ namespace SmallQyest.World
         /// </summary>
         public virtual void Update()
         {
-            foreach (Item item in this.actors)
-                item.Update();
+            try
+            {
+                this.isUpdating = true;
+                foreach (Item item in this.actors)
+                {
+                    item.Update();
+                }
+            }
+            finally
+            {
+                this.isUpdating = false;
+                while (this.toAdd.Count > 0)
+                    this.Add(this.toAdd.Dequeue());
+                while (this.toRemove.Count > 0)
+                    this.Remove(this.toRemove.Dequeue());
+            }
         }
 
         /// <summary>
@@ -28,17 +41,24 @@ namespace SmallQyest.World
         /// <param name="item">Item to add.</param>
         public virtual void Add(Item item)
         {
-            this.items.Add(item);
+            if (!this.isUpdating)
+            {
+                this.items.Add(item);
 
-            Tile tile = item as Tile;
-            Actor actor = item as Actor;
-            Thing thing = item as Thing;
-            if (tile != null)
-                this.tiles.Add(tile);
-            else if (actor != null)
-                this.actors.Add(actor);
-            else if (thing != null)
-                this.things.Add(thing);
+                Tile tile = item as Tile;
+                Actor actor = item as Actor;
+                Thing thing = item as Thing;
+                if (tile != null)
+                    this.tiles.Add(tile);
+                else if (actor != null)
+                    this.actors.Add(actor);
+                else if (thing != null)
+                    this.things.Add(thing);
+            }
+            else
+            {
+                this.toAdd.Enqueue(item);
+            }
         }
 
         /// <summary>
@@ -79,16 +99,24 @@ namespace SmallQyest.World
         /// <returns>True if Item was removed, False otherwise.</returns>
         public virtual bool Remove(Item item)
         {
-            Tile tile = item as Tile;
-            Actor actor = item as Actor;
-            Thing thing = item as Thing;
-            if (tile != null)
-                this.tiles.Remove(tile);
-            else if (actor != null)
-                this.actors.Remove(actor);
-            else if (thing != null)
-                this.things.Remove(thing);
-            return this.items.Remove(item);
+            if (!this.isUpdating)
+            {
+                Tile tile = item as Tile;
+                Actor actor = item as Actor;
+                Thing thing = item as Thing;
+                if (tile != null)
+                    this.tiles.Remove(tile);
+                else if (actor != null)
+                    this.actors.Remove(actor);
+                else if (thing != null)
+                    this.things.Remove(thing);
+                return this.items.Remove(item);
+            }
+            else
+            {
+                this.toRemove.Enqueue(item);
+                return true;
+            }
         }
 
         /// <summary>
@@ -154,10 +182,15 @@ namespace SmallQyest.World
         #endregion
 
         #region Fields
+        private bool isUpdating = false;
+
         private readonly IList<Item> items = new List<Item>();
         private readonly ObservableCollection<Tile> tiles = new ObservableCollection<Tile>();
         private readonly ObservableCollection<Actor> actors = new ObservableCollection<Actor>();
         private readonly ObservableCollection<Thing> things = new ObservableCollection<Thing>();
+
+        private readonly Queue<Item> toAdd = new Queue<Item>();
+        private readonly Queue<Item> toRemove = new Queue<Item>();
 
         #endregion
     }

@@ -37,14 +37,14 @@ namespace Tests.ThingTests
         [TestMethod()]
         public void FallTrapTest()
         {
-            bool playerKilled = false;
+            bool playerDestroyed = false;
             Mock<Player> player = new Mock<Player>();
-            player.Setup(arg => arg.Kill()).Callback(() => { playerKilled = true; });
+            player.Setup(arg => arg.Destroy()).Callback(() => { playerDestroyed = true; });
 
             FallTrap tested = new FallTrap() { Level = this.level.Object };
             tested.OnVisit(player.Object);
 
-            Assert.IsTrue(playerKilled);
+            Assert.IsTrue(playerDestroyed);
         }
 
         /// <summary>

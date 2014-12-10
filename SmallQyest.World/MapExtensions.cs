@@ -85,8 +85,12 @@ namespace SmallQyest.World
         public static bool CanMoveTo(this IEnumerable<Item> map, Item item, Vector direction)
         {
             Vector newPosition = item.Position + direction;
-            IEnumerable<bool> passTestResults = map
-                .GetItems<Item>(newPosition)
+            return map.CanPassThrough(item, newPosition);
+        }
+
+        public static bool CanPassThrough(this IEnumerable<Item> map, Item item, Vector position)
+        {
+            IEnumerable<bool> passTestResults = map.GetItems<Item>(position)
                 .Select(arg => arg.CanPassThrough(item));
             return passTestResults.Any() && passTestResults.All(result => result == true);
         }

@@ -85,18 +85,49 @@ namespace SmallQyest.World
         /// <summary>
         /// Starts playing the Level.
         /// </summary>
-        public virtual void Start()
+        public void Start()
         {
+            this.OnStart();
             this.IsPlaying = true;
+        }
+
+        /// <summary>
+        /// Handles starting the Level.
+        /// </summary>
+        protected virtual void OnStart()
+        {
+        }
+
+        /// <summary>
+        /// Pauses playing the Level.
+        /// </summary>
+        public void Pause()
+        {
+            this.OnPause();
+        }
+
+        /// <summary>
+        /// Handles pausing the Level.
+        /// </summary>
+        protected virtual void OnPause()
+        {
         }
 
         /// <summary>
         /// Stops playing the Level.
         /// </summary>
-        public virtual void Stop()
+        public void Stop()
         {
+            this.OnStop();
             this.IsPlaying = false;
             this.InitializeItems();
+        }
+
+        /// <summary>
+        /// Handles stopping the Level.
+        /// </summary>
+        protected virtual void OnStop()
+        {
         }
 
         /// <summary>

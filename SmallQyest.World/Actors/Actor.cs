@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SmallQyest.World.Actors.BehaviorStrategies;
+﻿using SmallQyest.World.Actors.BehaviorStrategies;
 
 namespace SmallQyest.World.Actors
 {
@@ -9,6 +7,15 @@ namespace SmallQyest.World.Actors
     /// </summary>
     public class Actor : Item
     {
+        /// <summary>
+        /// Initializes the Actor.
+        /// </summary>
+        public override void Initialize()
+        {
+            base.Initialize();
+            this.IsDestroyed = false;
+        }
+
         /// <summary>
         /// Updates the State of the Actor.
         /// </summary>
@@ -22,7 +29,7 @@ namespace SmallQyest.World.Actors
             foreach (Item item in base.Map.GetItems<Item>(base.Position))
                 item.OnVisit(this);
 
-            if (this.BehaviorStrategy == null)
+            if (this.BehaviorStrategy != null)
             {
                 this.BehaviorStrategy.Navigate(this);
                 this.BehaviorStrategy.Move(this);
@@ -34,10 +41,11 @@ namespace SmallQyest.World.Actors
         }
 
         /// <summary>
-        /// Kills the Actor.
+        /// Destroys the Actor.
         /// </summary>
-        public virtual void Kill()
+        public virtual void Destroy()
         {
+            this.IsDestroyed = true;
         }
 
         #region Properties
@@ -48,6 +56,19 @@ namespace SmallQyest.World.Actors
         public Vector Direction { get; set; }
 
         /// <summary>
+        /// Sets/retrieves whether an Actor is destroyed.
+        /// </summary>
+        public bool IsDestroyed
+        {
+            get { return this.isDestroyed; }
+            set
+            {
+                this.isDestroyed = value;
+                base.OnPropertyChanged(this);
+            }
+        }
+
+        /// <summary>
         /// Sets/retrieves a Behavior Strategy for the Actor.
         /// </summary>
         protected ActorBehaviorStrategy BehaviorStrategy { get; set; }
@@ -55,6 +76,7 @@ namespace SmallQyest.World.Actors
         #endregion
 
         #region Fields
+        private bool isDestroyed = false;
 
         #endregion
     }

@@ -16,7 +16,7 @@ namespace SmallQyest.World.Things
         /// <returns>True if Item can pass, False otherwise.</returns>
         public override bool CanPassThrough(Item item)
         {
-            Actor character = item as Actor;
+            Character character = item as Character;
             if (character != null)
             {
                 // Checking if there is a free Space in the Character's Moving Direction:

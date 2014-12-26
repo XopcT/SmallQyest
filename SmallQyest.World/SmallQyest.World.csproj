@@ -47,8 +47,10 @@
     <Compile Include="Actors\BehaviorStrategies\ComplexBehaviorStrategy.cs" />
     <Compile Include="Actors\BehaviorStrategies\MoveAheadStrategy.cs" />
     <Compile Include="Actors\BehaviorStrategies\ProfitSearchStrategy.cs" />
+    <Compile Include="Actors\BehaviorStrategies\RoadSignFollowStrategy.cs" />
     <Compile Include="Actors\Bullet.cs" />
     <Compile Include="Actors\Character.cs" />
+    <Compile Include="Actors\ColoredEnemy.cs" />
     <Compile Include="Actors\Enemy.cs" />
     <Compile Include="Actors\Player.cs" />
     <Compile Include="ILevelSerializationService.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Things\Bonus.cs" />
     <Compile Include="Things\ColoredLever.cs" />
+    <Compile Include="Things\ColoredWeapon.cs" />
     <Compile Include="Things\Door.cs" />
     <Compile Include="Things\ColoredDoor.cs" />
     <Compile Include="Things\FallTrap.cs" />
@@ -70,6 +73,8 @@
     <Compile Include="Things\ItemColor.cs" />
     <Compile Include="Things\MoveableObstacle.cs" />
     <Compile Include="Things\OneTimePassObstacle.cs" />
+    <Compile Include="Things\PickableThing.cs" />
+    <Compile Include="Things\RoadSign.cs" />
     <Compile Include="Things\Thing.cs" />
     <Compile Include="Tiles\Grass.cs" />
     <Compile Include="Tiles\Path.cs" />

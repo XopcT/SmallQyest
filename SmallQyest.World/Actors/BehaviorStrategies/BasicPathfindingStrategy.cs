@@ -15,18 +15,25 @@ namespace SmallQyest.World.Actors.BehaviorStrategies
             // Checking if a Character can keep moving forward:
             if (!actor.Map.CanMoveTo(actor, actor.Direction))
             {
-                // Trying to turn right or left:
-                Vector right = actor.Direction.GetRight();
-                Vector left = actor.Direction.GetLeft();
+                Map map = actor.Map;
+                Vector toRight = actor.Direction.GetRight();
+                Vector toLeft = actor.Direction.GetLeft();
 
-                // Trying to turn right:
-                if (actor.Map.CanMoveTo(actor, right))
-                    actor.Direction = right;
-                // Trying to go left:
-                else if (actor.Map.CanMoveTo(actor, left))
-                    actor.Direction = left;
-                // Going back:
+                // Trying to turn right or left:
+                bool canTurnRight = map.CanMoveTo(actor, toRight);
+                bool canTurnLeft = map.CanMoveTo(actor, toLeft);
+
+                if (canTurnLeft ^ canTurnRight)
+                {
+                    // Trying to turn right:
+                    if (canTurnRight)
+                        actor.Direction = toRight;
+                    // Trying to go left:
+                    if (canTurnLeft)
+                        actor.Direction = toLeft;
+                }
                 else
+                    // Going back:
                     actor.Direction = actor.Direction.GetBackward();
             }
         }

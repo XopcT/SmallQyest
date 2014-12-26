@@ -22,11 +22,10 @@ namespace Tests.ActorTests
         {
             // Here is the Map:
             // . . *
-            // * * *
+            // . * *
             // . * . 
             this.map.Add(new Path() { Position = new Vector(1, 2), Level = this.level.Object });
             this.map.Add(new Path() { Position = new Vector(1, 1), Level = this.level.Object });
-            this.map.Add(new Path() { Position = new Vector(0, 1), Level = this.level.Object });
             this.map.Add(new Path() { Position = new Vector(2, 1), Level = this.level.Object });
             this.map.Add(new Path() { Position = new Vector(2, 0), Level = this.level.Object });
 

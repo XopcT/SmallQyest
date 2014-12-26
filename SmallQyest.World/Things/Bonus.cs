@@ -5,21 +5,8 @@ namespace SmallQyest.World.Things
     /// <summary>
     /// Gives something nice to the Player.
     /// </summary>
-    public class Bonus : Thing
+    public class Bonus : PickableThing<Character>
     {
-        /// <summary>
-        /// Handles Collision of this Item against another one.
-        /// </summary>
-        /// <param name="item">Collider Item.</param>
-        public override void OnVisit(Item item)
-        {
-            base.OnVisit(item);
-            Character character = item as Character;
-            if (character != null)
-            {
-                this.Map.Remove(this);
-                character.Inventory.Add(this);
-            }
-        }
+
     }
 }

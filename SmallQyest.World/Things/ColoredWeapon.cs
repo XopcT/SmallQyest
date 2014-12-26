@@ -3,14 +3,14 @@
 namespace SmallQyest.World.Things
 {
     /// <summary>
-    /// A Key of the specified Color.
+    /// A Weapon of the specified Color.
     /// </summary>
-    public class ColoredKey : PickableThing<Character>
+    public class ColoredWeapon : PickableThing<Character>
     {
         #region Properties
 
         /// <summary>
-        /// Sets/retrieves a Color of the Key.
+        /// Sets/retrieves a Color of the Weapon.
         /// </summary>
         public ItemColor Color
         {

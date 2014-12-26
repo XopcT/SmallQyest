@@ -51,12 +51,9 @@ namespace SmallQyest.World.Things
         private bool HasKey(Item item)
         {
             Actors.Character character = item as Actors.Character;
-            if (character != null && character.Inventory != null)
+            if (character != null)
             {
-                bool hasKey = character.Inventory
-                    .Where(inventoryItem => inventoryItem is ColoredKey && ((ColoredKey)inventoryItem).Color == this.color)
-                    .Any();
-                return hasKey;
+                return character.Has<ColoredKey>(key => key.Color == this.Color);
             }
             return false;
         }

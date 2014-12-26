@@ -88,6 +88,13 @@ namespace SmallQyest.World
             return map.CanPassThrough(item, newPosition);
         }
 
+        /// <summary>
+        /// Checks whether an Item can pass through the specified Position.
+        /// </summary>
+        /// <param name="map">Map with potential Obstacles.</param>
+        /// <param name="item">Item which tries to move.</param>
+        /// <param name="position">Position to check.</param>
+        /// <returns>True if an Item can pass, False otherwise.</returns>
         public static bool CanPassThrough(this IEnumerable<Item> map, Item item, Vector position)
         {
             IEnumerable<bool> passTestResults = map.GetItems<Item>(position)
